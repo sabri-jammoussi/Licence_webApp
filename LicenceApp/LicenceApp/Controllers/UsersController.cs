@@ -1,8 +1,11 @@
-﻿using LicenceApp.models;
+﻿using Azure.Core;
+using LicenceApp.Data;
+using LicenceApp.models;
 using LicenceApp.Services;
 using LicenceApp.Services.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LicenceApp.Controllers
 {
@@ -15,10 +18,11 @@ namespace LicenceApp.Controllers
         public UsersController(IUserService userRepository)
         {
             _userService = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
-         
-        }
+      
 
-        [HttpGet, Authorize]
+        }
+        //[Authorize]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDao>>> GetUsers()
         {
             try
@@ -50,6 +54,7 @@ namespace LicenceApp.Controllers
         [HttpPost]
         public async Task<ActionResult> PostUser(NewUser newUser)
         {
+          
 
             try
             {

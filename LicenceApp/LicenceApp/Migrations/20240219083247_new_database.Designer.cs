@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LicenceApp.Migrations
 {
     [DbContext(typeof(LicenceDBContext))]
-    [Migration("20240216093424_byte_deleted2")]
-    partial class byte_deleted2
+    [Migration("20240219083247_new_database")]
+    partial class new_database
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -62,7 +62,19 @@ namespace LicenceApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("USERS2");
+                    b.ToTable("USERS");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "sabrijm123@gmail.com",
+                            FirstName = "sabri",
+                            LastName = "jammoussi",
+                            PasswordHash = new byte[] { 144, 111, 105, 83, 171, 165, 211, 1, 209, 142, 172, 55, 32, 47, 113, 11, 28, 224, 38, 83, 255, 71, 41, 217, 23, 241, 175, 180, 35, 3, 37, 90, 145, 43, 3, 104, 39, 70, 234, 111, 106, 65, 237, 9, 143, 4, 139, 125, 206, 159, 153, 43, 67, 187, 129, 96, 55, 173, 174, 9, 21, 199, 20, 253 },
+                            PasswordSalt = new byte[] { 104, 30, 72, 204, 111, 206, 236, 20, 95, 117, 6, 29, 161, 107, 139, 123, 47, 251, 29, 198, 91, 49, 17, 110, 105, 212, 203, 234, 242, 208, 180, 145, 167, 173, 211, 61, 212, 37, 27, 108, 118, 58, 162, 193, 146, 119, 95, 122, 98, 142, 237, 101, 63, 118, 19, 23, 172, 122, 63, 197, 82, 197, 239, 240, 161, 71, 17, 145, 30, 11, 122, 237, 253, 98, 214, 112, 6, 108, 24, 1, 31, 218, 57, 13, 125, 32, 97, 255, 37, 11, 245, 76, 214, 183, 249, 177, 236, 168, 121, 51, 168, 104, 82, 165, 84, 153, 101, 119, 172, 112, 55, 73, 123, 137, 61, 251, 61, 74, 88, 73, 8, 228, 66, 237, 221, 87, 92, 3 },
+                            Role = (short)0
+                        });
                 });
 #pragma warning restore 612, 618
         }

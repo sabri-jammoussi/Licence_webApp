@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LicenceApp.models
 {
-    [Table("USERS2")]
+    [Table("USERS")]
     public class UserDao 
     {//this class is the global user 
         [Key]

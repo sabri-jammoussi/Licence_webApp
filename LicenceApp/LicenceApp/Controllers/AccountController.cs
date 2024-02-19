@@ -18,6 +18,7 @@ public class AccountController : ControllerBase
         _tokenService = tokenService;
     }
 
+
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegistrationRequest request)
     {
@@ -59,12 +60,12 @@ public class AccountController : ControllerBase
         var userInDb = _context.Users.FirstOrDefault(u => u.Email == request.Email);
         if (userInDb is null)
         {
-            return BadRequest("User not found.");
+            return BadRequest("Email ou Mot de passe invalid !");
         }
 
         if (!VerifyPasswordHash(request.Password, userInDb.PasswordHash, userInDb.PasswordSalt))
         {
-            return BadRequest("Password is incorrect.");
+            return BadRequest("Email ou Mot de passe invalid !");
         }
 
         var accessToken = _tokenService.CreateToken(userInDb);

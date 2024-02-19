@@ -144,3 +144,4 @@ C:\Users\Sabri Jammoussi\projects\nuxt\LicenceApp\LicenceApp\bin\Debug\net8.0\Mi
 C:\Users\Sabri Jammoussi\projects\nuxt\LicenceApp\LicenceApp\bin\Debug\net8.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\Sabri Jammoussi\projects\nuxt\LicenceApp\LicenceApp\bin\Debug\net8.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\Sabri Jammoussi\projects\nuxt\LicenceApp\LicenceApp\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\Sabri Jammoussi\projects\nuxt\LicenceApp\LicenceApp\obj\Debug\net8.0\LicenceApp.sourcelink.json
