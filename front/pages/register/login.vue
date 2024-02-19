@@ -11,11 +11,7 @@
           <!-- <Notification :message="error" v-if="error"/> -->
 
           <v-form>
-            <v-text-field
-              v-model="username"
-              label="Username"
-              required
-            ></v-text-field>
+           
 
             <v-text-field
               v-model="email"
@@ -31,7 +27,7 @@
               required
             ></v-text-field>
 
-            <v-btn type="submit" color="black" block>
+            <v-btn @click="submit" color="black" block>
               Login
             </v-btn>
           </v-form>
@@ -47,10 +43,24 @@
 </template>
 
 <script setup>
-//   import Notification from '@/components/Notification.vue';
+// import Notification from '@/components/Notification.vue';
 // definePageMeta({
 //   layout:"custom",
 // });
-// Add your register function logic here
+const email = ref('');
+const password = ref('');
 
+const submit = async () => {
+  await fetch('http://localhost:5252/api/account/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value,
+    }),
+  });
+
+  await router.push('/');
+};
 </script>

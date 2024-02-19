@@ -25,7 +25,7 @@
             <th class="text-left">FirstName</th>
             <th class="text-left">LastName</th>
             <th class="text-left">Email</th>
-            <th class="text-left">Password</th>
+            <!-- <th class="text-left">Password</th> -->
             <th class="text-left">Role</th>
             <th class="text-left">Action</th>
           </tr>
@@ -35,7 +35,7 @@
             <td>{{ user.firstName }}</td>
             <td>{{ user.lastName }}</td>
             <td>{{ user.email }}</td>
-            <td>{{ user.password }}</td>
+            <!-- <td>{{ user.password }}</td> -->
             <td>{{ user.role }}</td>
             <td>
               <NuxtLink :to="`/users/${user.id}`">
@@ -83,7 +83,7 @@ export default {
   data() {
     return {
       users: [],
-      itemsPerPage: 8,
+      itemsPerPage: 7,
       currentPage: 1,
       totalPages: 1,
       utilisateurToDelete: null, 
@@ -103,6 +103,7 @@ export default {
       } catch (error) {
         this.pending = false; // Set pending to false in case of an error
         console.error("Error fetching data:", error);
+        alert("error connection avec la base de données  ")
       }
     },
     changePage(page) {

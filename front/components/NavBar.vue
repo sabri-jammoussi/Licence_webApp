@@ -1,5 +1,5 @@
 <template>
-    <v-card >
+  
       <v-layout>
        
         <!-- <v-system-bar color="deep-purple darken-3"></v-system-bar> -->
@@ -112,7 +112,7 @@
       </v-menu>
     </v-row>
         </v-app-bar>
-        <v-main style="height: 100vh;">
+        <v-main >
           <v-card-text>
             <!-- Your main content goes here (for example, the Home component) -->
             <NuxtPage/>
@@ -126,7 +126,7 @@
       </v-layout>
       
   
-    </v-card>
+
  
   </template>
   

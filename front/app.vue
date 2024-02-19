@@ -3,8 +3,6 @@
     <NuxtLoadingIndicator/>
     <NuxtLayout>
       
-      <NuxtPage/>
-  
     </NuxtLayout>
     
 
