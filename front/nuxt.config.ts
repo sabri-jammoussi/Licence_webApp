@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  components: true,
+  devtools: { enabled: true },
 
   app: {
     head: {
@@ -21,14 +21,23 @@ export default defineNuxtConfig({
       ],
     },
   },
-  devtools: { enabled: true },
+
 
   css: [
     'vuetify/styles/main.sass',
     'bootstrap/dist/css/bootstrap.css',
   ],
+  buildModules:[
+    '@nuxtjs/vuex',
+    '@nuxtjs/vue',
+    '@nuxtjs/axios',
 
+  ],
+  modules:["@pinia/nuxt"],
+
+  store:'~/store/index.js',
   build: {
+
     transpile: ['vuetify'],
   },
 

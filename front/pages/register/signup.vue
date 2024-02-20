@@ -11,88 +11,55 @@
           <!-- <Notification :message="error" v-if="error"/> -->
 
           <v-form @submit.prevent="signup">
-            <v-text-field
-              v-model="firstName"
-              label="firstName"
-              required
-            ></v-text-field>
-
-            <v-text-field
-              v-model="lastName"
-              label="lastName"
-              required
-            ></v-text-field>
-            
-
-            <v-text-field
-              v-model="email"
-              label="Email"
-              type="email"
-              required
-            ></v-text-field>
-
-            <v-text-field
-              v-model="password"
-              label="Password"
-              type="password"
-              required
-            ></v-text-field>
-
-            <v-text-field
-              v-model="role"
-              label="role"
-              required
-            ></v-text-field>
-
+            <v-text-field v-model="firstName" label="firstName" required></v-text-field>
+            <v-text-field v-model="lastName" label="lastName" required></v-text-field>
+            <v-text-field v-model="email" label="Email" type="email" required></v-text-field>
+            <v-text-field v-model="password" label="Password" type="password" required></v-text-field>
+            <v-text-field v-model="role" label="role" required></v-text-field>
             <v-btn type="submit" color="black" block> Register </v-btn>
           </v-form>
 
           <div class="text-center mt-4">
             Already got an account?
-            <nuxt-link to="/register/login" class="primary--text"
-              >Login</nuxt-link
-            >
+            <nuxt-link to="/register/login" class="primary--text">Login</nuxt-link>
           </div>
         </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
-  
-  <script >
-import { mapActions } from 'vuex'; 
-export default {
-  middleware: "guest",
-  data() {
-    return {
-      firstName: "",
-      lastName:"",
-      email: "",
-      password: "",
-      role :"",
+
+<script setup>
+import { ref } from 'vue';
+import { useMyStore } from '@/store/index.js';
+import { useRouter } from 'vue-router';
+
+
+const firstName = ref('');
+const lastName = ref('');
+const email = ref('');
+const password = ref('');
+const role = ref('');
+const router = useRouter();
+
+const store = useMyStore();
+
+const signup = async () => {
+  if (!firstName.value || !email.value || !password.value) {
+    alert('Please Fill the Field');
+  } else {
+    const data = {
+      firstName: firstName.value,
+      lastName: lastName.value,
+      email: email.value,
+      password: password.value,
+      role: role.value,
     };
-  },
-  methods: {
-    ...mapActions(["createUser"]),
-    async  signup() {
-      if (!this.firstName || !this.email || !this.password) {
-        alert("Please Fill the Field");
-      } else {
-        const data = {
-          firstName: this.firstName,
-          lastName:this.lastName,
-          email: this.email,
-          password: this.password,
-          role : this.role
-        };
- 
+    console.log('dataaaaaSended', data);
 
-        await this.$store.dispatch('createUser', data);
-
-     
-      }
-    },
-  },
+    await store.createUser({ router}, data );
+  }
 };
+
+
 </script>
-  

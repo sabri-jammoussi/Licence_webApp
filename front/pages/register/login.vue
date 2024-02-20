@@ -10,9 +10,7 @@
 
           <!-- <Notification :message="error" v-if="error"/> -->
 
-          <v-form>
-           
-
+          <v-form @submit.prevent="login">
             <v-text-field
               v-model="email"
               label="Email"
@@ -27,14 +25,14 @@
               required
             ></v-text-field>
 
-            <v-btn @click="submit" color="black" block>
-              Login
-            </v-btn>
+            <v-btn color="black" block type="submit"> Login </v-btn>
           </v-form>
 
           <div class="text-center mt-4">
             Already got an account?
-            <nuxt-link to="/register/signup" class="primary--text">Sign-up</nuxt-link>
+            <nuxt-link to="/register/signup" class="primary--text"
+              >Sign-up</nuxt-link
+            >
           </div>
         </v-card>
       </v-col>
@@ -43,24 +41,36 @@
 </template>
 
 <script setup>
-// import Notification from '@/components/Notification.vue';
-// definePageMeta({
-//   layout:"custom",
-// });
+import { ref } from 'vue';
+import { useMyStore } from '@/store/index.js';
+import { useRouter } from 'vue-router';
+
 const email = ref('');
 const password = ref('');
 
-const submit = async () => {
-  await fetch('http://localhost:5252/api/account/login', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
-    body: JSON.stringify({
+const store = useMyStore();
+const router = useRouter();
+
+const login = async () => {
+  if (!email.value || !password.value) {
+    alert('error');
+  } else {
+    const data = {
       email: email.value,
       password: password.value,
-    }),
-  });
+    };
+    console.log('dataaaaaSended', data);
+      // Your login logic
+      await store.loginUser({ router }, data);
 
-  await router.push('/');
+      // Check the status or response in the store, then navigate based on that.
+      // if (store.tokenLoaded) {
+      //   router.push('/');
+      // } else {
+      //   // Handle login failure, display an error message, etc.
+      //   alert('Login failed. Please check your credentials.');
+      // }
+    
+  }
 };
 </script>

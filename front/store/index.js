@@ -1,54 +1,65 @@
-export const state = () => ({
-    token: localStorage.getItem('token') || '',
-    users: {},
+import { defineStore } from 'pinia';
+import axios from 'axios';
 
-})
+export const useMyStore = defineStore('userStore', {
+  state: () => ({
+    token: '',
+    user: null,
+  }),
 
-export const getters = {
-    users: (state) => {
-        return state.users
-    },
-    token: (state) => {
-        return state.token
-    },
-    
-}
-
-export const mutations = {
-    setUser(state, users) {
-        state.users = users;
-    },
+  getters: {
+    userLogged: (state) => state.user,
+    token: (state) => state.token,
+  },
+  mutations: {
     setToken(state, token) {
-        state.token = token
+      state.token = token;
     },
- 
-}
-export const actions = {
-    async createUser(_, data) {
-        const res = await this.$axios.post('http://localhost:5252/api/Users', data);
-        console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',res)
-         if (res.data.status == 1) {
-             alert(res.data.message);
-             data.firstName = "";
-             data.email = "";
-             data.password = "";
-             this.$router.push('/')
-         } else {
-             alert(res.data.message)
-         }
-    },
-    async loginUser({ commit }, data) {
-        const res = await this.$axios.post('http://localhost:5252/api/Users', data);
-        if (res.data.status == 1) {
-            data.email = "";
-            data.password = "";
-            localStorage.setItem('token', res.data.jwt);
-            commit('setToken', res.data.jwt);
-            alert(res.data.message)
-            this.$router.push("/");
 
-        } else {
-            alert(res.data.message)
-        }
+    setUser(state, users) {
+      state.user = users;
     },
-}
+  },
+
+  actions: {
+    async createUser({ router}, data ) {
+      try {
+        console.log('Logging in with data:', data);
+        const res = await axios.post('http://localhost:5252/api/account/register', data);
+        console.log('Response:', res);
+        if (res.status >= 200 && res.status < 300) {
+          data.firstName = '';
+          data.lastName = '';
+          data.email = '';
+          data.password = '';
+          data.role = '';
+          router.push('/register/login');
+        } else {
+          alert("error ",res.data.message);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    },
+
+    async loginUser({ router }, data) {
+      try {
+        console.log('Logging in with data:', data);
+        const res = await axios.post('http://localhost:5252/api/account/login', data);
+        console.log('Response:', res);
+
+        if (res.status >= 200 && res.status < 300) {
+          // Now, you can safely use localStorage since this code is inside an action.
+          localStorage.setItem('token', res.data.token);
+          router.push('/');
+        } else {
+          alert(res.message);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    },
+  },
+
+
+});
