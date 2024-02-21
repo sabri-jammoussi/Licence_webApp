@@ -1,9 +1,9 @@
 <template>
-  <v-container class="">
-    <v-row justify="center">
-      <v-col cols="12" sm="8" md="6">
-        <v-card class="elevation-12">
-          <v-card-title class="headline grey lighten-2">
+  <v-container class="mt-10" >
+    <v-row align="center" justify="center" class="mt-10">
+      <v-col cols="12" sm="8" md="6" >
+        <v-card class="elevation-15" >
+          <v-card-title class="headline grey lighten-2 text-center">
             <v-icon color="primary">mdi-account</v-icon>
             Sign-in!
           </v-card-title>
@@ -11,28 +11,16 @@
           <!-- <Notification :message="error" v-if="error"/> -->
 
           <v-form @submit.prevent="login">
-            <v-text-field
-              v-model="email"
-              label="Email"
-              type="email"
-              required
-            ></v-text-field>
+            <v-text-field v-model="email" label="Email" type="email" required></v-text-field>
 
-            <v-text-field
-              v-model="password"
-              label="Password"
-              type="password"
-              required
-            ></v-text-field>
+            <v-text-field v-model="password" label="Password" type="password" required></v-text-field>
 
             <v-btn color="black" block type="submit"> Login </v-btn>
           </v-form>
 
-          <div class="text-center mt-4">
+          <div class="text-center mt-5">
             Already got an account?
-            <nuxt-link to="/register/signup" class="primary--text"
-              >Sign-up</nuxt-link
-            >
+            <nuxt-link to="/register/signup" class="primary--text">Sign-up</nuxt-link>
           </div>
         </v-card>
       </v-col>
@@ -41,6 +29,9 @@
 </template>
 
 <script setup>
+definePageMeta({
+  layout:"custom"
+})
 import { ref } from 'vue';
 import { useMyStore } from '@/store/index.js';
 import { useRouter } from 'vue-router';

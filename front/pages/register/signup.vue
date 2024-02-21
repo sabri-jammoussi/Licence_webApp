@@ -1,9 +1,9 @@
 <template>
-  <v-container class="">
-    <v-row justify="center">
+   <v-container class="mt-10">
+    <v-row align="center" justify="center" class="mt-10">
       <v-col cols="12" sm="8" md="6">
         <v-card class="elevation-12">
-          <v-card-title class="headline grey lighten-2">
+          <v-card-title class="headline grey lighten-2 text-center " > 
             <v-icon color="primary">mdi-account-plus</v-icon>
             Register!
           </v-card-title>
@@ -34,6 +34,9 @@ import { ref } from 'vue';
 import { useMyStore } from '@/store/index.js';
 import { useRouter } from 'vue-router';
 
+definePageMeta({
+  layout:"custom"
+})
 
 const firstName = ref('');
 const lastName = ref('');

@@ -39,14 +39,13 @@
             <td>{{ user.role }}</td>
             <td>
               <NuxtLink :to="`/users/${user.id}`">
-                <v-btn  v-bind="props" v-on="on" style="margin-right: 20px">
+                <v-btn  style="margin-right: 20px">
                 <v-tooltip activator="parent" location="end">Modifier</v-tooltip>
               <v-icon color="blue" style="margin: auto">mdi-pencil</v-icon>
              </v-btn> 
               </NuxtLink>
               <v-btn  
-              v-bind="props"
-              v-on="on"
+             
               @click.stop="deleteUtilisateur(user.id)"
               >
               <v-tooltip activator="parent" location="end">Supprimer</v-tooltip>

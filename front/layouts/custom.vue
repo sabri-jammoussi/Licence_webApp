@@ -1,175 +1,20 @@
 <template>
-    <v-card >
-      <v-layout>
-       
-        <!-- <v-system-bar color="deep-purple darken-3"></v-system-bar> -->
-        <v-navigation-drawer v-model="drawer">
-          <v-list class="custom-list-margin">
-            <div class="logo-container">
-                <img src="/assets/logo.jpg" alt="Logo">
-              </div>
-            <nuxt-link to="/" class="v-list-item__content">
-          
-              <v-list-item
-              prepend-icon="mdi-view-dashboard"
-              value="home"
-            >
-          
-                <v-tooltip activator="parent" location="end">Accueil</v-tooltip>
-                <span class="v-list-item__title">Accueil</span>
-       
-            </v-list-item>
-          </nuxt-link>
-        
-            <v-list >
-             
-              <nuxt-link
-                v-for="item in items"
-                :key="item.text"
-                :to="item.route"
-              > 
-        
-                <v-list-item :prepend-icon="item.icon">
-                  <span>{{ item.text }}</span>
-           
-                </v-list-item>
-                
-              </nuxt-link>
-      
-            </v-list>
-        <nuxt-link to="/">
-          <v-list-item
-              prepend-icon="mdi-account"
-            
-            >
-            
-              <v-tooltip activator="parent" location="end">compte d'utilisateur</v-tooltip>
-              <span class="v-list-item__title">compte d'utilisateur</span>
-            </v-list-item>
-        </nuxt-link>
-		   <nuxt-link to="/about" class="v-list-item__content">
-            <v-list-item
-              prepend-icon="mdi-forum"
-            
-            >
-            
-              <v-tooltip activator="parent" location="end">A propos</v-tooltip>
-              <span class="v-list-item__title">A propos</span>
-            </v-list-item>
-		   </nuxt-link>
-       
-      </v-list>
-         
-        </v-navigation-drawer>
-        <v-app-bar   color="#000"        dark prominent >
-          <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-          <v-toolbar-title>My Users</v-toolbar-title>
-          <v-spacer></v-spacer>
-          <v-row class="d-flex justify-end mr-2">
-      <v-menu
-        min-width="200px"
-        rounded
-      >
-        <template v-slot:activator="{ props }">
-          <v-btn
-          icon="mdi-dots-vertical "  
-            v-bind="props"
-      style="color: aliceblue;"
-          >
-          </v-btn>
-        </template>
-        <v-card>
-          <v-card-text>
-            <div class="mx-auto text-center">
-              <v-avatar
-                color="brown"
-              >
-                <span class="text">{{ userName }}</span>
-              </v-avatar>
-              <!-- <h3>{{userName}} {{ userLastName }}</h3>
-              <p class="text-caption mt-1">
-               {{userEmail}}
-              </p>
-              <v-divider class="my-3"></v-divider>
-           <nuxt-link to="/editprofile"> 
-            <v-btn
-                rounded
-                variant="text"
-              >
-              Modifier le compte
-              </v-btn>
-           </nuxt-link> -->
-              <v-divider class="my-3"></v-divider>
-          <nuxt-link  to="/register/login">
-            <v-btn
-                rounded
-                variant="text"
-              >
-              Déconnecter
-              </v-btn>
-          </nuxt-link>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-menu>
-    </v-row>
-        </v-app-bar>
-        <v-main style="height: 100vh;">
-          <v-card-text>
-            <!-- Your main content goes here (for example, the Home component) -->
-            <nuxt />
-            
-          </v-card-text>
-        </v-main>
-        <v-footer color="rgb(220, 220,220)" app>
-     
-
-     <span style="color: #16DF17;">&copy; APBS</span>
-   </v-footer>
-      </v-layout>
-      
+  <div class="backgroung_image">
+    <nuxt-page />
+  </div>
   
-    </v-card>
-    
-  </template>
+</template>
   
   <script>
-  import Home from "@/components/Home.vue";
-  
-  export default {
-    components: {
-      Home,
-    },
-    data: () => ({
-      drawer: false,
-    }),
-    watch: {
-      group() {
-        this.drawer = false;
-      },
-    },
-  };
-  </script>
+</script>
   <style scoped>
-  .custom-list-margin {
-    margin-top: -8px; /* Adjust the margin-top value as per your preference */
-    width: 100%;
-  }
-  .logo-container {
+   .backgroung_image {
+    background-image: url("@/assets/a5.jpg");
+         /* background-color: rgb(219, 231, 231); */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: center; /* Center the logo horizontally */
-    height: 64px; 
-    width: 255px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Adjust the height as needed */
-    background-color: #000000; /* Add a background color for the logo container */
   }
-  
-  .logo-container img {
-    max-height: 100%; /* Ensure the logo scales proportionally */
-    max-width: 100%; /* Ensure the logo scales proportionally */
-    object-fit: contain; /* Preserve the aspect ratio and fit the logo within the container */
-  }
-  </style>
+</style>
   
