@@ -22,7 +22,7 @@ export const useMyStore = defineStore('userStore', {
   },
 
   actions: {
-    async createUser({ router}, data ) {
+    async createUser({ router }, data) {
       try {
         console.log('Logging in with data:', data);
         const res = await axios.post('http://localhost:5252/api/account/register', data);
@@ -35,7 +35,7 @@ export const useMyStore = defineStore('userStore', {
           data.role = '';
           router.push('/register/login');
         } else {
-          alert("error ",res.data.message);
+          alert("error ", res.data.message);
         }
       } catch (error) {
         console.error('Error:', error);
@@ -59,7 +59,12 @@ export const useMyStore = defineStore('userStore', {
         console.error('Error:', error);
       }
     },
+    async logoutUser({ router}) {
+      localStorage.removeItem('token');
+      router.push("/register/login")
+    },
   },
+ 
 
 
 });

@@ -95,9 +95,9 @@
               </v-btn>
            </nuxt-link> -->
                 <v-divider class="my-3"></v-divider>
-                <nuxt-link to="/register/login">
-                  <v-btn rounded variant="text"> Déconnecter </v-btn>
-                </nuxt-link>
+
+                  <v-btn rounded variant="text" @click="logout" > Déconnecter </v-btn>
+   
               </div>
             </v-card-text>
           </v-card>
@@ -130,36 +130,25 @@
 </div>
 </template>
   
-  <script>
-import Home from "@/components/Home.vue";
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useMyStore } from '@/store/index.js';
+import { useRouter } from 'vue-router';
+const isLoading = ref(true);
+const drawer = ref(false);
+const store = useMyStore();
+const router = useRouter();
 
-export default {
-  name: "NavBar",
-  components: {
-    Home,
-  },
-  setup() {
-      const isLoading = ref(true); 
-      onMounted(async   () => {
-       await setTimeout(() => {
-          isLoading.value = false; 
-        }, 1500);
-      });
-  
-      return {
-        isLoading,
-      };
-    },
-  data: () => ({
-    drawer: false,
-  }),
-  watch: {
-    group() {
-      this.drawer = false;
-    },
-  },
-};
+onMounted(async () => {
+  await setTimeout(() => {
+    isLoading.value = false;
+  }, 1500);
+});
+const logout= async() =>{
+await store.logoutUser({  router});
+}
 </script>
+
   <style scoped>
 .custom-list-margin {
   margin-top: -8px; /* Adjust the margin-top value as per your preference */
