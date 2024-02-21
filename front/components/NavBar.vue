@@ -1,4 +1,8 @@
 <template>
+  <div v-if="isLoading" class="progress_circular">
+      <v-progress-circular :size="60" color="success" indeterminate></v-progress-circular>
+    </div>
+    <div v-else>
   <v-layout>
     <!-- <v-system-bar color="deep-purple darken-3"></v-system-bar> -->
     <v-navigation-drawer v-model="drawer">
@@ -75,7 +79,7 @@
             <v-card-text>
               <div class="mx-auto text-center">
                 <v-avatar color="brown">
-                  <span class="text">{{ userName }}</span>
+                  <!-- <span class="text">{{ userName }}</span> -->
                 </v-avatar>
                 <!-- <h3>{{userName}} {{ userLastName }}</h3>
               <p class="text-caption mt-1">
@@ -103,7 +107,7 @@
     <v-main>
       <v-card-text>
         <!-- Your main content goes here (for example, the Home component) -->
-        <NuxtPage />
+        <Nuxt-Page />
       </v-card-text>
     </v-main>
     <v-footer
@@ -123,6 +127,7 @@
       >
     </v-footer>
   </v-layout>
+</div>
 </template>
   
   <script>
@@ -133,7 +138,18 @@ export default {
   components: {
     Home,
   },
-
+  setup() {
+      const isLoading = ref(true); 
+      onMounted(async   () => {
+       await setTimeout(() => {
+          isLoading.value = false; 
+        }, 1500);
+      });
+  
+      return {
+        isLoading,
+      };
+    },
   data: () => ({
     drawer: false,
   }),
@@ -165,5 +181,11 @@ export default {
   max-width: 100%; /* Ensure the logo scales proportionally */
   object-fit: contain; /* Preserve the aspect ratio and fit the logo within the container */
 }
+.progress_circular {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
 </style>
   

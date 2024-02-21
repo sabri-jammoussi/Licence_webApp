@@ -1,10 +1,12 @@
 <template>
-  <h1>hello home </h1>
+<h1>hello home :! </h1>
 </template>
 
 <script>
-export default {
+import Login from './register/login.vue';
 
+export default {
+    components: { Login }
 }
 </script>
 
