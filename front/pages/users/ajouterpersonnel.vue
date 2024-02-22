@@ -10,16 +10,33 @@
             <form @submit.prevent="addUtilisateur">
               <!-- <v-row>
                 <v-col>
-                  <v-alert type="error" v-for="(eror, index) in errorList.value" :key="index">
-                    {{ errorList.value }}
+                  <v-alert type="error" v-for="(eror, index) in errorList" :key="index">
+                    {{ eror }}
                   </v-alert>
                 </v-col>
               </v-row> -->
-              <v-text-field v-model="users.firstName" label="Nom"></v-text-field>
-              <v-text-field v-model="users.lastName" label="Prenom"></v-text-field>
-              <v-text-field v-model="users.email" label="Email"></v-text-field>
-              <v-text-field v-model="users.password" label="password"></v-text-field>
-              <v-text-field v-model="users.role" label="role"></v-text-field>
+              <v-text-field v-model="firstName" label="Nom"></v-text-field>
+              <v-text-field v-model="lastName" label="Prenom"></v-text-field>
+              <v-text-field v-model="email" label="Email"></v-text-field>
+              <v-text-field v-model="password" label="password"></v-text-field>
+              <div class="card flex justify-content-center">
+        <!-- <Password v-model="value">
+            <template #header>
+                <h6>Pick a password</h6>
+            </template>
+            <template #footer>
+                <Divider />
+                <p class="mt-2">Suggestions</p>
+                <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                    <li>At least one lowercase</li>
+                    <li>At least one uppercase</li>
+                    <li>At least one numeric</li>
+                    <li>Minimum 8 characters</li>
+                </ul>
+            </template>
+        </Password> -->
+    </div>
+              <v-text-field v-model="role" label="role"></v-text-field>
 
               <v-row justify="flex-end">
                 <v-btn type="submit" class="button-85 green-btn">Ajouter</v-btn>
@@ -37,20 +54,17 @@
 
 <script setup>
 import Loading from "~/components/Loading.vue";
-import axios from "axios";
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useMyStore } from '@/store/index.js';
 
 const router = useRouter();
-
-const users = ref({
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
-  role: "",
-});
-
+const store = useMyStore();
+const firstName=ref('');
+const lastName=ref('');
+const email=ref('');
+const password=ref('');
+const role=ref('');
 const isLoading = ref(false);
 const isLoadingTitle = ref("Loading");
 const errorList = ref([]);
@@ -58,28 +72,21 @@ const errorList = ref([]);
 const addUtilisateur = () => {
   isLoading.value = true;
   isLoadingTitle.value = "Saving";
-  const token = window.localStorage.getItem('token');
-  console.log("tokeeeeeeeeeeen",token);
-  if (token) {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    console.log('tokenCheked',axios.defaults.headers.common);
-  }
 
-  axios
-    .post("http://localhost:5252/api/Users", users.value)
-    .then((result) => {
-      console.log("resultat", result);
-      users.value.firstName = "";
-      users.value.lastName = "";
-      users.value.email = "";
-      users.value.password = "";
-      users.value.role = "";
+  setTimeout(async () => {
+    try {
+      const data = {
+        firstName:firstName.value,
+        lastName:lastName.value,
+        email:email.value,
+        password:password.value,
+        role:role.value
+      }
+      await store.CreateUser({router},data);
+      console.log('UserSended',data);
       isLoading.value = false;
       isLoadingTitle.value = "Loading";
-
-      router.push('/users/');
-    })
-    .catch((error) => {
+    } catch (error) {
       console.error("Error fetching data:", error);
       if (error.response) {
         if (error.response.status == 400) {
@@ -89,9 +96,11 @@ const addUtilisateur = () => {
         }
       }
       isLoading.value = false;
-    });
+    }
+  }, 1500);
 };
 </script>
+
 
 <style>
   /* Your styles go here */

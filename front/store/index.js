@@ -63,6 +63,28 @@ export const useMyStore = defineStore('userStore', {
       localStorage.removeItem('token');
       router.push("/register/login")
     },
+    async CreateUser({ router }, data) {
+      try {
+        const token = window.localStorage.getItem('token');
+    
+        if (token) {
+          // If there is a token, set the authorization header
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+          console.log('Token checked:', axios.defaults.headers.common);
+        }
+  
+        const response = await axios.post('http://localhost:5252/api/Users', data);
+        console.log('dataRecivied',data);
+        if (response.status >= 200 && response.status < 300) {             
+          router.push('/users/');
+        } else {
+          alert(response.message);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
+    
   },
  
 
