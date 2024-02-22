@@ -19,7 +19,6 @@
                 <v-text-field v-model="users.firstName" label="Nom"></v-text-field>
                 <v-text-field v-model="users.lastName" label="Prenom"></v-text-field>
                 <v-text-field v-model="users.email" label="Email"></v-text-field>
-                <v-text-field v-model="users.password" label="password"></v-text-field>
                 <v-text-field v-model="users.role" label="role"></v-text-field>
   
                 <v-row justify="flex-end">
