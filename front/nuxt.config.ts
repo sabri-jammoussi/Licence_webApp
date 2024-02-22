@@ -25,12 +25,16 @@ export default defineNuxtConfig({
   css: [
     'vuetify/styles/main.sass',
     'bootstrap/dist/css/bootstrap.css',
+    'primevue/resources/themes/aura-light-green/theme.css',
   ],
 
 
 
 
-  modules: ['@pinia/nuxt'],
+  modules: [
+    '@pinia/nuxt',
+    'nuxt-primevue'
+    ],
 
 
 
