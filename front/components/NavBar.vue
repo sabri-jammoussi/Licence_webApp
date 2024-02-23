@@ -72,6 +72,7 @@
               icon="mdi-dots-vertical "
               v-bind="props"
               style="color: aliceblue"
+              @click="readusers"
             >
             </v-btn>
           </template>
@@ -79,10 +80,10 @@
             <v-card-text>
               <div class="mx-auto text-center">
                 <v-avatar color="brown">
-                  <!-- <span class="text">{{ userName }}</span> -->
+                  <!-- <span class="text">aa{{ readusers.firstName }}</span> -->
                 </v-avatar>
-                <!-- <h3>{{userName}} {{ userLastName }}</h3>
-              <p class="text-caption mt-1">
+              <h3>{{store.user.firstName}}</h3>
+              <!--   <p class="text-caption mt-1">
                {{userEmail}}
               </p>
               <v-divider class="my-3"></v-divider>
@@ -94,6 +95,13 @@
               Modifier le compte
               </v-btn>
            </nuxt-link> -->
+           <v-btn
+                rounded
+                variant="text"
+                @click="readusers"
+              >
+              Modifier le compte
+              </v-btn>
                 <v-divider class="my-3"></v-divider>
 
                   <v-btn rounded variant="text" @click="logout" > Déconnecter </v-btn>
@@ -144,9 +152,18 @@ onMounted(async () => {
     isLoading.value = false;
   }, 1500);
 });
+ 
 const logout= async() =>{
 await store.logoutUser({  router});
 }
+const readusers = async ()=>{
+  await store.ReadUser();
+  console.log('Store User:', store.user.firstName);
+
+}
+// const userfirstName = computed(()=>store.user)
+// console.log('offfffffffff',userfirstName);
+
 </script>
 
   <style scoped>
