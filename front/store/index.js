@@ -88,7 +88,7 @@ export const useMyStore = defineStore('userStore', {
             console.log('User data:', userData);
             this.user=userData;
             console.log('dataaaaaaaaaaa', this.user);
-
+              
           } else {
             alert('No data or invalid response status.');
           }

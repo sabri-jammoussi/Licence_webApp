@@ -80,11 +80,11 @@
             <v-card-text>
               <div class="mx-auto text-center">
                 <v-avatar color="brown">
-                  <!-- <span class="text">aa{{ readusers.firstName }}</span> -->
+                  <span class="text">{{ store.user.firstName }}</span>
                 </v-avatar>
-              <h3>{{store.user.firstName}}</h3>
-              <!--   <p class="text-caption mt-1">
-               {{userEmail}}
+              <h3>{{store.user.firstName}} {{ store.user.lastName }}</h3>
+            <p class="text-caption mt-1">
+               {{store.user.email}}
               </p>
               <v-divider class="my-3"></v-divider>
            <nuxt-link to="/editprofile"> 
@@ -94,14 +94,8 @@
               >
               Modifier le compte
               </v-btn>
-           </nuxt-link> -->
-           <v-btn
-                rounded
-                variant="text"
-                @click="readusers"
-              >
-              Modifier le compte
-              </v-btn>
+           </nuxt-link> 
+       
                 <v-divider class="my-3"></v-divider>
 
                   <v-btn rounded variant="text" @click="logout" > Déconnecter </v-btn>
