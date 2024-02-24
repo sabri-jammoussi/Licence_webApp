@@ -87,7 +87,7 @@
                {{store.user.email}}
               </p>
               <v-divider class="my-3"></v-divider>
-           <nuxt-link to="/editprofile"> 
+           <nuxt-link to="/"> 
             <v-btn
                 rounded
                 variant="text"
