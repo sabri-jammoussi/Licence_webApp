@@ -72,7 +72,6 @@
               icon="mdi-dots-vertical "
               v-bind="props"
               style="color: aliceblue"
-              @click="readusers"
             >
             </v-btn>
           </template>
@@ -80,11 +79,11 @@
             <v-card-text>
               <div class="mx-auto text-center">
                 <v-avatar color="brown">
-                  <span class="text">{{ store.user.firstName }}</span>
+                  <span class="text">{{ userFirstName }}</span>
                 </v-avatar>
-              <h3>{{store.user.firstName}} {{ store.user.lastName }}</h3>
+              <h3>{{userFirstName}} {{ userLastName}}</h3>
             <p class="text-caption mt-1">
-               {{store.user.email}}
+               {{userEmail}}
               </p>
               <v-divider class="my-3"></v-divider>
            <nuxt-link to="/"> 
@@ -140,22 +139,25 @@ const isLoading = ref(true);
 const drawer = ref(false);
 const store = useMyStore();
 const router = useRouter();
-
+const userFirstName = computed(()=>store.user?.firstName);
+const userLastName = computed(()=>store.user?.lastName);
+const userEmail = computed(()=>store.user?.email);
 onMounted(async () => {
   await setTimeout(() => {
     isLoading.value = false;
   }, 1500);
+  console.log("user from store", store.user)
 });
  
 const logout= async() =>{
 await store.logoutUser({  router});
 }
-const readusers = async ()=>{
-  await store.ReadUser();
-  console.log('Store User:', store.user.firstName);
+// const readusers = async ()=>{
+//   await store.ReadUser();
+//   console.log('Store User:', store.user.firstName);
 
-}
-// const userfirstName = computed(()=>store.user)
+// }
+
 // console.log('offfffffffff',userfirstName);
 
 </script>
