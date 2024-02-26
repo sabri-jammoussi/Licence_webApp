@@ -17,8 +17,10 @@ export default defineNuxtConfig({
         {
           src: 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js',
           type: 'text/javascript',
+          
         },
       ],
+      
     },
   },
 
@@ -29,13 +31,12 @@ export default defineNuxtConfig({
   ],
 
 
-
-
   modules: [
     '@pinia/nuxt',
-    'nuxt-primevue'
+    'nuxt-primevue',
+    '@vee-validate/nuxt',
     ],
-
+    
 
 
   build: {
