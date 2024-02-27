@@ -11,6 +11,9 @@
           <!-- <Notification :message="error" v-if="error"/> -->
 
           <v-form @submit.prevent="signup">
+            <v-alert type="error" v-if="Email_Existe" class="mt-2">
+              {{ Email_Existe }}
+            </v-alert>
             <v-text-field
               v-model="firstName"
               label="firstName"
@@ -82,6 +85,7 @@ const lastName = ref("");
 const email = ref("");
 const password = ref("");
 const role = ref("");
+const Email_Existe = computed(() => store.EmailError);
 
 const router = useRouter();
 
@@ -148,7 +152,7 @@ const signup = async () => {
     };
     console.log("dataaaaaSended", data);
 
-    await store.createUser({ router }, data);
+    await store.Register({ router }, data);
   }
 };
 </script>

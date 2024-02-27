@@ -70,13 +70,18 @@ const loginEmailRules = [
   (v) => /.+@.+\..+/.test(v) || "E-mail doit avoir @ et .Domain ",
 ];
 const login = async () => {
+  if (!email.value || !password.value) {
+    errorListe=null;
+  } else {
   const data = {
     email: email.value,
     password: password.value,
-  };
+  }
   console.log("dataaaaaSended", data);
   // Your login logic
   await store.loginUser({ router }, data);
+};
+
 
   //console.log('eroor  from login ',errorListe.value);
   // Check the status or response in the store, then navigate based on that.
