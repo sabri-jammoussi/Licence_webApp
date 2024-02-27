@@ -7,6 +7,9 @@ export const useMyStore = defineStore('userStore', {
     token: '',
     user: null,
     eroorlistee: null,
+    EmailError:null,
+    roleOptions:null,
+    
   }),
 
   getters: {
@@ -24,12 +27,13 @@ export const useMyStore = defineStore('userStore', {
   // },
 
   actions: {
-    async createUser({ router }, data) {
+    async Register({ router }, data) {
       try {
         console.log('Logging in with data:', data);
         const res = await axios.post('http://localhost:5252/api/account/register', data);
         console.log('Response:', res);
         if (res.status >= 200 && res.status < 300) {
+          this.EmailError=null;
           data.firstName = '';
           data.lastName = '';
           data.email = '';
@@ -41,6 +45,12 @@ export const useMyStore = defineStore('userStore', {
         }
       } catch (error) {
         console.error('Error:', error);
+        if (error.response) {
+          if (error.response.status == 400) {
+            this.EmailError = error.response.data;
+            console.log('aaaaaaaaaaa', this.EmailError);
+          } 
+        }
       }
     },
 
@@ -150,7 +160,17 @@ export const useMyStore = defineStore('userStore', {
       } catch (error) {
         console.error('Error:', error);
       }
-    }
+    }, 
+
+    // async ReadRoles(){
+    //   try{
+    //     const response = await axios.get('http://localhost:5252/api/users/roles');
+    //     this.roleOptions= response.data.roles;
+    //     console.log('rolessssss',this.roleOptions);
+    //   }catch(error){
+    //     console.log('error',error);
+    //   }
+    // }
 
   },
 
