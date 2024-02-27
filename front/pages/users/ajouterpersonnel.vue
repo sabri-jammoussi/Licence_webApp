@@ -36,7 +36,13 @@
             </template>
         </Password> -->
     </div>
-              <v-text-field v-model="role" label="role"></v-text-field>
+    <v-select
+              v-model="role"
+              :items="roleOptions"
+              label="Role"
+              
+            ></v-select>
+
 
               <v-row justify="flex-end">
                 <v-btn type="submit" class="button-85 green-btn">Ajouter</v-btn>
@@ -57,6 +63,7 @@ import Loading from "~/components/Loading.vue";
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMyStore } from '@/store/index.js';
+import  axios from "axios";
 
 const router = useRouter();
 const store = useMyStore();
@@ -68,7 +75,20 @@ const role=ref('');
 const isLoading = ref(false);
 const isLoadingTitle = ref("Loading");
 const errorList = ref([]);
+const roleOptions=ref('');
 
+ const ReadRoles=  async() =>{
+      try{
+        const response = await axios.get('http://localhost:5252/api/users/roles');
+        roleOptions.value = response.data.roles;
+        console.log('rolessssss',roleOptions);
+      }catch(error){
+        console.log('error',error);
+      }
+    }
+    onMounted(async () => {
+      await ReadRoles();
+    });
 const addUtilisateur = () => {
   isLoading.value = true;
   isLoadingTitle.value = "Saving";
