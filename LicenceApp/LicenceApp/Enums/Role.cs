@@ -3,6 +3,8 @@
     public enum Role:short
     {
         Admin,
-        User
+        Manager,
+        Partenaire,
+        Client
     }
 }

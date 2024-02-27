@@ -9,6 +9,7 @@ namespace LicenceApp.Services
     {
         Task<IList> GetAll();
         Task<UserDto> GetUserbyId(int id);
+        Task<UserRoleDto> GetUserRole();    
         Task Create(NewUser newUser);
         Task Update(int id , UpdateUser updatedUser);
         Task Delete(int id);

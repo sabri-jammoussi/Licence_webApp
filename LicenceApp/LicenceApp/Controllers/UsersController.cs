@@ -49,6 +49,19 @@ namespace LicenceApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpGet("Roles")]
+        public async Task<ActionResult> GetUserRole()
+        {
+            try
+            {
+                var user = await _userService.GetUserRole();
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [Authorize(Roles = "Admin")]
         [HttpPost]

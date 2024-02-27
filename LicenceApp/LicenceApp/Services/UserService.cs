@@ -1,4 +1,5 @@
 ﻿using LicenceApp.Data;
+using LicenceApp.Enums;
 using LicenceApp.models;
 using LicenceApp.Services.Security;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -80,6 +81,24 @@ namespace LicenceApp.Services
             return await _dbContext.Users.ToListAsync();
         }
 
+        public async Task<UserRoleDto> GetUserRole()
+        {
+            try
+            {
+                var allRoles = Enum.GetNames(typeof(Role)).ToList();
+                var userRoleDto = new UserRoleDto
+                {
+                    Roles = allRoles
+                };
+
+                return userRoleDto;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Role n'existe pas");
+            }
+        }
+
         public async Task<UserDto> GetUserbyId(int id)
         {
             var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Id == id);
@@ -127,6 +146,6 @@ namespace LicenceApp.Services
             return await _dbContext.Users.ToListAsync();
         }
 
-
+    
     }
 }
