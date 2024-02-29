@@ -78,8 +78,8 @@
           <v-card>
             <v-card-text>
               <div class="mx-auto text-center">
-                <v-avatar color="brown">
-                  <span class="text">{{ userFirstName }}</span>
+                <v-avatar color="brown" size="60">
+                  <span class="text" >{{ userrole }}</span>
                 </v-avatar>
               <h3>{{userFirstName}} {{ userLastName}}</h3>
             <p class="text-caption mt-1">
@@ -142,10 +142,12 @@ const router = useRouter();
 const userFirstName = computed(()=>store.user?.firstName);
 const userLastName = computed(()=>store.user?.lastName);
 const userEmail = computed(()=>store.user?.email);
+const userrole= computed(()=>store.user?.role);
 onMounted(async () => {
   await setTimeout(() => {
     isLoading.value = false;
   }, 1500);
+  await store.loadTokenFromLocalStorage();
   console.log("user from store", store.user)
 });
  
