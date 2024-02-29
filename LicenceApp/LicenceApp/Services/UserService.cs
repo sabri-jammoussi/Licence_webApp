@@ -1,4 +1,5 @@
-﻿using LicenceApp.Data;
+﻿using Azure.Core;
+using LicenceApp.Data;
 using LicenceApp.Enums;
 using LicenceApp.models;
 using LicenceApp.Services.Security;
@@ -28,7 +29,11 @@ namespace LicenceApp.Services
             var IsEmailValid = await _emailValidator.IsEmailValid(newUser.Email);
             if (!IsEmailValid)
                 throw new ApplicationException("Email invalid ");
-
+            var userInDb = _dbContext.Users.FirstOrDefault(u => u.Email == newUser.Email);
+            if (userInDb != null)
+            {
+                throw new ApplicationException("Email is already registered.");
+            }
             var isPaswwordValid = await _passwordValidator.IsPasswordValid(newUser.Password);
 
             if (!isPaswwordValid)
