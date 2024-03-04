@@ -128,15 +128,7 @@ namespace LicenceApp.Services
 
             if (existingUser == null)
                 throw new ApplicationException($"The Id : {id} you have been inserted  is  invalid ");
-            if (!string.IsNullOrEmpty(updateduser.Password))
-                {
-                // Hash the updated password
-                
-                CreatePasswordHash(updateduser.Password, out byte[] passwordHash, out byte[] passwordSalt);
-                existingUser.PasswordHash = passwordHash;
-                existingUser.PasswordSalt = passwordSalt;
-            }
-            
+                     
             existingUser.FirstName = updateduser.FirstName;
             existingUser.LastName = updateduser.LastName;
 ;
