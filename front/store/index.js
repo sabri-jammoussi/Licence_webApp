@@ -7,25 +7,14 @@ export const useMyStore = defineStore('userStore', {
     token: '',
     user: '',
     eroorlistee: null,
-    EmailError:null,
-    roleOptions:null,
-    userr:null,
+    EmailError: null,
+    roleOptions: null,
+    users: [],
   }),
-
   getters: {
     userLogged: (state) => state.user,
     token: (state) => state.token,
   },
-  // mutations: {
-  //   setToken(state, token) {
-  //     state.token = token;
-  //   },
-
-  //   setUser(state, users) {
-  //     state.user = users;
-  //   },
-  // },
-
   actions: {
     async Register({ router }, data) {
       try {
@@ -33,7 +22,7 @@ export const useMyStore = defineStore('userStore', {
         const res = await axios.post('http://localhost:5252/api/account/register', data);
         console.log('Response:', res);
         if (res.status >= 200 && res.status < 300) {
-          this.EmailError=null;
+          this.EmailError = null;
           data.firstName = '';
           data.lastName = '';
           data.email = '';
@@ -49,7 +38,7 @@ export const useMyStore = defineStore('userStore', {
           if (error.response.status == 400) {
             this.EmailError = error.response.data;
             console.log('aaaaaaaaaaa', this.EmailError);
-          } 
+          }
         }
       }
     },
@@ -59,31 +48,11 @@ export const useMyStore = defineStore('userStore', {
         console.log('Logging in with data:', data);
         const res = await axios.post('http://localhost:5252/api/account/login', data);
         console.log('Response:', res);
-
         if (res.status >= 200 && res.status < 300) {
-          this.eroorlistee=null;
-
-          // Now, you can safely use localStorage since this code is inside an action.
+          this.eroorlistee = null;
           localStorage.setItem('token', res.data.token);
-          if (res.data.token) {
-            const decodedToken = jwtDecode(res.data.token);
-            console.log("token decoded", decodedToken)
-            const userId = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
-            const userFirstName = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"];
-            const userLastName = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"];
-            const userEmail = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
-            const userRole = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-            this.user = {
-              firstName: userFirstName,
-              lastName: userLastName,
-              email: userEmail,
-              role: userRole,
-            };
-            console.log('user Data from store', this.user);
-
-          }
+          
           router.push('/');
-
         } else {
           alert(res.message);
         }
@@ -93,34 +62,34 @@ export const useMyStore = defineStore('userStore', {
           if (error.response.status == 400) {
             this.eroorlistee = error.response.data;
             console.log('aaaaaaaaaaa', this.eroorlistee);
-          } 
+          }
         }
-        
       }
     },
-    async loadTokenFromLocalStorage(){
+    async loadTokenFromLocalStorage() {
       const token = window.localStorage.getItem('token');
       try {
-            if(token){
-            // Decode the JWT to access its payload
-            const decodedToken = jwtDecode(token);
-            console.log('decodedToken  loadTokenFromLocalStorage',decodedToken);
-            const userId = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
-            const userFirstName = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"];
-            const userLastName = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"];
-            const userEmail = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
-            const userRole = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-            this.user  = {
-              firstName: userFirstName,
-              lastName: userLastName,
-              email: userEmail,
-              role: userRole,
-            };
-            console.log('user Data from store loadTokenFromLocalStorage', this.user);
-          }
-      }catch (error) {
-      
+        if (token) {
+          // Decode the JWT to access its payload
+          const decodedToken = jwtDecode(token);
+          //console.log('decodedToken  loadTokenFromLocalStorage',decodedToken);
+          const userId = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
+          const userFirstName = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"];
+          const userLastName = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname"];
+          const userEmail = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
+          const userRole = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+          this.user = {
+            firstName: userFirstName,
+            lastName: userLastName,
+            email: userEmail,
+            role: userRole,
+          };
+    
+          //console.log('user Data from store loadTokenFromLocalStorage', this.user);
         }
+      } catch (error) {
+        console.error('Error:', error);
+      }
     },
 
     async logoutUser({ router }) {
@@ -129,8 +98,6 @@ export const useMyStore = defineStore('userStore', {
     },
 
     async CreateUser(data) {
-      this.EmailError=null;
-
       try {
         const token = window.localStorage.getItem('token');
 
@@ -142,39 +109,58 @@ export const useMyStore = defineStore('userStore', {
           console.log('unauthorized');
           alert('unauthorized');
         }
-       
-
-        const response = await axios.post('http://localhost:5252/api/Users', data);
         console.log('dataRecivied', data);
+        const response = await axios.post('http://localhost:5252/api/Users', data);
+        await this.getUsers();
         if (response.status >= 200 && response.status < 300) {
           // router.push('/users/');
-          this.EmailError=null;
+          this.EmailError = null;
         } else {
           alert('erorrooor', response.message);
         }
       } catch (error) {
         console.error('Error:', error);
-        if (error.response) {
-          if (error.response.status == 400) {
-            this.EmailError = error.response.data;
-            console.log('aaaaaaaaaaa', this.EmailError);
-          } 
-        }
       }
-    }, 
-
-    // async ReadRoles(){
-    //   try{
-    //     const response = await axios.get('http://localhost:5252/api/users/roles');
-    //     this.roleOptions= response.data.roles;
-    //     console.log('rolessssss',this.roleOptions);
-    //   }catch(error){
-    //     console.log('error',error);
-    //   }
-    // }
-
+    },
+    async UpdateUser(id, data) {
+      try {
+        const token = window.localStorage.getItem('token');
+        if (token) {
+          // If there is a token, set the authorization header
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+          console.log('Token checked:', axios.defaults.headers.common);
+        } else {
+          console.log('unauthorized');
+          alert('unauthorized');
+        }
+        const response = await axios.put(`http://localhost:5252/api/Users/${id}`, data);
+        if (response.status >= 200 && response.status < 300) {
+          // router.push('/users/');
+        } else {
+          alert('erorrooor', response.message);
+        }
+      } catch (error) {
+        console.error('Error of update :', error);
+      }
+    },
+    async getUsers() {
+      try {
+        const response = await axios.get("http://localhost:5252/api/Users");
+        this.users = response.data;
+        // console.log("data from store ", this.users);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        alert("Error connecting to the database");
+      }
+    },
+    async ReadRoles() {
+      try {
+        const response = await axios.get('http://localhost:5252/api/users/roles');
+        this.roleOptions = response.data.roles;
+        // console.log('rolessssss',this.roleOptions);
+      } catch (error) {
+        console.log('error', error);
+      }
+    }
   },
-
-
-
 });
