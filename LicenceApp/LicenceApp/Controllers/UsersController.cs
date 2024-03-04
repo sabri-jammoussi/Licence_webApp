@@ -80,7 +80,7 @@ namespace LicenceApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult> PutUser(int id, UpdateUser user)
         {
@@ -96,6 +96,7 @@ namespace LicenceApp.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteUser(int id)
         {
