@@ -4,7 +4,6 @@
     </div>
     <div v-else>
   <v-layout>
-    <!-- <v-system-bar color="deep-purple darken-3"></v-system-bar> -->
     <v-navigation-drawer v-model="drawer">
       <v-list class="custom-list-margin">
         <div class="logo-container">
@@ -16,22 +15,18 @@
             <span class="v-list-item__title">Accueil</span>
           </v-list-item>
         </nuxt-link>
-
         <v-list>
           <!-- <nuxt-link
                 v-for="item in items"
                 :key="item.text"
                 :to="item.route"
-              > 
-        
+              >         
                 <v-list-item :prepend-icon="item.icon">
-                  <span>{{ item.text }}</span>
-           
-                </v-list-item>
-                
+                  <span>{{ item.text }}</span>          
+                </v-list-item>              
               </nuxt-link> -->
         </v-list>
-        <nuxt-link to="/users/">
+        <nuxt-link to="/users/UserList">
           <v-list-item prepend-icon="mdi-account">
             <v-tooltip activator="parent" location="end">Utilisateur</v-tooltip>
             <span class="v-list-item__title">Utilisateur</span>
@@ -94,11 +89,8 @@
               Modifier le compte
               </v-btn>
            </nuxt-link> 
-       
                 <v-divider class="my-3"></v-divider>
-
-                  <v-btn rounded variant="text" @click="logout" > Déconnecter </v-btn>
-   
+                  <v-btn rounded variant="text" @click="logout" > Déconnecter </v-btn>  
               </div>
             </v-card-text>
           </v-card>
@@ -107,7 +99,6 @@
     </v-app-bar>
     <v-main>
       <v-card-text>
-        <!-- Your main content goes here (for example, the Home component) -->
         <Nuxt-Page />
       </v-card-text>
     </v-main>
@@ -132,6 +123,9 @@
 </template>
   
 <script setup>
+definePageMeta({
+  middleware:["auth"],
+});
 import { ref, onMounted } from 'vue';
 import { useMyStore } from '@/store/index.js';
 import { useRouter } from 'vue-router';
@@ -149,41 +143,30 @@ onMounted(async () => {
   }, 1500);
   await store.loadTokenFromLocalStorage();
   console.log("user from store", store.user)
+  console.log("storeeeee tokennnn ",store.token);
 });
- 
 const logout= async() =>{
-await store.logoutUser({  router});
+await store.logoutUser({router});
 }
-// const readusers = async ()=>{
-//   await store.ReadUser();
-//   console.log('Store User:', store.user.firstName);
-
-// }
-
-// console.log('offfffffffff',userfirstName);
-
 </script>
-
-  <style scoped>
+<style scoped>
 .custom-list-margin {
-  margin-top: -8px; /* Adjust the margin-top value as per your preference */
+  margin-top: -8px;
   width: 100%;
 }
 .logo-container {
   display: flex;
   align-items: center;
-  justify-content: center; /* Center the logo horizontally */
+  justify-content: center; 
   height: 64px;
   width: 255px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* Adjust the height as needed */
-  background-color: #000000; /* Add a background color for the logo container */
+  background-color: #000000; 
 }
-
 .logo-container img {
-  max-height: 100%; /* Ensure the logo scales proportionally */
-  max-width: 100%; /* Ensure the logo scales proportionally */
-  object-fit: contain; /* Preserve the aspect ratio and fit the logo within the container */
+  max-height: 100%;
+  max-width: 100%; 
+  object-fit: contain; 
 }
 .progress_circular {
     display: flex;
