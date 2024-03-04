@@ -21,6 +21,7 @@ export default defineNuxtConfig({
         },
       ],
       
+      
     },
   },
 
@@ -38,10 +39,10 @@ export default defineNuxtConfig({
     ],
     
 
-
   build: {
     transpile: ['vuetify'],
   },
+
   nitro:{
     prerender: {
       crawlLinks: false,
@@ -49,6 +50,4 @@ export default defineNuxtConfig({
       ignore: ['/posts/others'],
     },
   }
-
-  // Other configurations...
 });
