@@ -55,6 +55,7 @@ import { useRouter } from "vue-router";
 
 const email = ref("");
 const password = ref("");
+const isLoggedinn =computed(()=> store.isLoggedin);
 const errorListe = computed(() => store.eroorlistee);
 const store = useMyStore();
 const router = useRouter();
@@ -81,7 +82,9 @@ const login = async () => {
   // Your login logic
   await store.loginUser({ router }, data);
 };
-
+onMounted(async () => {
+console.log('isloggedin ' , isLoggedinn);
+})
 
   //console.log('eroor  from login ',errorListe.value);
   // Check the status or response in the store, then navigate based on that.
