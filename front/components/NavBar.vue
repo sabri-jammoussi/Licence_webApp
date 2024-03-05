@@ -137,15 +137,19 @@ const userFirstName = computed(()=>store.user?.firstName);
 const userLastName = computed(()=>store.user?.lastName);
 const userEmail = computed(()=>store.user?.email);
 const userrole= computed(()=>store.user?.role);
+const isloggedinn =computed(()=> store.isLoggedin);
 onMounted(async () => {
   await setTimeout(() => {
     isLoading.value = false;
   }, 1500);
   await store.loadTokenFromLocalStorage();
-  console.log("user from store", store.user)
-  console.log("storeeeee tokennnn ",store.token);
+  //console.log("user from store", store.user)
+  //console.log("storeeeee tokennnn ",store.token);
+  
+
 });
 const logout= async() =>{
+  //console.log("logged out ",isloggedinn);
 await store.logoutUser({router});
 }
 </script>
