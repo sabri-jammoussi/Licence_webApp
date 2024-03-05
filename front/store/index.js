@@ -1,12 +1,14 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import { is } from '@vee-validate/rules';
 
 export const useMyStore = defineStore('userStore', {
   state: () => ({
     token: '',
     user: '',
     eroorlistee: null,
+    isLoggedin :false,
     EmailError: null,
     roleOptions: null,
     users: [],
@@ -51,7 +53,8 @@ export const useMyStore = defineStore('userStore', {
         if (res.status >= 200 && res.status < 300) {
           this.eroorlistee = null;
           localStorage.setItem('token', res.data.token);
-          
+          this.isLoggedin = true;
+          console.log('islogeedin ',this.isLoggedin);
           router.push('/');
         } else {
           alert(res.message);
@@ -94,6 +97,8 @@ export const useMyStore = defineStore('userStore', {
 
     async logoutUser({ router }) {
       localStorage.removeItem('token');
+      this.isLoggedin = false;
+      console.log('islogeedin ',this.isLoggedin);
       router.push("/register/login");
     },
 
