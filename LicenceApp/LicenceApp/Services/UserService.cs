@@ -58,16 +58,6 @@ namespace LicenceApp.Services
             await _dbContext.SaveChangesAsync();
         }
 
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            using (var hmac = new HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac
-                    .ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
-        }
-
         public async Task Delete(int id)
         {
             var user = await _dbContext.Users.SingleOrDefaultAsync(x => x.Id == id);
@@ -78,8 +68,6 @@ namespace LicenceApp.Services
             await _dbContext.SaveChangesAsync();
             
         }
-
-
 
         public async Task<IList> GetAll()
         {
@@ -131,18 +119,37 @@ namespace LicenceApp.Services
                      
             existingUser.FirstName = updateduser.FirstName;
             existingUser.LastName = updateduser.LastName;
-;
             existingUser.Email = updateduser.Email;
             existingUser.Role = updateduser.Role;
 
             await _dbContext.SaveChangesAsync();
         }
+        public async Task UpdateProfile(int id, UpdateProfile updateProfile)
+        {
+            var existingUser = await _dbContext.Users.SingleOrDefaultAsync(x => x.Id == id);
 
+            if (existingUser == null)
+                throw new ApplicationException($"The Id : {id} you have been inserted  is  invalid ");
+
+            existingUser.FirstName = updateProfile.FirstName;
+            existingUser.LastName = updateProfile.LastName;
+            existingUser.Email = updateProfile.Email;
+            await _dbContext.SaveChangesAsync();
+        }
         public async Task<IList<UserDao>> UserListAsync()
         {
             return await _dbContext.Users.ToListAsync();
         }
+        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            using (var hmac = new HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac
+                    .ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
+        }
 
-    
+        
     }
 }

@@ -12,6 +12,7 @@ namespace LicenceApp.Services
         Task<UserRoleDto> GetUserRole();    
         Task Create(NewUser newUser);
         Task Update(int id , UpdateUser updatedUser);
+        Task UpdateProfile(int id, UpdateProfile updateProfile);
         Task Delete(int id);
     }
 }
