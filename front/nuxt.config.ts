@@ -1,6 +1,7 @@
-export default defineNuxtConfig({
-  devtools: { enabled: true },
+import type { NuxtPage } from "nuxt/schema";
 
+export default defineNuxtConfig({
+  devtools: { enabled: true }, 
   app: {
     head: {
       title: 'Licence-App',
@@ -37,7 +38,6 @@ export default defineNuxtConfig({
     'nuxt-primevue',
     '@vee-validate/nuxt',
     ],
-    
 
   build: {
     transpile: ['vuetify'],
@@ -49,5 +49,7 @@ export default defineNuxtConfig({
       routes: ['/', '/register/login'],
       ignore: ['/posts/others'],
     },
-  }
+  },
+ 
+
 });
