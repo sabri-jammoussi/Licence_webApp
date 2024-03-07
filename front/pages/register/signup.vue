@@ -106,19 +106,22 @@ const rules = {
       /.+@.+\..+/.test(v)
     ),
   },
-  password: {
-    required: withMessage("Password obligatoire", required),
-    min: withMessage("Min 8 caractères", minLength(8)),
-    uppercase: withMessage("Au moins une lettre majuscule", (v) =>
-      /[A-Z]/.test(v)
-    ),
-    lowercase: withMessage("Au moins une lettre minuscule", (v) =>
-      /[a-z]/.test(v)
-    ),
-    Number : withMessage("Au moins un chiffre", (v)=>
-    /[0-9]/.test(v)
-    ),
-  },
+    password: {
+      required: withMessage("Password obligatoire", required),
+      min: withMessage("Min 8 caractères", minLength(8)),
+      uppercase: withMessage("Au moins une lettre majuscule", (v) =>
+        /[A-Z]/.test(v)
+      ),
+      lowercase: withMessage("Au moins une lettre minuscule", (v) =>
+        /[a-z]/.test(v)
+      ),
+      Number : withMessage("Au moins un chiffre", (v)=>
+      /[0-9]/.test(v)
+      ),
+      specialChar: withMessage("Au moins un caractère spécial", (v) =>
+        /[!@#$%^&*(),.?":{}|<>]/.test(v)
+      ),
+    },
   role: {
     required: withMessage("role obligatoire", required),
   },
