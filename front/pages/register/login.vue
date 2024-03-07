@@ -2,7 +2,12 @@
   <v-container class="mt-10">
     <v-row align="center" justify="center" class="mt-10">
       <v-col cols="12" sm="8" md="6">
-        <v-card class="elevation-15">
+        <v-card
+          class="mx-auto pa-12 pb-"
+          elevation="8"
+          max-width="488"
+          rounded="lg"
+        >
           <v-card-title class="headline grey lighten-2 text-center">
             <v-icon color="primary">mdi-account</v-icon>
             Sign-in!
@@ -33,12 +38,12 @@
             <v-btn color="black" block type="submit"> Login </v-btn>
           </v-form>
 
-          <div class="text-center mt-5">
+          <!-- <div class="text-center mt-5">
             Already got an account?
             <nuxt-link to="/register/signup" class="primary--text"
               >Sign-up</nuxt-link
             >
-          </div>
+          </div> -->
         </v-card>
       </v-col>
     </v-row>
@@ -55,7 +60,7 @@ import { useRouter } from "vue-router";
 
 const email = ref("");
 const password = ref("");
-const isLoggedinn =computed(()=> store.isLoggedin);
+const isLoggedinn = computed(() => store.isLoggedin);
 const errorListe = computed(() => store.eroorlistee);
 const store = useMyStore();
 const router = useRouter();
@@ -72,19 +77,19 @@ const loginEmailRules = [
 ];
 const login = async () => {
   if (!email.value || !password.value) {
-    errorListe=null;
+    errorListe = null;
   } else {
-  const data = {
-    email: email.value,
-    password: password.value,
+    const data = {
+      email: email.value,
+      password: password.value,
+    };
+    console.log("dataaaaaSended", data);
+    // Your login logic
+    await store.loginUser({ router }, data);
   }
-  console.log("dataaaaaSended", data);
-  // Your login logic
-  await store.loginUser({ router }, data);
-};
-onMounted(async () => {
-console.log('isloggedin ' , isLoggedinn);
-})
+  onMounted(async () => {
+    console.log("isloggedin ", isLoggedinn);
+  });
 
   //console.log('eroor  from login ',errorListe.value);
   // Check the status or response in the store, then navigate based on that.
