@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-import { is } from '@vee-validate/rules';
 
 export const useMyStore = defineStore('userStore', {
   state: () => ({
@@ -82,12 +81,12 @@ export const useMyStore = defineStore('userStore', {
           const userEmail = decodedToken["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"];
           const userRole = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
           this.user = {
+            idd: userId,
             firstName: userFirstName,
             lastName: userLastName,
             email: userEmail,
             role: userRole,
           };
-    
           //console.log('user Data from store loadTokenFromLocalStorage', this.user);
         }
       } catch (error) {
@@ -148,6 +147,26 @@ export const useMyStore = defineStore('userStore', {
         console.error('Error of update :', error);
       }
     },
+    async UpdateUserProfile(id, data) {
+      const response = await axios.post(`http://localhost:5252/api/account/${id}`, data);
+      if (response.status >= 200 && response.status < 300) {
+        // router.push('/users/');
+        console.log('user updated ');
+      } else {
+        alert('erorrooor', response.message);
+      }
+    },
+  
+    async getUsersById(id) {
+      try {
+        const response = await axios.get(`http://localhost:5252/api/Users/${id}`);
+        this.user = response.data;
+        console.log("data from store ", this.user);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        alert("Error connecting to the database");
+      }
+    },
     async getUsers() {
       try {
         const response = await axios.get("http://localhost:5252/api/Users");
@@ -168,4 +187,5 @@ export const useMyStore = defineStore('userStore', {
       }
     }
   },
+
 });
