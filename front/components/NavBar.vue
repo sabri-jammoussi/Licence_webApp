@@ -81,7 +81,7 @@
                {{userEmail}}
               </p>
               <v-divider class="my-3"></v-divider>
-           <nuxt-link to="/"> 
+           <nuxt-link to="/register/Updateprofile"> 
             <v-btn
                 rounded
                 variant="text"
@@ -133,6 +133,7 @@ const isLoading = ref(true);
 const drawer = ref(false);
 const store = useMyStore();
 const router = useRouter();
+const id = computed(()=> store.user.idd);
 const userFirstName = computed(()=>store.user?.firstName);
 const userLastName = computed(()=>store.user?.lastName);
 const userEmail = computed(()=>store.user?.email);
@@ -143,7 +144,7 @@ onMounted(async () => {
     isLoading.value = false;
   }, 1500);
   await store.loadTokenFromLocalStorage();
-  //console.log("user from store", store.user)
+  //console.log("user from store", store.user.idd);
   //console.log("storeeeee tokennnn ",store.token);
   
 
