@@ -72,13 +72,13 @@
     </v-toolbar>
     <v-card-text>
       <v-text-field
-        v-model="CurrentPassword"
+        v-model="currentPassword"
         :disabled="!isEditingPassword"
         base-color="green"
         label="CurrentPassword"
-        @blur="v$.CurrentPassword.touch"
-        @input="v$.CurrentPassword.$touch"
-        :error-messages="v$.CurrentPassword.$errors.map((e) => e.$message)"
+        @blur="v$.currentPassword.$touch"
+        @input="v$.currentPassword.$touch"
+        :error-messages="v$.currentPassword.$errors.map((e) => e.$message)"
       ></v-text-field>
       <v-text-field
         v-model="Newpassword"
@@ -94,6 +94,9 @@
         :disabled="!wrongCurrentPWD"
         base-color="green"
         label="ConfirmPassword"
+        @blur="v$.ConfirmPassword.$touch"
+        @input="v$.ConfirmPassword.$touch"
+        :error-messages="v$.ConfirmPassword.$errors.map((e) => e.$message)"
       ></v-text-field>
     </v-card-text>
     <v-divider></v-divider>
@@ -128,26 +131,22 @@ const loadingPWd = ref(false);
 const FirstName = ref("");
 const LastName = ref("");
 const Email = ref("");
-const CurrentPassword = ref("");
+const currentPassword = ref("");
 const Newpassword = ref("");
 const ConfirmPassword = ref("");
 const { withMessage, withAsync } = helpers;
 const userId = store.user.idd;
-watch(CurrentPassword, () => {
+watch(currentPassword, () => {
   currentPasswordIsCorrect();
 });
 const currentPasswordIsCorrect = async () => {
   try {
-    /*    const response = await axios.post(
-      "http://localhost:5252/api/account/verify-password",
-      data
-    ); */
     const { data } = await axios.get(
       `http://localhost:5252/api/account/verify-password`,
       {
         params: {
           Id: parseInt(userId),
-          CurrentPassword: CurrentPassword.value,
+          CurrentPassword: currentPassword.value,
         },
       }
     );
@@ -155,10 +154,10 @@ const currentPasswordIsCorrect = async () => {
 
     if (data) {
       wrongCurrentPWD.value = true;
-      return data;
+      return true;
     } else {
       wrongCurrentPWD.value = false;
-      return data;
+      return false;
     }
   } catch (error) {
     console.error(error);
@@ -198,7 +197,8 @@ const rules = {
       /[!@#$%^&*(),.?":{}|<>]/.test(v)
     ),
   },
-  CurrentPassword: {
+  currentPassword: {
+    required: withMessage("Current Password obligatoire", required),
     currentPWdcorrect: withMessage(
       "Wrong Current Password",
       withAsync(currentPasswordIsCorrect)
@@ -215,6 +215,8 @@ const v$ = useVuelidate(
     LastName,
     Email,
     Newpassword,
+    currentPassword,
+    ConfirmPassword
   },
   { $stopPropagation: true }
 );
@@ -251,7 +253,7 @@ const reset = async () => {
   isEditingPassword.value = false;
   wrongCurrentPWD.value = false;
   v$.value.$reset();
-  CurrentPassword.value = "";
+  currentPassword.value = "";
   Newpassword.value = "";
   ConfirmPassword.value = "";
 };
@@ -263,7 +265,7 @@ const UpdateUserPassword = async () => {
       //console.log("idddddd", userId);
       const data = {
         id: userId,
-        currentPassword: CurrentPassword.value,
+        currentPassword: currentPassword.value,
         newPassword: Newpassword.value,
       };
       const response = await axios.post(
