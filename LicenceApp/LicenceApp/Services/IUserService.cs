@@ -7,12 +7,13 @@ namespace LicenceApp.Services
 {
     public interface IUserService
     {
-        Task<IList> GetAll();
+        Task<List<UserDto>> GetAll();
         Task<UserDto> GetUserbyId(int id);
         Task<UserRoleDto> GetUserRole();    
         Task Create(NewUser newUser);
         Task Update(int id , UpdateUser updatedUser);
         Task UpdateProfile(int id, UpdateProfile updateProfile);
+        Task UpdateProfilePassword (UpdateProfilePassword updateProfilePassword);
         Task Delete(int id);
     }
 }
