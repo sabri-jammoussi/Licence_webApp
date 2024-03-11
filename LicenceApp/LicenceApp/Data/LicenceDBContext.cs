@@ -31,5 +31,7 @@ namespace LicenceApp.Data
                     Role = Enums.Role.Admin
                 });
         }
+
+     
     }
 }
