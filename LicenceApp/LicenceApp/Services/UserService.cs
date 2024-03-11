@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using System.Security.Cryptography;
+using System.Security.Cryptography.Xml;
 
 namespace LicenceApp.Services
 {
@@ -57,6 +58,28 @@ namespace LicenceApp.Services
             _dbContext.Users.Add(data);
             await _dbContext.SaveChangesAsync();
         }
+        public async Task UpdateProfilePassword(UpdateProfilePassword updateProfilePassword)
+        {
+            var existingUser = await _dbContext.Users.SingleOrDefaultAsync(x => x.Id == updateProfilePassword.Id);
+
+            if (existingUser == null)
+                throw new ApplicationException($"The Id : {updateProfilePassword.Id} you have been inserted  is  invalid ");
+
+            CreatePasswordHash(updateProfilePassword.NewPassword,
+             out byte[] passwordHash,
+             out byte[] passwordSalt);
+            if (!VerifyPasswordHash(updateProfilePassword.CurrentPassword, existingUser.PasswordHash, existingUser.PasswordSalt))           
+                throw new ApplicationException("wrong Current password  !");
+ 
+                
+            var isPaswwordValid = await _passwordValidator.IsPasswordValid(updateProfilePassword.NewPassword);
+            if (!isPaswwordValid)
+                throw new ApplicationException("Mot de passe invalid (Doit avoir au moins  [numéro,8 characters,majuscule,minuscule] )!! ");
+
+            existingUser.PasswordSalt = passwordSalt;
+            existingUser.PasswordHash = passwordHash;
+            await _dbContext.SaveChangesAsync();
+        }
 
         public async Task Delete(int id)
         {
@@ -69,9 +92,20 @@ namespace LicenceApp.Services
             
         }
 
-        public async Task<IList> GetAll()
+        public async Task<List<UserDto>> GetAll()
         {
-            return await _dbContext.Users.ToListAsync();
+            List<UserDto> userDtos = await _dbContext.Users
+                .Select(u => new UserDto
+                {
+                    Id = u.Id,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Email = u.Email,
+                    Role = u.Role
+                })
+                .ToListAsync();
+
+            return userDtos;
         }
 
         public async Task<UserRoleDto> GetUserRole()
@@ -126,6 +160,9 @@ namespace LicenceApp.Services
         }
         public async Task UpdateProfile(int id, UpdateProfile updateProfile)
         {
+            if(updateProfile == null)
+                throw new ArgumentNullException(nameof(updateProfile));
+            // charger l'utilisateur a modifie 
             var existingUser = await _dbContext.Users.SingleOrDefaultAsync(x => x.Id == id);
 
             if (existingUser == null)
@@ -136,6 +173,7 @@ namespace LicenceApp.Services
             existingUser.Email = updateProfile.Email;
             await _dbContext.SaveChangesAsync();
         }
+       
         public async Task<IList<UserDao>> UserListAsync()
         {
             return await _dbContext.Users.ToListAsync();
@@ -149,7 +187,14 @@ namespace LicenceApp.Services
                     .ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
         }
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using (var hmac = new HMACSHA512(passwordSalt))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                return computedHash.SequenceEqual(passwordHash);
+            }
+        }
 
-        
     }
 }
