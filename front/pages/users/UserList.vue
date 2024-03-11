@@ -1,40 +1,39 @@
 <template>
- 
   <v-data-table
     :headers="headers"
     :items="users"
     :sort-by="[{ key: 'calories', order: 'asc' }]"
     v-model:search="search"
-    >
-   
+  >
     <template v-slot:top>
       <v-toolbar flat>
         <v-toolbar-title>
           <v-text-field
-        v-model="search"
-        density="compact"
-        label="Search"
-        prepend-inner-icon="mdi-magnify"
-        variant="solo-filled"
-        flat
-        hide-details
-        single-line
-        class="justify-content-start"
-      ></v-text-field>
+            v-model="search"
+            density="compact"
+            label="Search"
+            prepend-inner-icon="mdi-magnify"
+            variant="solo-filled"
+            flat
+            hide-details
+            single-line
+            class="justify-content-start"
+          ></v-text-field>
         </v-toolbar-title>
-      
-        <v-divider class=" mx-4" inset vertical></v-divider>
-   
-       
+
+        <v-divider class="mx-4" inset vertical></v-divider>
+
         <AddUser />
         <v-dialog v-model="dialogDelete" max-width="400">
           <v-card>
             <v-card-title>Delete Confirmation</v-card-title>
             <v-card-text
-              >Voulez-vous vraiment supprimer cet utilisateur ?</v-card-text>
+              >Voulez-vous vraiment supprimer cet utilisateur ?</v-card-text
+            >
             <v-card-actions>
               <v-btn color="red" text @click="deleteItemConfirm"
-                >Supprimer</v-btn>
+                >Supprimer</v-btn
+              >
               <v-btn color="primary" text @click="closeDelete">Annuler</v-btn>
             </v-card-actions>
           </v-card>
@@ -42,15 +41,25 @@
       </v-toolbar>
     </template>
     <template v-slot:[`item.actions`]="{ item }">
-      <v-icon size="small" class="me-2" @click="openEditDialog(item)">
+      <v-icon
+        size="small"
+        class="me-2"
+        @click="openEditDialog(item)"
+        color="green"
+        variant="tonal"
+      >
         mdi-pencil
       </v-icon>
-      <v-icon size="small" @click.stop="deleteItem(item.id)">
+      <v-icon size="small" @click.stop="deleteItem(item.id)" color="red">
         mdi-delete
       </v-icon>
     </template>
   </v-data-table>
-  <EditUser :user="selectedUser" v-if="editDialog" @close-dialog="editDialog = false" />
+  <EditUser
+    :user="selectedUser"
+    v-if="editDialog"
+    @close-dialog="editDialog = false"
+  />
 </template>  
 <script setup>
 import axios from "axios";
@@ -59,14 +68,14 @@ import { useMyStore } from "@/store/index.js";
 import AddUser from "./AddUser.vue";
 import EditUser from "./EditUser.vue";
 
-const selectedUser = ref('');
+const selectedUser = ref("");
 const store = useMyStore();
 const editDialog = ref(false);
 const dialogDelete = ref(false);
-const search = ref('');
+const search = ref("");
 const headers = ref([
-  { title: "FirstName", key: "firstName" },
-  { title: "LastName", key: "lastName" },
+  { title: "Nom de famille", key: "firstName" },
+  { title: "Prénom", key: "lastName" },
   { title: "Email", key: "email" },
   { title: "Role", key: "role" },
   { title: "Actions", key: "actions", sortable: false },

@@ -1,14 +1,15 @@
 <template>
-  <v-dialog v-model="editDialog" max-width="500px" >
+  <v-dialog v-model="editDialog" max-width="500px">
     <v-card>
       <v-card-text>
         <v-container>
           <v-spacer></v-spacer>
-          <v-row>
+          <v-row no-gutters>
             <v-col cols="12" sm="6" md="12">
               <v-text-field
                 v-model="firstName"
-                label="FirstName"
+                label="Nom de famille"
+                base-color="green"
                 @blur="v$.firstName.$touch"
                 @input="v$.firstName.$touch"
                 :error-messages="v$.firstName.$errors.map((e) => e.$message)"
@@ -17,7 +18,8 @@
             <v-col cols="12" sm="6" md="12">
               <v-text-field
                 v-model="lastName"
-                label="LastName"
+                label="Prénom"
+                base-color="green"
                 @blur="v$.lastName.$touch"
                 @input="v$.lastName.$touch"
                 :error-messages="v$.lastName.$errors.map((e) => e.$message)"
@@ -27,6 +29,7 @@
               <v-text-field
                 v-model="email"
                 label="Email"
+                base-color="green"
                 @blur="v$.email.$touch"
                 @input="v$.email.$touch"
                 :error-messages="v$.email.$errors.map((e) => e.$message)"
@@ -36,6 +39,7 @@
               <v-select
                 v-model="role"
                 label="Role"
+                base-color="green"
                 :items="roleOptions"
                 @blur="v$.role.$touch"
                 @input="v$.role.$touch"
@@ -56,7 +60,7 @@
         >
           Modifier
         </v-btn>
-        <v-btn color="blue-darken-1" variant="text" @click="close">
+        <v-btn color="grey" variant="text" @click="close">
           Annuler
         </v-btn>
       </v-card-actions>
@@ -69,7 +73,7 @@ import { useMyStore } from "@/store/index.js";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers, minLength } from "@vuelidate/validators";
 
-const { emit } = getCurrentInstance(); 
+const { emit } = getCurrentInstance();
 const { withMessage } = helpers;
 const roleOptions = computed(() => store.roleOptions);
 const editDialog = ref(false);
@@ -80,7 +84,7 @@ const lastName = ref("");
 const email = ref("");
 const role = ref("");
 const id = ref("");
-const props = defineProps(['user']);
+const props = defineProps(["user"]);
 
 const rules = {
   firstName: {
@@ -108,17 +112,25 @@ watch(editDialog, (val) => {
   val || close();
 });
 
-const v$ = useVuelidate(rules, {
-  firstName,
-  lastName,
-  email,
-  role,
-},{$stopPropagation:true});
+const v$ = useVuelidate(
+  rules,
+  {
+    firstName,
+    lastName,
+    email,
+    role,
+  },
+  { $stopPropagation: true }
+);
 
 const Updateuser = async () => {
   loading.value = true;
   v$.value.$touch();
+  console.log("Form is pending: ", v$.value);
+  console.log("Form has errors: ", v$.value);
   if (v$.value.$pending || v$.value.$error) {
+    console.log("Form is pending: ", v$.value);
+    console.log("Form has errors: ", v$.value);
     loading.value = false;
   } else {
     setTimeout(async () => {
@@ -144,20 +156,20 @@ const Updateuser = async () => {
   }
 };
 onMounted(async () => {
-    //console.log("edit dialog",props)
-    if (props.user) {
-      firstName.value = props.user.firstName;
-      lastName.value = props.user.lastName;
-      email.value = props.user.email;
-      role.value = props.user.role;
-      id.value = props.user.id;
-      editDialog.value = true;
-    }
+  //console.log("edit dialog",props)
+  if (props.user) {
+    firstName.value = props.user.firstName;
+    lastName.value = props.user.lastName;
+    email.value = props.user.email;
+    role.value = props.user.role;
+    id.value = props.user.id;
+    editDialog.value = true;
+  }
   await store.ReadRoles();
 });
 const close = () => {
   v$.value.$reset();
   editDialog.value = false;
-  emit('close-dialog');
+  emit("close-dialog");
 };
 </script>
