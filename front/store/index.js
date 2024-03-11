@@ -146,27 +146,17 @@ export const useMyStore = defineStore('userStore', {
       } catch (error) {
         console.error('Error of update :', error);
       }
-    },
-    async UpdateUserProfile(id, data) {
-      const response = await axios.post(`http://localhost:5252/api/account/${id}`, data);
-      if (response.status >= 200 && response.status < 300) {
-        // router.push('/users/');
-        console.log('user updated ');
-      } else {
-        alert('erorrooor', response.message);
-      }
-    },
-  
-    async getUsersById(id) {
-      try {
-        const response = await axios.get(`http://localhost:5252/api/Users/${id}`);
-        this.user = response.data;
-        console.log("data from store ", this.user);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        alert("Error connecting to the database");
-      }
-    },
+    },  
+    // async getUsersById(id) {
+    //   try {
+    //     const response = await axios.get(`http://localhost:5252/api/Users/${id}`);
+    //     this.user = response.data;
+    //     console.log("data from store ", this.user);
+    //   } catch (error) {
+    //     console.error("Error fetching data:", error);
+    //     alert("Error connecting to the database");
+    //   }
+    // },
     async getUsers() {
       try {
         const response = await axios.get("http://localhost:5252/api/Users");
