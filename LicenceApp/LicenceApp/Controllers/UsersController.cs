@@ -95,21 +95,7 @@ namespace LicenceApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [AllowAnonymous]
-        [HttpPost("{id}")]
-
-        public async Task<ActionResult> ModifierProfile (int id , UpdateProfile updateProfile)
-        {
-            try
-            {
-                await _userService.UpdateProfile(id, updateProfile);
-                return NoContent();
-            }catch(Exception ex)
-            {
-                Console.WriteLine($"An error occurred while updating user: {ex.Message}");
-                return BadRequest(ex.Message);
-            }
-        }
+     
         [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteUser(int id)
