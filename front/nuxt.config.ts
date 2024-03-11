@@ -40,7 +40,15 @@ export default defineNuxtConfig({
     ],
 
   build: {
-    transpile: ['vuetify'],
+    transpile: [
+      'vuetify',
+      '@fortawesome/fontawesome-svg-core',
+      '@fortawesome/pro-solid-svg-icons',
+      '@fortawesome/pro-regular-svg-icons',
+      '@fortawesome/pro-light-svg-icons',
+      '@fortawesome/free-brands-svg-icons'
+    ],
+    
   },
 
   nitro:{
