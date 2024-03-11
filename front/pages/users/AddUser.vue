@@ -67,8 +67,10 @@
           </v-row>
         </v-container>
       </v-card-text>
+      <v-divider class="my-2"></v-divider>
 
       <v-card-actions>
+                 
         <v-spacer></v-spacer>
         <v-btn
           color="green"

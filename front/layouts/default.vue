@@ -82,10 +82,18 @@
                     <v-btn rounded variant="text"> Modifier le compte </v-btn>
                   </span>
                   <v-divider class="my-3"></v-divider>
-                  <v-btn rounded variant="text" @click="logout">
-                    Déconnecter
-                  </v-btn>
-                  <v-icon color="red"> mdi-logout</v-icon>
+                  <div class="pt-2 pb-2 px-4 text-center">
+                    <v-btn
+                      rounded
+                      @click="logout"
+                      variant="outlined"
+                      class="rounded-pill"
+                      block
+                    >
+                      Déconnecter
+                      <v-icon color="red"> mdi-logout</v-icon>
+                    </v-btn>
+                  </div>
                 </div>
               </v-card-text>
             </v-card>

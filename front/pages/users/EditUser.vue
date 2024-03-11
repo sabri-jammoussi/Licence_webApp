@@ -49,6 +49,7 @@
           </v-row>
         </v-container>
       </v-card-text>
+      <v-divider class="my-2"></v-divider>
 
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -60,9 +61,7 @@
         >
           Modifier
         </v-btn>
-        <v-btn color="grey" variant="text" @click="close">
-          Annuler
-        </v-btn>
+        <v-btn color="grey" variant="text" @click="close"> Annuler </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

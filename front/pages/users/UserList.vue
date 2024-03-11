@@ -30,11 +30,15 @@
             <v-card-text
               >Voulez-vous vraiment supprimer cet utilisateur ?</v-card-text
             >
+      <v-divider class="my-2"></v-divider>
+
             <v-card-actions>
+        <v-spacer></v-spacer>
+
               <v-btn color="red" text @click="deleteItemConfirm"
                 >Supprimer</v-btn
               >
-              <v-btn color="primary" text @click="closeDelete">Annuler</v-btn>
+              <v-btn color="grey" text @click="closeDelete">Annuler</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
