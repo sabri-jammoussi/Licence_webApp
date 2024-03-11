@@ -8,5 +8,5 @@ export default defineNuxtRouteMiddleware((to, from) => {
         }
         // return navigateTo('register/login')
     }
-
+        //lezm nhotha tekhdem ala les pages lkol !! 
 });
