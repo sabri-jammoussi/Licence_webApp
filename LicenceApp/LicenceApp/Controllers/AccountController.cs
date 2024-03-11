@@ -1,8 +1,10 @@
 ﻿using LicenceApp.Data;
 using LicenceApp.models;
+using LicenceApp.Services;
 using LicenceApp.Services.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
 [ApiController]
@@ -11,11 +13,14 @@ public class AccountController : ControllerBase
 {
     private readonly LicenceDBContext _context;
     private readonly TokenService _tokenService;
+    private readonly IUserService _userService;
 
-    public AccountController(LicenceDBContext context, TokenService tokenService)
+
+    public AccountController(LicenceDBContext context, TokenService tokenService,IUserService iuserService)
     {
         _context = context;
         _tokenService = tokenService;
+        _userService= iuserService;
     }
 
 
@@ -76,16 +81,50 @@ public class AccountController : ControllerBase
             Token = accessToken,
         });
     }
+    [AllowAnonymous]
+    [HttpPost("{id}")]
 
-    private bool VerifyPasswordHash(string? password, byte[]? passwordHash, byte[]? passwordSalt)
+    public async Task<ActionResult> ModifierProfile(int id, UpdateProfile updateProfile)
     {
-        using (var hmac = new HMACSHA512(passwordSalt))
+        try
         {
-            var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            return computedHash.SequenceEqual(passwordHash);
+            await _userService.UpdateProfile(id, updateProfile);
+            return Ok("UserInfo updated");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while updating user: {ex.Message}");
+            return BadRequest(ex.Message);
         }
     }
-    private void CreatePasswordHash(string? password, out byte[] passwordHash, out byte[] passwordSalt)
+    [AllowAnonymous]
+    [HttpPost("Password")]
+    public async Task<ActionResult> ModifierProfilePassword(UpdateProfilePassword updateProfilepassword)
+    {
+        try
+        {
+            await _userService.UpdateProfilePassword(updateProfilepassword);
+            return Ok("User Password updated");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred while updating user: {ex.Message}");
+            return BadRequest(ex.Message);
+        }
+    }
+    [HttpGet("verify-password")]
+    public async Task<IActionResult> VerifyPassword([FromQuery] VerifyPasswordDto verifyPasswordDto)
+    {
+        var existingUser = await _context.Users.SingleOrDefaultAsync(x => x.Id == verifyPasswordDto.Id);
+
+        if (existingUser == null)
+            return BadRequest($"The Id : {verifyPasswordDto.Id} is invalid ");
+
+        bool isPasswordCorrect = VerifyPasswordHash(verifyPasswordDto.CurrentPassword, existingUser.PasswordHash, existingUser.PasswordSalt);
+
+        return Ok(isPasswordCorrect);
+    }
+    private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
     {
         using (var hmac = new HMACSHA512())
         {
@@ -93,5 +132,14 @@ public class AccountController : ControllerBase
             passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
         }
     }
+    private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+    {
+        using (var hmac = new HMACSHA512(passwordSalt))
+        {
+            var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            return computedHash.SequenceEqual(passwordHash);
+        }
+    }
+ 
 
 }
