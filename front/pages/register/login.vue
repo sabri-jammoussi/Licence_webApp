@@ -12,9 +12,7 @@
             <v-icon color="primary">mdi-account</v-icon>
             Sign-in!
           </v-card-title>
-
           <!-- <Notification :message="error" v-if="error"/> -->
-
           <v-form @submit.prevent="login">
             <v-alert type="error" v-if="errorListe" class="mt-2">
               {{ errorListe }}
@@ -28,22 +26,15 @@
 
             <v-text-field
               v-model="password"
-              :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-              @click:append="show2 = !show2"
+              :append-inner-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+              @click:append-inner="show2 = !show2"
               :type="show2 ? 'text' : 'password'"
               label="Password"
+              placeholder="Enter your password"
               :rules="[rules.required, rules.min]"
             ></v-text-field>
-
             <v-btn color="black" block type="submit"> Login </v-btn>
           </v-form>
-
-          <!-- <div class="text-center mt-5">
-            Already got an account?
-            <nuxt-link to="/register/signup" class="primary--text"
-              >Sign-up</nuxt-link
-            >
-          </div> -->
         </v-card>
       </v-col>
     </v-row>
