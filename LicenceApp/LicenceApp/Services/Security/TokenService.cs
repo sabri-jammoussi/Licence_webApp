@@ -9,7 +9,7 @@ namespace LicenceApp.Services.Security
 {
     public class TokenService
     {
-        private const int ExpirationMinutes = 15;
+        private const int ExpirationMinutes = 150;
         private readonly IConfiguration _configuration;
         private readonly ILogger<TokenService> _logger;
         public TokenService(IConfiguration configuration, ILogger<TokenService> logger)
