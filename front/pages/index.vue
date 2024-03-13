@@ -1,5 +1,5 @@
 <template>
-  <h1>aaaa</h1>
+<h1>aaaaa</h1>
 </template>
 <script setup>
 definePageMeta({

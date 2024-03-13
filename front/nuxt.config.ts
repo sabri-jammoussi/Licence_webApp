@@ -37,9 +37,11 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'nuxt-primevue',
     '@vee-validate/nuxt',
-    
+    '@nuxtjs/i18n'
     ],
-
+    i18n: {
+      vueI18n: './plugins/i18n' // if you are using custom path, default
+    },
   build: {
     transpile: [
       'vuetify',
@@ -60,5 +62,5 @@ export default defineNuxtConfig({
     },
   },
  
-
+ 
 });

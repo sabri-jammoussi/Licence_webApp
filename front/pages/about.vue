@@ -1,15 +1,14 @@
-<template>
-<h1>hello abosssssssssssssssssssssssssssssssut </h1>
-</template>
-
-<script>
-import custom from '~/layouts/custom.vue'
-export default {
-  components: { custom },
-
-}
+<script setup>
+import i18n from "~/plugins/i18n";
+const items = ["en", "fr"];
+const { locale } = useI18n();
 </script>
 
-<style>
-
-</style>
+<template>
+  <div>
+    <form>
+      <v-select v-model="locale" :items="items"> </v-select>
+      <p>{{ $t("hello") }}</p>
+    </form>
+  </div>
+</template>
