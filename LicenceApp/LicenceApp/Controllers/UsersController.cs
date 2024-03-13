@@ -1,14 +1,12 @@
-﻿using Azure.Core;
-using LicenceApp.Data;
-using LicenceApp.models;
+﻿using LicenceApp.models;
 using LicenceApp.Services;
-using LicenceApp.Services.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace LicenceApp.Controllers
 {
+    //[Authorize]
+    //[Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
@@ -21,7 +19,7 @@ namespace LicenceApp.Controllers
       
 
         }
-        //[Authorize]
+       // [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDao>>> GetUsers()
         {
