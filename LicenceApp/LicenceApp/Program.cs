@@ -60,6 +60,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(option =>
 {
+    option.EnableAnnotations();
     option.SwaggerDoc("v1", new OpenApiInfo { Title = "Test API", Version = "v1" });
     option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -84,6 +85,7 @@ builder.Services.AddSwaggerGen(option =>
             new string[]{}
         }
     });
+    
 });
 builder.Services.AddControllers();
 builder.Services.AddProblemDetails();
