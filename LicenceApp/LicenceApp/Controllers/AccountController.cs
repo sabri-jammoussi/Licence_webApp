@@ -5,6 +5,7 @@ using LicenceApp.Services.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Annotations;
 using System.Security.Cryptography;
 
 [ApiController]
@@ -25,6 +26,8 @@ public class AccountController : ControllerBase
 
 
     [HttpPost("register")]
+    [SwaggerOperation(Tags = ["[Authentication]"])]
+
     public async Task<IActionResult> Register(RegistrationRequest request)
     {
         var userInDb = _context.Users.FirstOrDefault(u => u.Email == request.Email);
@@ -55,6 +58,8 @@ public class AccountController : ControllerBase
 
     [AllowAnonymous]
     [HttpPost("login")]
+    [SwaggerOperation(Tags = ["[Authentication]"])]
+
     public async Task<ActionResult<AuthResponse>> Authenticate([FromBody] AuthRequest request)
     {
         if (!ModelState.IsValid)
@@ -81,8 +86,10 @@ public class AccountController : ControllerBase
             Token = accessToken,
         });
     }
+    
     [AllowAnonymous]
     [HttpPost("{id}")]
+    [SwaggerOperation(Tags = ["[Update Profile]"])]
 
     public async Task<ActionResult> ModifierProfile(int id, UpdateProfile updateProfile)
     {
@@ -98,7 +105,9 @@ public class AccountController : ControllerBase
         }
     }
     [AllowAnonymous]
+
     [HttpPost("Password")]
+    [SwaggerOperation(Tags = ["[Password]"])]
     public async Task<ActionResult> ModifierProfilePassword(UpdateProfilePassword updateProfilepassword)
     {
         try
@@ -112,7 +121,11 @@ public class AccountController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    [AllowAnonymous]
     [HttpGet("verify-password")]
+    [SwaggerOperation(Tags = ["[Password]"])]
+
     public async Task<IActionResult> VerifyPassword([FromQuery] VerifyPasswordDto verifyPasswordDto)
     {
         var existingUser = await _context.Users.SingleOrDefaultAsync(x => x.Id == verifyPasswordDto.Id);
