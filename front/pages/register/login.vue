@@ -1,11 +1,10 @@
 <template>
-  <v-container class="mt-10">
+  <v-container  class="mt-12 pa-16">
     <v-row align="center" justify="center" class="mt-10">
-      <v-col cols="12" sm="8" md="6">
+      <v-col cols="12" sm="8" md="6" >
         <v-card
           class="mx-auto pa-12 pb-"
-          elevation="8"
-          max-width="488"
+          elevation="10"
           rounded="lg"
         >
           <v-card-title class="headline grey lighten-2 text-center">
