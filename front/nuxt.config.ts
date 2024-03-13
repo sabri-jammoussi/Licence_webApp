@@ -37,6 +37,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'nuxt-primevue',
     '@vee-validate/nuxt',
+    
     ],
 
   build: {
