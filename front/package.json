@@ -37,6 +37,7 @@
   "devDependencies": {
     "@mdi/font": "^7.4.47",
     "@nuxt/types": "^2.17.3",
-    "nuxt-primevue": "^0.3.0"
+    "nuxt-primevue": "^0.3.0",
+    "vue-i18n": "^9.10.1"
   }
 }
