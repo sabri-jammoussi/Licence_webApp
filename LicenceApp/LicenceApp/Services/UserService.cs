@@ -58,6 +58,7 @@ namespace LicenceApp.Services
             _dbContext.Users.Add(data);
             await _dbContext.SaveChangesAsync();
         }
+      
         public async Task UpdateProfilePassword(UpdateProfilePassword updateProfilePassword)
         {
             var existingUser = await _dbContext.Users.SingleOrDefaultAsync(x => x.Id == updateProfilePassword.Id);
@@ -95,6 +96,7 @@ namespace LicenceApp.Services
         public async Task<List<UserDto>> GetAll()
         {
             List<UserDto> userDtos = await _dbContext.Users
+                .Where(u => u.Role !=0)
                 .Select(u => new UserDto
                 {
                     Id = u.Id,
@@ -196,5 +198,6 @@ namespace LicenceApp.Services
             }
         }
 
+      
     }
 }
