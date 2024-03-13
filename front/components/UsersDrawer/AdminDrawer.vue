@@ -9,16 +9,24 @@
         to="/users/UserList"
         prepend-icon="mdi-account"
         value="home"
-        title="Utilisateur"
       >
-        <v-tooltip activator="parent" location="end">Utilisateur</v-tooltip>
+      {{ $t("Users") }}
+        <v-tooltip activator="parent" location="end"></v-tooltip>
       </v-list-item>
       <v-list-item
         to="/about"
         prepend-icon="mdi-forum"
         value="home"
-        title="A propos"
       >
+      {{ $t("About") }}
+        <v-tooltip activator="parent" location="end">A propos</v-tooltip>
+      </v-list-item>
+      <v-list-item
+        to="/about"
+        prepend-icon="mdi-translate"
+        value="home"
+      >
+      {{ $t("About") }}
         <v-tooltip activator="parent" location="end">A propos</v-tooltip>
       </v-list-item>
     </v-list>
@@ -40,97 +48,18 @@
       variant="text"
       @click.stop="drawer = !drawer"
     ></v-app-bar-nav-icon>
-    <v-toolbar-title>My Users</v-toolbar-title>
-    <v-row class="d-flex justify-end mr-2">
-      <v-menu min-width="200px" rounded>
-        <template v-slot:activator="{ props }">
-          <v-btn
-            icon="mdi-dots-vertical "
-            v-bind="props"
-            style="color: aliceblue"
-          >
-          </v-btn>
-        </template>
-        <v-card>
-          <v-card-text>
-            <div class="mx-auto text-center">
-              <v-avatar color="brown" size="60">
-                <span class="text">{{ userrole }}</span>
-              </v-avatar>
-              <h3>{{ userFirstName }} {{ userLastName }}</h3>
-              <p class="text-caption mt-1">
-                {{ userEmail }}
-              </p>
-              <v-divider class="my-3"></v-divider>
-              <span @click="navigateTo('/updateUserProfile/CurrentUserPage')">
-                <v-btn rounded variant="text"> Modifier le compte </v-btn>
-              </span>
-              <v-divider class="my-3"></v-divider>
-              <div class="pt-2 pb-2 px-4 text-center">
-                <v-btn
-                  rounded
-                  @click="logout"
-                  variant="outlined"
-                  class="rounded-pill"
-                  block
-                >
-                  Déconnecter
-                  <v-icon color="red"> mdi-logout</v-icon>
-                </v-btn>
-              </div>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-menu>
-    </v-row>
+  <UsersDrawerDefaultAppBar/>
   </v-app-bar>
   <v-main>
     <v-card-text>
       <Nuxt-Page />
     </v-card-text>
   </v-main>
-  <v-footer
-    style="
-      background-color: rgb(220, 220, 220);
-      color: #000;
-      caret-color: #000;
-      bottom: 0;
-      z-index: 1006;
-      transform: translateY(0%);
-      position: fixed;
-    "
-    app
-  >
-    <span style="color: #16df17"
-      >&copy; APBS {{ new Date().getFullYear() }}</span
-    >
-  </v-footer>
+<Footer/>
 </template>
-  
-  <script setup>
-import { ref, onMounted } from "vue";
-import { useMyStore } from "@/store/index.js";
-import { useRouter } from "vue-router";
-
+<script setup>
+import { ref } from "vue";
 const drawer = ref(false);
-const store = useMyStore();
-const router = useRouter();
-const userFirstName = computed(() => store.user?.firstName);
-const userLastName = computed(() => store.user?.lastName);
-const userEmail = computed(() => store.user?.email);
-const userrole = computed(() => store.user?.role);
-
-onMounted(async () => {
-  await store.loadTokenFromLocalStorage();
-  console.log("roleeeeee", userrole.value);
-
-  //console.log("user from store", store.user.idd);
-  //console.log("storeeeee tokennnn ",store.token);
-});
-const logout = async () => {
-  //console.log("logged out ",isloggedinn);
-  await store.logoutUser({ router });
-};
 </script>
 <style scoped>
 .custom-list-margin {
