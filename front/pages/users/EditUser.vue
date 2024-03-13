@@ -44,6 +44,7 @@
                 @blur="v$.role.$touch"
                 @input="v$.role.$touch"
                 :error-messages="v$.role.$errors.map((e) => e.$message)"
+                :disabled="true"
               ></v-select>
             </v-col>
           </v-row>
