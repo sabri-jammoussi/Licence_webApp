@@ -24,16 +24,16 @@
         <v-divider class="mx-4" inset vertical></v-divider>
 
         <AddUser />
-        <v-dialog v-model="dialogDelete" max-width="400">
+        <v-dialog v-model="dialogDelete" max-width="420">
           <v-card>
-            <v-card-title>Delete Confirmation</v-card-title>
+            <v-card-title>Confirmation de suppression</v-card-title>
             <v-card-text
               >Voulez-vous vraiment supprimer cet utilisateur ?</v-card-text
             >
-      <v-divider class="my-2"></v-divider>
+            <v-divider class="my-2"></v-divider>
 
             <v-card-actions>
-        <v-spacer></v-spacer>
+              <v-spacer></v-spacer>
 
               <v-btn color="red" text @click="deleteItemConfirm"
                 >Supprimer</v-btn
@@ -44,6 +44,7 @@
         </v-dialog>
       </v-toolbar>
     </template>
+
     <template v-slot:[`item.actions`]="{ item }">
       <v-icon
         size="small"
@@ -59,6 +60,7 @@
       </v-icon>
     </template>
   </v-data-table>
+
   <EditUser
     :user="selectedUser"
     v-if="editDialog"
