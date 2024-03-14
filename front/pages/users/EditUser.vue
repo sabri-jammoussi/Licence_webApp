@@ -8,7 +8,7 @@
             <v-col cols="12" sm="6" md="12">
               <v-text-field
                 v-model="firstName"
-                label="Nom de famille"
+                :label="$t('lastname')"
                 base-color="green"
                 @blur="v$.firstName.$touch"
                 @input="v$.firstName.$touch"
@@ -18,7 +18,7 @@
             <v-col cols="12" sm="6" md="12">
               <v-text-field
                 v-model="lastName"
-                label="Prénom"
+                :label="$t('firstname')"
                 base-color="green"
                 @blur="v$.lastName.$touch"
                 @input="v$.lastName.$touch"
@@ -60,9 +60,9 @@
           @click="Updateuser"
           :loading="loading"
         >
-          Modifier
+          {{ $t('edit') }}
         </v-btn>
-        <v-btn color="grey" variant="text" @click="close"> Annuler </v-btn>
+        <v-btn color="grey" variant="text" @click="close"> {{ $t('cancel') }} </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

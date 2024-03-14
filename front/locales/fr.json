@@ -5,5 +5,19 @@
     "Disconnect":"Déconnecter",
     "Users":"Utilisateurs",
     "About":"A propos",
+    "delete":"Supprimer",
+    "cancel":"Annuler",
+    "deletemsg":"Voulez-vous vraiment supprimer cet utilisateur ?",
+    "deleteconfirme":"Confirmation de suppression",
+    "new":"Nouveau",
+    "add":"Ajouter",
+    "edit":"Modifier",
+
+    "search":"Recherche",
+
+    "firstname":"Prénom",
+    "lastname":"Nom de famille",
+    "password":"Mot de Passe",
+
     "language": "Langue"
   }

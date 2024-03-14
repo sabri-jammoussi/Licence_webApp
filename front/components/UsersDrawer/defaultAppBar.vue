@@ -10,15 +10,23 @@
         <v-card-text>
           <div class="mx-auto text-center">
             <v-divider class="my-3"></v-divider>
-            <span>
-                <v-btn variant="text" @click="changeLocale('en')"  :class="{ 'selected': locale === 'en' }">English(US)</v-btn>
 
+            <span>
+              <v-btn
+                variant="text"
+                @click="changeLocale('fr')"
+                :class="{ selected: locale === 'fr' }"
+                >Français(FR)</v-btn
+              >
             </span>
             <v-divider class="my-3"></v-divider>
+
             <span>
-              <v-btn variant="text" @click="changeLocale('fr')"
-              :class="{ 'selected': locale === 'fr' }"
-                >Français(FR)</v-btn
+              <v-btn
+                variant="text"
+                @click="changeLocale('en')"
+                :class="{ selected: locale === 'en' }"
+                >English(US)</v-btn
               >
             </span>
           </div>
@@ -78,10 +86,14 @@ const userEmail = computed(() => store.user?.email);
 const userrole = computed(() => store.user?.role);
 const { locale } = useI18n();
 const locales = { en, fr };
+const test = null; 
 const changeLocale = (newLocale) => {
   locale.value = newLocale;
 };
-
+const saveLocale =() =>{
+  if(changeLocale)
+  test = locale.value; 
+};
 onMounted(async () => {
   await store.loadTokenFromLocalStorage();
   console.log("roleeeeee", userrole.value);
@@ -92,7 +104,6 @@ const logout = async () => {
 </script>
 <style scoped>
 .selected {
-  background-color:#35D300; /* Example background color for selected button */
- 
+  background-color: #35d300; /* Example background color for selected button */
 }
 </style>y

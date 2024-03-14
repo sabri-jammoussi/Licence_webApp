@@ -3,7 +3,7 @@
     <template v-slot:activator="{ props }">
       <v-btn color="primary" dark class="mb-2" v-bind="props">
         <v-icon color="green" style="margin: auto">mdi-plus</v-icon>
-        Nouveau
+        {{ $t("new") }}
       </v-btn>
     </template>
     <v-card>
@@ -13,8 +13,8 @@
             <v-col cols="12" sm="6" md="12">
               <v-text-field
                 base-color="green"
+                :label="$t('lastname')"
                 v-model="firstName"
-                label="Nom de famille"
                 @blur="v$.firstName.touch"
                 @input="v$.firstName.$touch"
                 :error-messages="v$.firstName.$errors.map((e) => e.$message)"
@@ -23,7 +23,7 @@
             <v-col cols="12" sm="6" md="12">
               <v-text-field
                 v-model="lastName"
-                label="Prénom"
+                :label="$t('firstname')"
                 base-color="green"
                 @blur="v$.lastName.touch"
                 @input="v$.lastName.$touch"
@@ -43,7 +43,7 @@
             <v-col cols="12" sm="6" md="12">
               <v-text-field
                 v-model="password"
-                label="Mot de Passe"
+                :label="$t('password')"
                 base-color="green"
                 @blur="v$.password.touch"
                 @input="v$.password.$touch"
@@ -78,9 +78,9 @@
           @click="addUtilisateur"
           :loading="loading"
         >
-          Ajouter
+          {{ $t("add") }}
         </v-btn>
-        <v-btn color="grey" variant="text" @click="close"> Annuler </v-btn>
+        <v-btn color="grey" variant="text" @click="close"> {{ $t('cancel') }} </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

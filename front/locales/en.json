@@ -5,5 +5,16 @@
     "About":"About",
     "Editaccount":"Edit account",
     "Disconnect":"Logout",
+    "delete":"Delete",
+    "cancel":"Cancel",
+    "deletemsg":"Are you sure you want to delete this user ?",
+    "deleteconfirme":"Delete Confirmation",
+    "new":"New",
+    "add":"Add",
+    "edit":"Edit",
+    "search":"Search",
+    "firstname":"FirstName",
+    "lastname":"LastName",
+    "password":"Password",
     "language": "Language"
   }

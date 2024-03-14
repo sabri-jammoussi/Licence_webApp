@@ -25,9 +25,9 @@
         to="/about"
         prepend-icon="mdi-forum"
         value="home"
-        title="A propos"
+        :title="$t('About')"
       >
-        <v-tooltip activator="parent" location="end">A propos</v-tooltip>
+        <v-tooltip activator="parent" location="end">{{ $t("About") }}</v-tooltip>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>

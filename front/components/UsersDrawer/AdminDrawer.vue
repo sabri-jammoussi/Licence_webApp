@@ -1,33 +1,21 @@
 <template>
-  <v-navigation-drawer v-model="drawer">
+  <v-navigation-drawer v-model="drawer" >
     <v-list class="custom-list-margin">
       <div class="logo-container">
         <img src="/assets/logo.jpg" alt="Logo" />
       </div>
       <v-divider></v-divider>
-      <v-list-item
-        to="/users/UserList"
-        prepend-icon="mdi-account"
-        value="home"
-      >
-      {{ $t("Users") }}
-        <v-tooltip activator="parent" location="end"></v-tooltip>
+      <v-list-item to="/users/UserList" prepend-icon="mdi-account" value="home">
+        {{ $t("Users") }}
+        <v-tooltip activator="parent" location="end">{{
+          $t("Users")
+        }}</v-tooltip>
       </v-list-item>
-      <v-list-item
-        to="/about"
-        prepend-icon="mdi-forum"
-        value="home"
-      >
-      {{ $t("About") }}
-        <v-tooltip activator="parent" location="end">A propos</v-tooltip>
-      </v-list-item>
-      <v-list-item
-        to="/about"
-        prepend-icon="mdi-translate"
-        value="home"
-      >
-      {{ $t("About") }}
-        <v-tooltip activator="parent" location="end">A propos</v-tooltip>
+      <v-list-item to="/about" prepend-icon="mdi-forum" value="home">
+        {{ $t("About") }}
+        <v-tooltip activator="parent" location="end">{{
+          $t("About")
+        }}</v-tooltip>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -48,14 +36,14 @@
       variant="text"
       @click.stop="drawer = !drawer"
     ></v-app-bar-nav-icon>
-  <UsersDrawerDefaultAppBar/>
+    <UsersDrawerDefaultAppBar />
   </v-app-bar>
   <v-main>
     <v-card-text>
       <Nuxt-Page />
     </v-card-text>
   </v-main>
-<Footer/>
+  <Footer />
 </template>
 <script setup>
 import { ref } from "vue";

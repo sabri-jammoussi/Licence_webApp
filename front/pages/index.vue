@@ -1,5 +1,5 @@
 <template>
-<h1>aaaaa</h1>
+<Home/>
 </template>
 <script setup>
 definePageMeta({

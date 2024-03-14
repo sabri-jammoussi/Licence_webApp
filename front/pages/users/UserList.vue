@@ -11,7 +11,7 @@
           <v-text-field
             v-model="search"
             density="compact"
-            label="Search"
+            :label="$t('search')"
             prepend-inner-icon="mdi-magnify"
             variant="solo-filled"
             flat
@@ -20,25 +20,23 @@
             class="justify-content-start"
           ></v-text-field>
         </v-toolbar-title>
-
         <v-divider class="mx-4" inset vertical></v-divider>
-
         <AddUser />
         <v-dialog v-model="dialogDelete" max-width="420">
           <v-card>
-            <v-card-title>Confirmation de suppression</v-card-title>
-            <v-card-text
-              >Voulez-vous vraiment supprimer cet utilisateur ?</v-card-text
-            >
+            <v-card-title>{{ $t("deleteconfirme") }}</v-card-title>
+            <v-card-text>{{ $t("deletemsg") }}</v-card-text>
             <v-divider class="my-2"></v-divider>
 
             <v-card-actions>
               <v-spacer></v-spacer>
 
-              <v-btn color="red" text @click="deleteItemConfirm"
-                >Supprimer</v-btn
-              >
-              <v-btn color="grey" text @click="closeDelete">Annuler</v-btn>
+              <v-btn color="red" text @click="deleteItemConfirm">{{
+                $t("delete")
+              }}</v-btn>
+              <v-btn color="grey" text @click="closeDelete">{{
+                $t("cancel")
+              }}</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -73,19 +71,21 @@ import { ref, onMounted } from "vue";
 import { useMyStore } from "@/store/index.js";
 import AddUser from "./AddUser.vue";
 import EditUser from "./EditUser.vue";
-
 const selectedUser = ref("");
 const store = useMyStore();
 const editDialog = ref(false);
 const dialogDelete = ref(false);
 const search = ref("");
-const headers = ref([
-  { title: "Nom de famille", key: "firstName" },
-  { title: "Prénom", key: "lastName" },
+let { t } = useI18n();
+
+const headers = computed(() => [
+  { title: t("lastname"), key: "firstName" },
+  { title: t("firstname"), key: "lastName" },
   { title: "Email", key: "email" },
   { title: "Role", key: "role" },
   { title: "Actions", key: "actions", sortable: false },
 ]);
+
 const users = computed(() => store.users);
 const editedIndex = ref(-1);
 onMounted(async () => {
