@@ -85,18 +85,20 @@ const userLastName = computed(() => store.user?.lastName);
 const userEmail = computed(() => store.user?.email);
 const userrole = computed(() => store.user?.role);
 const { locale } = useI18n();
-const locales = { en, fr };
-const test = null; 
+
+watch(locale, (newLocale) => {
+  localStorage.setItem("locale", newLocale);
+});
+
 const changeLocale = (newLocale) => {
   locale.value = newLocale;
 };
-const saveLocale =() =>{
-  if(changeLocale)
-  test = locale.value; 
-};
 onMounted(async () => {
+  const savedLocale = localStorage.getItem("locale");
+  if (savedLocale) {
+    locale.value = savedLocale;
+  }
   await store.loadTokenFromLocalStorage();
-  console.log("roleeeeee", userrole.value);
 });
 const logout = async () => {
   await store.logoutUser({ router });
