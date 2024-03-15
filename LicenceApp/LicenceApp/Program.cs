@@ -1,7 +1,9 @@
 using LicenceApp.Data;
 using LicenceApp.models;
-using LicenceApp.Services;
+using LicenceApp.Services.ApplicationService;
+using LicenceApp.Services.ClientService;
 using LicenceApp.Services.Security;
+using LicenceApp.Services.UserService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -105,6 +107,8 @@ builder.Services.AddCors(options =>
         });
 });
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IApplicationService , ApplicationService>();
 builder.Services.AddScoped<IPasswordValidator, PasswordValidator>();
 builder.Services.AddScoped<IEmailValidator , EmailValidator>();
 
