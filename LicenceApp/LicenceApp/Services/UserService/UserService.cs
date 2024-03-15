@@ -3,13 +3,14 @@ using LicenceApp.Data;
 using LicenceApp.Enums;
 using LicenceApp.models;
 using LicenceApp.Services.Security;
+using LicenceApp.Services.UserService;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
 
-namespace LicenceApp.Services
+namespace LicenceApp.Services.UserService
 {
     public class UserService : IUserService
     {
@@ -58,7 +59,7 @@ namespace LicenceApp.Services
             _dbContext.Users.Add(data);
             await _dbContext.SaveChangesAsync();
         }
-      
+
         public async Task UpdateProfilePassword(UpdateProfilePassword updateProfilePassword)
         {
             var existingUser = await _dbContext.Users.SingleOrDefaultAsync(x => x.Id == updateProfilePassword.Id);
@@ -69,10 +70,10 @@ namespace LicenceApp.Services
             CreatePasswordHash(updateProfilePassword.NewPassword,
              out byte[] passwordHash,
              out byte[] passwordSalt);
-            if (!VerifyPasswordHash(updateProfilePassword.CurrentPassword, existingUser.PasswordHash, existingUser.PasswordSalt))           
+            if (!VerifyPasswordHash(updateProfilePassword.CurrentPassword, existingUser.PasswordHash, existingUser.PasswordSalt))
                 throw new ApplicationException("wrong Current password  !");
- 
-                
+
+
             var isPaswwordValid = await _passwordValidator.IsPasswordValid(updateProfilePassword.NewPassword);
             if (!isPaswwordValid)
                 throw new ApplicationException("Mot de passe invalid (Doit avoir au moins  [numéro,8 characters,majuscule,minuscule] )!! ");
@@ -90,13 +91,13 @@ namespace LicenceApp.Services
 
             _dbContext.Users.Remove(user);
             await _dbContext.SaveChangesAsync();
-            
+
         }
 
         public async Task<List<UserDto>> GetAll()
         {
             List<UserDto> userDtos = await _dbContext.Users
-                .Where(u => u.Role !=0)
+                .Where(u => u.Role != 0)
                 .Select(u => new UserDto
                 {
                     Id = u.Id,
@@ -152,7 +153,7 @@ namespace LicenceApp.Services
 
             if (existingUser == null)
                 throw new ApplicationException($"The Id : {id} you have been inserted  is  invalid ");
-                     
+
             existingUser.FirstName = updateduser.FirstName;
             existingUser.LastName = updateduser.LastName;
             existingUser.Email = updateduser.Email;
@@ -162,7 +163,7 @@ namespace LicenceApp.Services
         }
         public async Task UpdateProfile(int id, UpdateProfile updateProfile)
         {
-            if(updateProfile == null)
+            if (updateProfile == null)
                 throw new ArgumentNullException(nameof(updateProfile));
             // charger l'utilisateur a modifie 
             var existingUser = await _dbContext.Users.SingleOrDefaultAsync(x => x.Id == id);
@@ -175,7 +176,7 @@ namespace LicenceApp.Services
             existingUser.Email = updateProfile.Email;
             await _dbContext.SaveChangesAsync();
         }
-       
+
         public async Task<IList<UserDao>> UserListAsync()
         {
             return await _dbContext.Users.ToListAsync();
@@ -198,6 +199,6 @@ namespace LicenceApp.Services
             }
         }
 
-      
+
     }
 }
