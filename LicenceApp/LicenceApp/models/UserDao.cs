@@ -15,15 +15,15 @@ namespace LicenceApp.models
 
         [StringLength(30)]
         [Column("U_FIRSTNAME")]
-        public required string? FirstName { get; set; }
+        public required string FirstName { get; set; }
 
         [StringLength(30)]
         [Column("U_LASTNAME")]
-         public required string? LastName { get; set; }
+         public required string LastName { get; set; }
 
         [StringLength(30)]
         [Column("U_EMAIL")]
-         public required string? Email { get; set; }
+         public required string Email { get; set; }
 
         [Column("U_PASSWORD_HASH")]
         public byte[]? PasswordHash { get; set; }
