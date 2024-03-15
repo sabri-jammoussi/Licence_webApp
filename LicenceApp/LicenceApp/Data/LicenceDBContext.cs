@@ -1,5 +1,7 @@
 ﻿using Azure.Core;
 using LicenceApp.models;
+using LicenceApp.models.Applications;
+using LicenceApp.models.clients;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
@@ -13,7 +15,8 @@ namespace LicenceApp.Data
         {
         }
         public DbSet<UserDao> Users { get; set; }
-
+        public DbSet<ClientDao> Clients { get; set; }
+        public DbSet<ApplicationDao> Applications { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             ////  CreatePasswordHash(NewUser, out byte[] passwordHash, out byte[] passwordSalt);
