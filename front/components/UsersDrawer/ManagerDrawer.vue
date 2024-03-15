@@ -14,7 +14,7 @@
         <v-tooltip activator="parent" location="end">Accueil</v-tooltip>
       </v-list-item>
       <v-list-item
-        to="/"
+        to="/Manager/Applications/ApplicationList"
         prepend-icon="mdi-view-dashboard"
         title="Manager"
         value="home"
@@ -27,7 +27,9 @@
         value="home"
         :title="$t('About')"
       >
-        <v-tooltip activator="parent" location="end">{{ $t("About") }}</v-tooltip>
+        <v-tooltip activator="parent" location="end">{{
+          $t("About")
+        }}</v-tooltip>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
