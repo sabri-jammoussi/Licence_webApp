@@ -1,5 +1,5 @@
 ﻿using LicenceApp.models;
-using LicenceApp.Services;
+using LicenceApp.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

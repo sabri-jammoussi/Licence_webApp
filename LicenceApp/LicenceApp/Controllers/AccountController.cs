@@ -1,7 +1,7 @@
 ﻿using LicenceApp.Data;
 using LicenceApp.models;
-using LicenceApp.Services;
 using LicenceApp.Services.Security;
+using LicenceApp.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +13,7 @@ using System.Security.Cryptography;
 public class AccountController : ControllerBase
 {
     private readonly LicenceDBContext _context;
-    private readonly TokenService _tokenService;
+    private readonly TokenService  _tokenService;
     private readonly IUserService _userService;
 
 
