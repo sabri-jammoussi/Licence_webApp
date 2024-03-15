@@ -4,6 +4,7 @@ using LicenceApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LicenceApp.Migrations
 {
     [DbContext(typeof(LicenceDBContext))]
-    partial class LicenceDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240314135054_v003")]
+    partial class v003
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,37 +24,6 @@ namespace LicenceApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("LicenceApp.models.Applications.ApplicationDao", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("U_ID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)")
-                        .HasColumnName("U_DESCRIPTION");
-
-                    b.Property<int?>("Identifiant")
-                        .HasMaxLength(20)
-                        .HasColumnType("int")
-                        .HasColumnName("U_IDENTIFIANT");
-
-                    b.Property<string>("Nom")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)")
-                        .HasColumnName("U_NOM");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("APPLICATION");
-                });
 
             modelBuilder.Entity("LicenceApp.models.UserDao", b =>
                 {
@@ -103,8 +75,8 @@ namespace LicenceApp.Migrations
                             Email = "sabrijm123@gmail.com",
                             FirstName = "sabri",
                             LastName = "jammoussi",
-                            PasswordHash = new byte[] { 197, 26, 94, 167, 174, 146, 220, 231, 249, 2, 184, 28, 184, 221, 33, 170, 7, 108, 226, 34, 219, 92, 20, 159, 143, 145, 17, 91, 143, 0, 172, 227, 247, 126, 230, 15, 60, 76, 70, 143, 70, 70, 118, 202, 246, 3, 40, 56, 141, 5, 240, 206, 187, 50, 55, 230, 164, 79, 255, 48, 41, 119, 138, 153 },
-                            PasswordSalt = new byte[] { 194, 151, 5, 240, 204, 215, 48, 85, 254, 131, 207, 38, 111, 192, 76, 59, 142, 152, 61, 49, 39, 15, 229, 151, 248, 137, 55, 157, 239, 29, 158, 146, 122, 74, 102, 108, 35, 89, 145, 178, 93, 106, 113, 51, 227, 188, 58, 129, 128, 8, 252, 187, 239, 103, 129, 210, 177, 119, 75, 120, 164, 129, 30, 194, 154, 208, 232, 183, 42, 28, 122, 253, 199, 185, 76, 32, 233, 152, 188, 0, 8, 246, 68, 190, 193, 119, 235, 196, 163, 143, 90, 89, 48, 154, 2, 12, 220, 62, 22, 53, 0, 36, 169, 122, 43, 236, 140, 152, 2, 242, 94, 133, 255, 243, 225, 236, 208, 102, 192, 201, 14, 109, 124, 134, 241, 134, 194, 6 },
+                            PasswordHash = new byte[] { 197, 220, 41, 245, 16, 132, 180, 145, 128, 43, 129, 66, 140, 44, 17, 63, 247, 110, 120, 34, 255, 126, 239, 144, 223, 235, 45, 198, 117, 231, 91, 80, 135, 175, 134, 148, 248, 168, 61, 134, 207, 238, 255, 202, 240, 210, 207, 76, 143, 21, 53, 23, 109, 122, 249, 97, 41, 60, 146, 97, 161, 191, 30, 204 },
+                            PasswordSalt = new byte[] { 178, 95, 36, 61, 87, 136, 108, 168, 86, 211, 238, 208, 71, 156, 47, 100, 168, 247, 76, 167, 50, 149, 85, 255, 225, 55, 164, 155, 70, 70, 185, 168, 232, 144, 58, 138, 99, 229, 143, 40, 158, 111, 161, 70, 252, 132, 52, 59, 54, 162, 90, 18, 233, 21, 108, 92, 239, 40, 186, 39, 76, 9, 130, 167, 73, 117, 57, 154, 6, 90, 191, 20, 136, 180, 39, 197, 82, 222, 64, 54, 0, 232, 51, 146, 130, 235, 62, 108, 191, 85, 197, 198, 11, 52, 103, 39, 234, 146, 133, 2, 114, 128, 13, 54, 28, 195, 111, 45, 219, 195, 41, 200, 253, 186, 211, 180, 250, 235, 113, 107, 50, 206, 34, 172, 168, 229, 208, 10 },
                             Role = (short)0
                         });
                 });

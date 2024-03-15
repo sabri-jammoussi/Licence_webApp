@@ -4,6 +4,7 @@ using LicenceApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LicenceApp.Migrations
 {
     [DbContext(typeof(LicenceDBContext))]
-    partial class LicenceDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240314134908_v002")]
+    partial class v002
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,37 +24,6 @@ namespace LicenceApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("LicenceApp.models.Applications.ApplicationDao", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("U_ID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)")
-                        .HasColumnName("U_DESCRIPTION");
-
-                    b.Property<int?>("Identifiant")
-                        .HasMaxLength(20)
-                        .HasColumnType("int")
-                        .HasColumnName("U_IDENTIFIANT");
-
-                    b.Property<string>("Nom")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)")
-                        .HasColumnName("U_NOM");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("APPLICATION");
-                });
 
             modelBuilder.Entity("LicenceApp.models.UserDao", b =>
                 {
@@ -103,8 +75,8 @@ namespace LicenceApp.Migrations
                             Email = "sabrijm123@gmail.com",
                             FirstName = "sabri",
                             LastName = "jammoussi",
-                            PasswordHash = new byte[] { 197, 26, 94, 167, 174, 146, 220, 231, 249, 2, 184, 28, 184, 221, 33, 170, 7, 108, 226, 34, 219, 92, 20, 159, 143, 145, 17, 91, 143, 0, 172, 227, 247, 126, 230, 15, 60, 76, 70, 143, 70, 70, 118, 202, 246, 3, 40, 56, 141, 5, 240, 206, 187, 50, 55, 230, 164, 79, 255, 48, 41, 119, 138, 153 },
-                            PasswordSalt = new byte[] { 194, 151, 5, 240, 204, 215, 48, 85, 254, 131, 207, 38, 111, 192, 76, 59, 142, 152, 61, 49, 39, 15, 229, 151, 248, 137, 55, 157, 239, 29, 158, 146, 122, 74, 102, 108, 35, 89, 145, 178, 93, 106, 113, 51, 227, 188, 58, 129, 128, 8, 252, 187, 239, 103, 129, 210, 177, 119, 75, 120, 164, 129, 30, 194, 154, 208, 232, 183, 42, 28, 122, 253, 199, 185, 76, 32, 233, 152, 188, 0, 8, 246, 68, 190, 193, 119, 235, 196, 163, 143, 90, 89, 48, 154, 2, 12, 220, 62, 22, 53, 0, 36, 169, 122, 43, 236, 140, 152, 2, 242, 94, 133, 255, 243, 225, 236, 208, 102, 192, 201, 14, 109, 124, 134, 241, 134, 194, 6 },
+                            PasswordHash = new byte[] { 131, 100, 13, 152, 215, 47, 250, 118, 95, 222, 139, 201, 92, 153, 118, 168, 174, 141, 119, 55, 115, 11, 198, 34, 150, 158, 19, 51, 235, 100, 216, 162, 192, 139, 37, 172, 46, 82, 93, 115, 108, 193, 182, 26, 104, 97, 167, 171, 144, 52, 234, 198, 208, 251, 20, 118, 175, 76, 107, 234, 213, 220, 13, 76 },
+                            PasswordSalt = new byte[] { 103, 242, 113, 21, 247, 194, 114, 109, 140, 19, 115, 141, 126, 7, 112, 230, 87, 51, 213, 225, 150, 234, 12, 243, 249, 54, 188, 209, 171, 207, 131, 147, 205, 46, 117, 208, 53, 13, 118, 134, 176, 185, 92, 6, 34, 81, 62, 54, 180, 184, 242, 128, 68, 225, 100, 24, 203, 153, 40, 167, 96, 233, 84, 84, 217, 103, 243, 57, 7, 197, 198, 47, 208, 190, 247, 205, 195, 44, 53, 53, 57, 29, 158, 119, 29, 133, 185, 3, 54, 15, 10, 165, 135, 7, 184, 35, 57, 101, 79, 217, 221, 29, 21, 150, 109, 62, 59, 26, 103, 145, 109, 118, 87, 242, 72, 44, 31, 83, 3, 97, 53, 73, 65, 36, 55, 175, 10, 127 },
                             Role = (short)0
                         });
                 });
@@ -136,7 +108,7 @@ namespace LicenceApp.Migrations
                         .HasColumnName("U_EMAIL");
 
                     b.Property<int?>("Identifiant")
-                        .HasMaxLength(20)
+                        .HasMaxLength(13)
                         .HasColumnType("int")
                         .HasColumnName("U_IDENTIFIANT");
 
