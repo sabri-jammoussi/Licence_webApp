@@ -18,6 +18,8 @@
     "firstname":"Prénom",
     "lastname":"Nom de famille",
     "password":"Mot de Passe",
+    "identifier":"Identifiant",
+    "name":"Nom",
 
     "language": "Langue"
   }

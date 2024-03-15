@@ -16,5 +16,7 @@
     "firstname":"FirstName",
     "lastname":"LastName",
     "password":"Password",
+    "identifier":"Identifier",
+    "name":"Name",
     "language": "Language"
   }
