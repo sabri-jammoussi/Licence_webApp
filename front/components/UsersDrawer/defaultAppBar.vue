@@ -76,8 +76,7 @@
 import { ref, onMounted } from "vue";
 import { useMyStore } from "@/store/index.js";
 import { useRouter } from "vue-router";
-import en from "../locales/en.json";
-import fr from "../locales/fr.json";
+
 const store = useMyStore();
 const router = useRouter();
 const userFirstName = computed(() => store.user?.firstName);
@@ -90,7 +89,8 @@ watch(locale, (newLocale) => {
   localStorage.setItem("locale", newLocale);
 });
 
-const changeLocale = (newLocale) => {
+const changeLocale = async (newLocale) => {
+  await new Promise((resolve) => setTimeout(resolve, 500));
   locale.value = newLocale;
 };
 onMounted(async () => {

@@ -14,13 +14,22 @@
         <v-tooltip activator="parent" location="end">Accueil</v-tooltip>
       </v-list-item>
       <v-list-item
-        to="/Manager/Applications/ApplicationList"
-        prepend-icon="mdi-view-dashboard"
-        title="Manager"
+        to="/Manager/Clients/ClientList"
+        prepend-icon="mdi-account"
+        title="Clients"
         value="home"
       >
-        <v-tooltip activator="parent" location="end">Manager</v-tooltip>
+        <v-tooltip activator="parent" location="end">Clients</v-tooltip>
       </v-list-item>
+      <v-list-item
+        to="/Manager/Applications/ApplicationList"
+        prepend-icon="mdi-view-dashboard"
+        title="Applications"
+        value="home"
+      >
+        <v-tooltip activator="parent" location="end">Applications</v-tooltip>
+      </v-list-item>
+
       <v-list-item
         to="/about"
         prepend-icon="mdi-forum"
