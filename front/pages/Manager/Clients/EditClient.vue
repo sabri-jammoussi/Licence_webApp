@@ -7,6 +7,7 @@
           <v-row>
             <v-col cols="12" sm="6" md="6">
               <v-text-field
+                variant="outlined"
                 base-color="green"
                 :label="$t('Social reason')"
                 v-model="raisonSocial"
@@ -17,6 +18,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="6">
               <v-text-field
+                variant="outlined"
                 base-color="green"
                 :label="$t('identifier')"
                 v-model="identifiant"
@@ -27,6 +29,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="6">
               <v-text-field
+                variant="outlined"
                 base-color="green"
                 :label="$t('phone')"
                 type="number"
@@ -38,6 +41,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="6">
               <v-text-field
+                variant="outlined"
                 base-color="green"
                 label="Email"
                 v-model="email"
@@ -48,6 +52,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="6">
               <v-text-field
+                variant="outlined"
                 base-color="green"
                 :label="$t('city')"
                 v-model="ville"
@@ -58,6 +63,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="6">
               <v-text-field
+                variant="outlined"
                 base-color="green"
                 :label="$t('address')"
                 v-model="adresse"
@@ -68,6 +74,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="6">
               <v-text-field
+                variant="outlined"
                 v-model="codePostal"
                 :label="$t('Postal code')"
                 base-color="green"
@@ -78,6 +85,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="6">
               <v-select
+                variant="outlined"
                 v-model="pays"
                 :label="$t('country')"
                 base-color="green"

@@ -8,6 +8,7 @@
             <v-col cols="12" sm="6" md="12">
               <v-text-field
                 base-color="green"
+                variant="outlined"
                 :label="$t('identifier')"
                 v-model="identifiant"
                 @blur="v$.identifiant.touch"
@@ -17,6 +18,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="12">
               <v-text-field
+                variant="outlined"
                 v-model="nom"
                 :label="$t('name')"
                 base-color="green"
@@ -27,6 +29,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="12">
               <v-text-field
+                variant="outlined"
                 v-model="description"
                 label="Description"
                 base-color="green"

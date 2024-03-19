@@ -4,13 +4,7 @@
       <div class="logo-container">
         <img src="/assets/logo.jpg" alt="Logo" />
       </div>
-      <v-divider></v-divider>
-      <v-list-item
-        to="/"
-        prepend-icon="mdi-view-dashboard"
-        title="Accueil"
-        value="home"
-      >
+      <v-list-item to="/" prepend-icon="mdi-home" title="Accueil" value="home">
         <v-tooltip activator="parent" location="end">Accueil</v-tooltip>
       </v-list-item>
       <v-list-item
@@ -20,14 +14,6 @@
         value="home"
       >
         <v-tooltip activator="parent" location="end">Clients</v-tooltip>
-      </v-list-item>
-      <v-list-item
-        to="/Manager/Applications/ApplicationList"
-        prepend-icon="mdi-view-dashboard"
-        title="Applications"
-        value="home"
-      >
-        <v-tooltip activator="parent" location="end">Applications</v-tooltip>
       </v-list-item>
 
       <v-list-item
@@ -54,10 +40,7 @@
       transition: none !important;
     "
   >
-    <v-app-bar-nav-icon
-      variant="text"
-      @click.stop="drawer = !drawer"
-    ></v-app-bar-nav-icon>
+    <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
     <UsersDrawerDefaultAppBar />
   </v-app-bar>
   <v-main>

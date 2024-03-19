@@ -37,13 +37,14 @@
 
   <v-menu min-width="200px" rounded>
     <template v-slot:activator="{ props }">
-      <v-btn icon="mdi-dots-vertical " v-bind="props" style="color: aliceblue">
+      <v-btn v-bind="props" style="color: aliceblue">
+        {{ userrole }}
       </v-btn>
     </template>
     <v-card>
       <v-card-text>
         <div class="mx-auto text-center">
-          <v-avatar color="brown" size="60">
+          <v-avatar color="black" size="60">
             <span class="text">{{ userrole }}</span>
           </v-avatar>
           <h3>{{ userFirstName }} {{ userLastName }}</h3>

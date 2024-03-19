@@ -1,15 +1,25 @@
 <template>
-  <v-navigation-drawer v-model="drawer" >
+  <v-navigation-drawer v-model="drawer">
     <v-list class="custom-list-margin">
       <div class="logo-container">
         <img src="/assets/logo.jpg" alt="Logo" />
       </div>
-      <v-divider></v-divider>
+      <v-list-item to="/" prepend-icon="mdi-home" title="Accueil" value="home">
+        <v-tooltip activator="parent" location="end">Dashbord</v-tooltip>
+      </v-list-item>
       <v-list-item to="/users/UserList" prepend-icon="mdi-account" value="home">
         {{ $t("Users") }}
         <v-tooltip activator="parent" location="end">{{
           $t("Users")
         }}</v-tooltip>
+      </v-list-item>
+      <v-list-item
+        to="/Manager/Applications/ApplicationList"
+        prepend-icon="mdi-view-dashboard"
+        title="Applications"
+        value="home"
+      >
+        <v-tooltip activator="parent" location="end">Applications</v-tooltip>
       </v-list-item>
       <v-list-item to="/about" prepend-icon="mdi-forum" value="home">
         {{ $t("About") }}

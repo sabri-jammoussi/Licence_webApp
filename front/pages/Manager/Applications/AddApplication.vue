@@ -12,6 +12,7 @@
           <v-row no-gutters>
             <v-col cols="12" sm="6" md="12">
               <v-text-field
+                variant="outlined"
                 base-color="green"
                 :label="$t('identifier')"
                 v-model="identifiant"
@@ -22,6 +23,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="12">
               <v-text-field
+                variant="outlined"
                 v-model="nom"
                 :label="$t('name')"
                 base-color="green"
@@ -32,6 +34,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="12">
               <v-text-field
+                variant="outlined"
                 v-model="description"
                 label="Description"
                 base-color="green"
@@ -158,6 +161,5 @@ const close = () => {
     v$.value.$reset();
   dialog.value = false;
   loading.value = false;
-
 };
 </script> 

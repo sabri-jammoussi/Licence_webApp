@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="mx-left" max-width="425">
     <v-card-text>
       <v-container>
         <v-spacer></v-spacer>
@@ -50,8 +50,8 @@ onMounted(async () => {
 const getApplicationsById = (id) => {
   axios.get(`http://localhost:5252/api/appliction/${id}`).then((res) => {
     identifiant.value = res.data.identifiant;
-    nom.value=res.data.nom;
-    description.value=res.data.description;
+    nom.value = res.data.nom;
+    description.value = res.data.description;
   });
 };
 </script>

@@ -9,7 +9,7 @@
     <v-card>
       <v-card-text>
         <v-container>
-          <v-row class="" >
+          <v-row class="">
             <v-col cols="12" sm="6" md="6">
               <v-text-field
                 base-color="green"

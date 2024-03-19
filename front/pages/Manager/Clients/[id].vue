@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card class="mx-left" max-width="425" max-height="650">
     <v-card-text>
       <v-container>
         <v-spacer></v-spacer>
