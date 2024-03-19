@@ -18,8 +18,8 @@ namespace LicenceApp.Services.ApplicationService
         {
             var data = new ApplicationDao
             {
-                Description = newApplication.Description,
                 Identifiant = newApplication.Identifiant,
+                Description = newApplication.Description,
                 Nom = newApplication.Nom,
             };   
             _dBContext.Applications.Add(data);

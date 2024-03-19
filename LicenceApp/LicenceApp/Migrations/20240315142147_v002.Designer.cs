@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LicenceApp.Migrations
 {
     [DbContext(typeof(LicenceDBContext))]
-    [Migration("20240314134908_v002")]
+    [Migration("20240315142147_v002")]
     partial class v002
     {
         /// <inheritdoc />
@@ -24,6 +24,36 @@ namespace LicenceApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("LicenceApp.models.Applications.ApplicationDao", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("U_ID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasColumnName("U_DESCRIPTION");
+
+                    b.Property<int?>("Identifiant")
+                        .HasColumnType("int")
+                        .HasColumnName("U_IDENTIFIANT");
+
+                    b.Property<string>("Nom")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasColumnName("U_NOM");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("APPLICATION");
+                });
 
             modelBuilder.Entity("LicenceApp.models.UserDao", b =>
                 {
@@ -75,8 +105,8 @@ namespace LicenceApp.Migrations
                             Email = "sabrijm123@gmail.com",
                             FirstName = "sabri",
                             LastName = "jammoussi",
-                            PasswordHash = new byte[] { 131, 100, 13, 152, 215, 47, 250, 118, 95, 222, 139, 201, 92, 153, 118, 168, 174, 141, 119, 55, 115, 11, 198, 34, 150, 158, 19, 51, 235, 100, 216, 162, 192, 139, 37, 172, 46, 82, 93, 115, 108, 193, 182, 26, 104, 97, 167, 171, 144, 52, 234, 198, 208, 251, 20, 118, 175, 76, 107, 234, 213, 220, 13, 76 },
-                            PasswordSalt = new byte[] { 103, 242, 113, 21, 247, 194, 114, 109, 140, 19, 115, 141, 126, 7, 112, 230, 87, 51, 213, 225, 150, 234, 12, 243, 249, 54, 188, 209, 171, 207, 131, 147, 205, 46, 117, 208, 53, 13, 118, 134, 176, 185, 92, 6, 34, 81, 62, 54, 180, 184, 242, 128, 68, 225, 100, 24, 203, 153, 40, 167, 96, 233, 84, 84, 217, 103, 243, 57, 7, 197, 198, 47, 208, 190, 247, 205, 195, 44, 53, 53, 57, 29, 158, 119, 29, 133, 185, 3, 54, 15, 10, 165, 135, 7, 184, 35, 57, 101, 79, 217, 221, 29, 21, 150, 109, 62, 59, 26, 103, 145, 109, 118, 87, 242, 72, 44, 31, 83, 3, 97, 53, 73, 65, 36, 55, 175, 10, 127 },
+                            PasswordHash = new byte[] { 218, 216, 251, 42, 55, 131, 202, 244, 199, 227, 234, 180, 125, 152, 241, 222, 113, 14, 117, 20, 138, 182, 153, 7, 200, 6, 211, 107, 191, 158, 25, 13, 140, 47, 82, 208, 193, 165, 252, 26, 125, 193, 134, 222, 160, 46, 208, 50, 251, 163, 241, 120, 203, 18, 131, 0, 179, 195, 71, 255, 216, 141, 100, 32 },
+                            PasswordSalt = new byte[] { 212, 57, 135, 242, 20, 84, 84, 175, 208, 27, 193, 94, 177, 152, 163, 2, 253, 10, 146, 162, 242, 199, 221, 89, 252, 78, 141, 13, 156, 17, 138, 39, 112, 166, 32, 134, 190, 133, 63, 162, 108, 8, 12, 144, 135, 24, 40, 226, 133, 135, 34, 101, 174, 184, 199, 147, 59, 42, 242, 126, 188, 201, 8, 17, 180, 52, 215, 143, 78, 19, 64, 237, 171, 138, 72, 107, 16, 5, 71, 42, 179, 117, 253, 205, 129, 148, 237, 215, 130, 155, 10, 127, 106, 239, 234, 96, 100, 233, 196, 249, 121, 232, 118, 89, 224, 101, 173, 74, 213, 57, 166, 135, 217, 117, 43, 224, 131, 119, 90, 83, 190, 192, 116, 13, 97, 236, 156, 247 },
                             Role = (short)0
                         });
                 });
@@ -108,7 +138,7 @@ namespace LicenceApp.Migrations
                         .HasColumnName("U_EMAIL");
 
                     b.Property<int?>("Identifiant")
-                        .HasMaxLength(13)
+                        .HasMaxLength(20)
                         .HasColumnType("int")
                         .HasColumnName("U_IDENTIFIANT");
 

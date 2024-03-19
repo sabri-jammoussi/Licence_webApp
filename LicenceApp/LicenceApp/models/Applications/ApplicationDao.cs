@@ -11,7 +11,6 @@ namespace LicenceApp.models.Applications
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [MaxLength(20)]
         [Column("U_IDENTIFIANT")]
         public int? Identifiant { get; set; }
 
