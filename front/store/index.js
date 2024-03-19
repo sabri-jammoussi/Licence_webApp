@@ -188,6 +188,26 @@ export const useMyStore = defineStore('userStore', {
         alert("Error connecting to the database");
       }
     },
+    async getClients (){
+      try {
+        const token = window.localStorage.getItem('token');
+
+        if (token) {
+          // If there is a token, set the authorization header
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+          //console.log('Token checked:', axios.defaults.headers.common);
+        } else {
+          console.log('unauthorized');
+          alert('unauthorized');
+        }
+        const response = await axios.get("http://localhost:5252/api/client");
+        this.apps = response.data;
+        // console.log("data from store ", this.apps);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        alert("Error connecting to the database");
+      }
+    },
     async ReadRoles() {
       try {
         const response = await axios.get('http://localhost:5252/api/users/roles');
