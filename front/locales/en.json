@@ -24,5 +24,6 @@
     "address":"Address",
     "country":"Country",
     "Postal code":"Postal Code",
+    "numberPhone":"Phone number must be numeric",
     "language": "Language"
   }

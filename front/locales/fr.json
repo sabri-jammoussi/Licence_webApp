@@ -26,6 +26,7 @@
     "address":"Addresse",
     "Postal code":"Code Postal",
     "country":"Pays",
+    "numberPhone":"Le numéro de téléphone doit être numérique",
 
     "language": "Langue"
   }

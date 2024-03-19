@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" max-width="500px">
+  <v-dialog v-model="dialog" max-width="600px">
     <template v-slot:activator="{ props }">
       <v-btn color="primary" dark class="mb-2" v-bind="props">
         <v-icon color="green" style="margin: auto">mdi-plus</v-icon>
@@ -9,10 +9,12 @@
     <v-card>
       <v-card-text>
         <v-container>
-          <v-row>
+          <v-row class="" >
             <v-col cols="12" sm="6" md="6">
               <v-text-field
                 base-color="green"
+                density="compact"
+                variant="outlined"
                 :label="$t('Social reason')"
                 v-model="raisonSocial"
                 @blur="v$.raisonSocial.touch"
@@ -23,6 +25,8 @@
             <v-col cols="12" sm="6" md="6">
               <v-text-field
                 base-color="green"
+                density="compact"
+                variant="outlined"
                 :label="$t('identifier')"
                 v-model="identifiant"
                 @blur="v$.identifiant.touch"
@@ -33,7 +37,9 @@
             <v-col cols="12" sm="6" md="6">
               <v-text-field
                 base-color="green"
+                density="compact"
                 :label="$t('phone')"
+                variant="outlined"
                 type="number"
                 v-model="telephone"
                 @blur="v$.telephone.touch"
@@ -43,6 +49,8 @@
             </v-col>
             <v-col cols="12" sm="6" md="6">
               <v-text-field
+                density="compact"
+                variant="outlined"
                 base-color="green"
                 label="Email"
                 v-model="email"
@@ -53,6 +61,8 @@
             </v-col>
             <v-col cols="12" sm="6" md="6">
               <v-text-field
+                density="compact"
+                variant="outlined"
                 base-color="green"
                 :label="$t('city')"
                 v-model="ville"
@@ -64,6 +74,8 @@
             <v-col cols="12" sm="6" md="6">
               <v-text-field
                 base-color="green"
+                density="compact"
+                variant="outlined"
                 :label="$t('address')"
                 v-model="adresse"
                 @blur="v$.adresse.touch"
@@ -75,6 +87,8 @@
               <v-text-field
                 v-model="codePostal"
                 :label="$t('Postal code')"
+                density="compact"
+                variant="outlined"
                 base-color="green"
                 @blur="v$.codePostal.touch"
                 @input="v$.codePostal.$touch"
@@ -85,7 +99,9 @@
               <v-select
                 v-model="pays"
                 :label="$t('country')"
+                density="compact"
                 base-color="green"
+                variant="outlined"
                 :items="countryNames"
                 @blur="v$.pays.touch"
                 @input="v$.pays.$touch"
@@ -132,6 +148,7 @@ const loading = ref(false);
 const store = useMyStore();
 const countryNames = ref([]);
 const { withMessage } = helpers;
+let { t } = useI18n();
 
 const rules = {
   raisonSocial: {
@@ -139,7 +156,10 @@ const rules = {
   },
   identifiant: {},
   telephone: {
-    required: withMessage("Identifiant obligatoire", required),
+    numeric: withMessage(t("numberPhone", { field: t("numberPhone") }), (v) =>
+      /^[0-9]+$/.test(v)
+    ),
+    required: withMessage("Telephone obligatoire", required),
   },
   email: {
     required: withMessage("E-mail obligatoire", required),
@@ -151,10 +171,10 @@ const rules = {
     ),
   },
   ville: {
-    required: withMessage("Identifiant obligatoire", required),
+    required: withMessage("Ville obligatoire", required),
   },
   adresse: {
-    required: withMessage("Identifiant obligatoire", required),
+    required: withMessage("Adresse obligatoire", required),
   },
   codePostal: {
     required: withMessage("Identifiant obligatoire", required),
@@ -191,6 +211,8 @@ const getCountries = async () => {
     );
     // Extract country names from the response and update countryNames
     countryNames.value = res.data.data.map((country) => country.name);
+    const contryordred = countryNames.value;
+    contryordred.sort();
     console.log("Countries data:", countryNames.value);
   } catch (error) {
     console.error("Error fetching countries data:", error);

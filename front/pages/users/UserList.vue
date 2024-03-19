@@ -49,7 +49,7 @@
         class="me-2"
         @click="openEditDialog(item)"
         color="green"
-        variant="tonal"
+      variant="tonal"
       >
         mdi-pencil
       </v-icon>

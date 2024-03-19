@@ -70,7 +70,6 @@
       <v-divider class="my-2"></v-divider>
 
       <v-card-actions>
-                 
         <v-spacer></v-spacer>
         <v-btn
           color="green"
@@ -80,7 +79,9 @@
         >
           {{ $t("add") }}
         </v-btn>
-        <v-btn color="grey" variant="text" @click="close"> {{ $t('cancel') }} </v-btn>
+        <v-btn color="grey" variant="text" @click="close">
+          {{ $t("cancel") }}
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
