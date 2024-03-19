@@ -3,8 +3,9 @@
     :headers="headers"
     :items="apps"
     :sort-by="[{ key: 'calories', order: 'asc' }]"
-    v-model:search="search"
-    
+    :search="search"
+    :loading="loading"
+    :items-per-page="5"
   >
     <template v-slot:top>
       <v-toolbar flat>
@@ -49,6 +50,15 @@
       <v-icon
         size="small"
         class="me-2"
+        @click="consulter(item)"
+        color="blue"
+        variant="tonal"
+      >
+      mdi-magnify
+      </v-icon>
+      <v-icon
+        size="small"
+        class="me-2"
         @click="openEditDialog(item)"
         color="green"
         variant="tonal"
@@ -71,13 +81,17 @@
 import axios from "axios";
 import { ref, onMounted } from "vue";
 import { useMyStore } from "@/store/index.js";
+import { useRouter } from "vue-router"; 
 import AddApplication from "./AddApplication.vue";
+
 import EditApplication from "./EditApplication.vue";
 const selectedUser = ref("");
 const store = useMyStore();
 const editDialog = ref(false);
 const dialogDelete = ref(false);
+const router = useRouter();
 const search = ref("");
+const loading = ref(false);
 let { t } = useI18n();
 const apps = computed(() => store.apps);
 
@@ -90,21 +104,28 @@ const headers = computed(() => [
 
 const editedIndex = ref(-1);
 onMounted(async () => {
-  store.getApplications();
+ // console.log('selected user ', selectedUser.value);
+  loading.value = true; 
+  try {
+    await store.getApplications(); 
+  } catch (error) {
+    console.error(error);
+  } finally {
+    loading.value = false; 
+  }
 });
+
 const deleteItem = (utilisateurId) => {
   editedIndex.value = utilisateurId;
   dialogDelete.value = true;
 };
 const deleteItemConfirm = async () => {
   const utilisateurId = editedIndex.value;
-  //console.log("iddddd", utilisateurId);
+
   try {
     const token = window.localStorage.getItem("token");
     if (token) {
-      // If there is a token, set the authorization header
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      //console.log("Token checked:", axios.defaults.headers.common);
     } else {
       console.log("unauthorized");
       alert("unauthorized");
@@ -112,8 +133,14 @@ const deleteItemConfirm = async () => {
     const res = await axios.delete(
       `http://localhost:5252/api/appliction/${utilisateurId}`
     );
-    console.log("deleting user", res);
-    await store.getApplications();
+    loading.value = true; 
+    try {
+      await store.getApplications(); // Fetch data
+    } catch (error) {
+      console.error(error);
+    } finally {
+      loading.value = false;
+    }
   } catch (err) {
     console.error(err);
   } finally {
@@ -122,7 +149,16 @@ const deleteItemConfirm = async () => {
 };
 const openEditDialog = (item) => {
   selectedUser.value = item;
+  //console.log('selected user 2 ', selectedUser.value);
+
   editDialog.value = true;
+};
+const consulter = (item) => {
+  selectedUser.value = item;
+  //console.log('selected user 33', selectedUser.value.id);
+
+  router.push(`/Manager/Applications/${selectedUser.value.id}`);
+  
 };
 const closeDelete = () => {
   dialogDelete.value = false;

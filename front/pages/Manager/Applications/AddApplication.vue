@@ -78,7 +78,7 @@ const { withMessage } = helpers;
 const rules = {
   identifiant: {
     required: withMessage("Identifiant obligatoire", required),
-    min: withMessage("Min 3 caractères", minLength(3)),
+    min: withMessage("Min 13 caractères", minLength(3)),
   },
   nom: {
     required: withMessage("Nom obligatoire", required),
@@ -86,6 +86,7 @@ const rules = {
   },
   description: {
     required: withMessage("description obligatoire", required),
+    min: withMessage("Min 3 caractères", minLength(3)),
   },
 };
 const v$ = useVuelidate(
@@ -124,7 +125,7 @@ const addAplication = () => {
         if (token) {
           // If there is a token, set the authorization header
           axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        //  console.log("Token checked:", axios.defaults.headers.common);
+          //  console.log("Token checked:", axios.defaults.headers.common);
         } else {
           console.log("unauthorized");
           alert("unauthorized");
@@ -151,10 +152,12 @@ const addAplication = () => {
 };
 const close = () => {
   // Reset form fields and validation
-  identifiant.value = "",
-    nom.value = "",
-    description.value = "",
+  (identifiant.value = ""),
+    (nom.value = ""),
+    (description.value = ""),
     v$.value.$reset();
   dialog.value = false;
+  loading.value = false;
+
 };
 </script> 
