@@ -20,6 +20,12 @@
     "password":"Mot de Passe",
     "identifier":"Identifiant",
     "name":"Nom",
+    "Social reason":"Raison Social",
+    "phone":"Telephone",
+    "city":"Ville",
+    "address":"Addresse",
+    "Postal code":"Code Postal",
+    "country":"Pays",
 
     "language": "Langue"
   }

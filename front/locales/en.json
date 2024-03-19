@@ -18,5 +18,11 @@
     "password":"Password",
     "identifier":"Identifier",
     "name":"Name",
+    "Social reason":"Social Reason",
+    "phone":"Phone",
+    "city":"City",
+    "address":"Address",
+    "country":"Country",
+    "Postal code":"Postal Code",
     "language": "Language"
   }
