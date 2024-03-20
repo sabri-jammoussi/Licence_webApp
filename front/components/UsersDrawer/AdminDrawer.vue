@@ -7,14 +7,18 @@
       <v-list-item to="/" prepend-icon="mdi-home" title="Accueil" value="home">
         <v-tooltip activator="parent" location="end">Dashbord</v-tooltip>
       </v-list-item>
-      <v-list-item to="/users/UserList" prepend-icon="mdi-account" value="home">
+      <v-list-item
+        to="/Admin/users/UserList"
+        prepend-icon="mdi-account"
+        value="home"
+      >
         {{ $t("Users") }}
         <v-tooltip activator="parent" location="end">{{
           $t("Users")
         }}</v-tooltip>
       </v-list-item>
       <v-list-item
-        to="/Manager/Applications/ApplicationList"
+        to="/Admin/Applications/ApplicationList"
         prepend-icon="mdi-view-dashboard"
         title="Applications"
         value="home"

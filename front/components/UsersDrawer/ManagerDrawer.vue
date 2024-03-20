@@ -15,6 +15,14 @@
       >
         <v-tooltip activator="parent" location="end">Clients</v-tooltip>
       </v-list-item>
+      <v-list-item
+        to="/Admin/Applications/ApplicationList"
+        prepend-icon="mdi-view-dashboard"
+        title="Applications"
+        value="home"
+      >
+        <v-tooltip activator="parent" location="end">Applications</v-tooltip>
+      </v-list-item>
 
       <v-list-item
         to="/about"
