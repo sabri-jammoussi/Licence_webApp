@@ -18,6 +18,7 @@
             variant="solo-filled"
             flat
             hide-details
+            clearable
             single-line
             class="justify-content-start"
           ></v-text-field>

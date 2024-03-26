@@ -29,15 +29,9 @@
   </template>
     
     <script setup>
-  import axios from "axios";
   import { ref, onMounted } from "vue";
   import { useMyStore } from "@/store/index.js";
-  import { useRouter } from "vue-router";
-  const selectedUser = ref("");
   const store = useMyStore();
-  const editDialog = ref(false);
-  const dialogDelete = ref(false);
-  const router = useRouter();
   const search = ref("");
   const loading = ref(false);
   let { t } = useI18n();
@@ -48,8 +42,6 @@
     { title: t("name"), key: "nom" },
     { title: "Description", key: "description" },
   ]);
-  
-  const editedIndex = ref(-1);
   onMounted(async () => {
     // console.log('selected user ', selectedUser.value);
     loading.value = true;

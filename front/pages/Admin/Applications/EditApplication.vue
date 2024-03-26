@@ -150,7 +150,7 @@ const updateApplication = async () => {
   }
 };
 onMounted(async () => {
-  //console.log("edit dialog",props)
+  console.log("edit dialog",props)
   if (props.user) {
     identifiant.value = props.user.identifiant;
     nom.value = props.user.nom;

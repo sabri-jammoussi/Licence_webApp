@@ -1,10 +1,10 @@
 <template>
-  <v-layout v-if="isAdmin">
+  <v-card class="mx-auto my-2" elevation="5"   v-if="isAdmin">
     <ApplicationListAdmin />
-  </v-layout>
-  <v-layout v-else-if="isManager">
+  </v-card>
+  <v-card class="mx-auto my-2" elevation="5" v-else-if="isManager">
     <ApplicationListManager />
-  </v-layout>
+  </v-card>
 </template>  
     <script setup>
 import { useMyStore } from "@/store/index.js";
