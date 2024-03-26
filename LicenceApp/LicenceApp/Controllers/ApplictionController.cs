@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LicenceApp.Controllers
 {
-    [Authorize(Roles = "Manager")]
     [ApiController]
     [Route("/api/[controller]")]
     public class ApplictionController:ControllerBase
@@ -16,6 +15,8 @@ namespace LicenceApp.Controllers
         {
             _applicationService = applicationRepository;
         }
+        [Authorize(Roles = "Manager , Admin")]
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ApplicationDto>>> GetApplications()
         {
@@ -28,6 +29,8 @@ namespace LicenceApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
+
         [HttpGet("{id}")]
         public async Task<ActionResult> GetApplicaiton(int id)
         {
@@ -40,6 +43,8 @@ namespace LicenceApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [Authorize(Roles = "Admin")]
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteApplication(int id )
         {
@@ -55,6 +60,7 @@ namespace LicenceApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
+    [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> CreateApp(NewApplication newApplication)
         {
