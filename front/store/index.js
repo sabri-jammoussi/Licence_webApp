@@ -10,8 +10,10 @@ export const useMyStore = defineStore('userStore', {
     isLoggedin :false,
     EmailError: null,
     roleOptions: null,
+
     users: [],
-    apps:[]
+    apps:[],
+    enums:[]
   }),
   getters: {
     userLogged: (state) => state.user,
@@ -188,6 +190,29 @@ export const useMyStore = defineStore('userStore', {
         alert("Error connecting to the database");
       }
     },
+    async getEnumerations (){
+      try {
+        const token = window.localStorage.getItem('token');
+
+        if (token) {
+          // If there is a token, set the authorization header
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+          //console.log('Token checked:', axios.defaults.headers.common);
+        } else {
+          console.log('unauthorized');
+          alert('unauthorized');
+        }
+        const response = await axios.get("http://localhost:5252/api/enumeration");
+        this.enums = response.data;
+        const enumIds = this.enums.map(enumItem => enumItem.id);
+       // console.log("Enumeration IDs:", enumIds);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        alert("Error connecting to the database");
+        
+      }
+    },
+    
     async getClients (){
       try {
         const token = window.localStorage.getItem('token');
