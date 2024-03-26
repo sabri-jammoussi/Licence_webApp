@@ -25,6 +25,14 @@
       >
         <v-tooltip activator="parent" location="end">Applications</v-tooltip>
       </v-list-item>
+      <v-list-item
+        to="/Admin/Enumeration/EnumerationList"
+        prepend-icon="mdi-slack"
+        title="Enumerations"
+        value="home"
+      >
+        <v-tooltip activator="parent" location="end">Enumerations</v-tooltip>
+      </v-list-item>
       <v-list-item to="/about" prepend-icon="mdi-forum" value="home">
         {{ $t("About") }}
         <v-tooltip activator="parent" location="end">{{
