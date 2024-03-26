@@ -7,6 +7,7 @@
           <v-row no-gutters>
             <v-col cols="12" sm="6" md="12">
               <v-text-field
+                variant="outlined"
                 v-model="firstName"
                 :label="$t('lastname')"
                 base-color="green"
@@ -17,6 +18,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="12">
               <v-text-field
+                variant="outlined"
                 v-model="lastName"
                 :label="$t('firstname')"
                 base-color="green"
@@ -27,6 +29,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="12">
               <v-text-field
+                variant="outlined"
                 v-model="email"
                 label="Email"
                 base-color="green"
@@ -37,6 +40,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="12">
               <v-select
+                variant="outlined"
                 v-model="role"
                 label="Role"
                 base-color="green"

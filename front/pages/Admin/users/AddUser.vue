@@ -12,6 +12,8 @@
           <v-row no-gutters>
             <v-col cols="12" sm="6" md="12">
               <v-text-field
+              variant="outlined"
+
                 base-color="green"
                 :label="$t('lastname')"
                 v-model="firstName"
@@ -22,6 +24,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="12">
               <v-text-field
+                variant="outlined"
                 v-model="lastName"
                 :label="$t('firstname')"
                 base-color="green"
@@ -32,6 +35,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="12">
               <v-text-field
+                variant="outlined"
                 v-model="email"
                 label="Email"
                 base-color="green"
@@ -42,6 +46,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="12">
               <v-text-field
+                variant="outlined"
                 v-model="password"
                 :label="$t('password')"
                 base-color="green"
@@ -55,6 +60,7 @@
             </v-col>
             <v-col cols="12" sm="6" md="12">
               <v-select
+                variant="outlined"
                 v-model="role"
                 label="Role"
                 base-color="green"
@@ -79,7 +85,7 @@
         >
           {{ $t("add") }}
         </v-btn>
-        <v-btn color="grey" variant="text" @click="close">
+        <v-btn color="grey" variant="text" @click="close" >
           {{ $t("cancel") }}
         </v-btn>
       </v-card-actions>
