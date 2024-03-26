@@ -1,25 +1,25 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace LicenceApp.models.Applications
+namespace LicenceApp.models.GlobalDao
 {
     [Table("APPLICATION")]
     public class ApplicationDao
     {
         [Key]
-        [Column("U_ID")]
+        [Column("APP_ID")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Column("U_IDENTIFIANT")]
+        [Column("APP_IDENTIFIANT")]
         public int? Identifiant { get; set; }
 
         [StringLength(30)]
-        [Column("U_NOM")]
+        [Column("APP_NOM")]
         public required string Nom { get; set; }
 
         [StringLength(30)]
-        [Column("U_DESCRIPTION")]
+        [Column("APP_DESCRIPTION")]
         public required string Description { get; set; }
     }
 }
