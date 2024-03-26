@@ -1,6 +1,7 @@
 ﻿using LicenceApp.Data;
 using LicenceApp.models;
 using LicenceApp.models.clients;
+using LicenceApp.models.GlobalDao;
 using LicenceApp.Services.Security;
 using Microsoft.EntityFrameworkCore;
 using System.Net;

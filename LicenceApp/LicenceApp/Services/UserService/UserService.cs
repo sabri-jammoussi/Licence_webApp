@@ -2,6 +2,7 @@
 using LicenceApp.Data;
 using LicenceApp.Enums;
 using LicenceApp.models;
+using LicenceApp.models.GlobalDao;
 using LicenceApp.Services.Security;
 using LicenceApp.Services.UserService;
 using Microsoft.AspNetCore.Http.HttpResults;

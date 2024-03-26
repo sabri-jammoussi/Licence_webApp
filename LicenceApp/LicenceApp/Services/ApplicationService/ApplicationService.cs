@@ -1,5 +1,6 @@
 ﻿using LicenceApp.Data;
 using LicenceApp.models.Applications;
+using LicenceApp.models.GlobalDao;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
