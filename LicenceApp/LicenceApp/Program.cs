@@ -2,6 +2,8 @@ using LicenceApp.Data;
 using LicenceApp.models;
 using LicenceApp.Services.ApplicationService;
 using LicenceApp.Services.ClientService;
+using LicenceApp.Services.Enumeration;
+using LicenceApp.Services.EnumerationValeur;
 using LicenceApp.Services.Security;
 using LicenceApp.Services.UserService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -109,9 +111,11 @@ builder.Services.AddCors(options =>
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IApplicationService , ApplicationService>();
+builder.Services.AddScoped<IEnumerationService, EnumerationService>();
+builder.Services.AddScoped<IEnumerationValeurService, EnumerationValeurService>();
 builder.Services.AddScoped<IPasswordValidator, PasswordValidator>();
 builder.Services.AddScoped<IEmailValidator , EmailValidator>();
-
+builder.Services.AddControllers();
 
 // Add services to the container.
 
