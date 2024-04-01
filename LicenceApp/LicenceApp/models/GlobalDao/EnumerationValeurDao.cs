@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LicenceApp.models.GlobalDao
 {
+    [Table("ENUMERATION_VALUE")]
+
     public class EnumerationValeurDao
     {
         [Key]
