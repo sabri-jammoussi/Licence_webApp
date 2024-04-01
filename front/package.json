@@ -26,8 +26,10 @@
     "jwt-decode": "^4.0.0",
     "nuxt": "^3.10.0",
     "pinia": "^2.1.7",
-    "primevue": "^3.48.1",
+    "primeicons": "^6.0.1",
+    "primevue": "^3.50.0",
     "sass": "^1.70.0",
+    "v-tree-data-table": "^1.0.17",
     "vee-validate": "^4.12.5",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5",
@@ -38,6 +40,6 @@
     "@mdi/font": "^7.4.47",
     "@nuxt/types": "^2.17.3",
     "@nuxtjs/i18n": "^8.1.1",
-    "nuxt-primevue": "^0.3.0"
+    "nuxt-primevue": "^0.3.1"
   }
 }

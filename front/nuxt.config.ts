@@ -29,7 +29,7 @@ export default defineNuxtConfig({
   css: [
     'vuetify/styles/main.sass',
     'bootstrap/dist/css/bootstrap.css',
-    'primevue/resources/themes/aura-light-green/theme.css',
+    'primevue/resources/themes/lara-light-teal/theme.css',
   ],
 
 
@@ -39,6 +39,11 @@ export default defineNuxtConfig({
     '@vee-validate/nuxt',
     '@nuxtjs/i18n'
     ],
+
+    plugins: [
+      { src: '~/plugins/axios-auth.js', ssr: false }
+    ],
+   
     i18n: {
       vueI18n: './plugins/i18n' // if you are using custom path, default
     },
@@ -61,6 +66,6 @@ export default defineNuxtConfig({
       ignore: ['/posts/others'],
     },
   },
- 
+
  
 });
