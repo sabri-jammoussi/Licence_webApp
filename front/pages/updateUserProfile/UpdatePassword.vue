@@ -3,7 +3,7 @@
     <v-toolbar flat>
       <v-btn icon="mdi-lock"></v-btn>
       <v-toolbar-title class="font-weight-light">
-        Update Password
+        {{ $t("UpdatePassword") }}
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon @click="isEditingPassword = !isEditingPassword">
@@ -21,7 +21,7 @@
         @click:append-inner="show1 = !show1"
         :type="show1 ? 'text' : 'password'"
         base-color="green"
-        label="CurrentPassword"
+        :label="$t('CurrentPassword')"
         @blur="v$.currentPassword.$touch"
         @input="v$.currentPassword.$touch"
         :error-messages="v$.currentPassword.$errors.map((e) => e.$message)"
@@ -30,7 +30,7 @@
         v-model="Newpassword"
         :disabled="!wrongCurrentPWD"
         base-color="green"
-        label="NewPassword"
+        :label="$t('NewPassword')"
         :append-inner-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
         @click:append-inner="show2 = !show2"
         :type="show2 ? 'text' : 'password'"
@@ -42,7 +42,7 @@
         v-model="ConfirmPassword"
         :disabled="!wrongCurrentPWD"
         base-color="green"
-        label="ConfirmPassword"
+        :label="$t('ConfirmPassword')"
         :append-inner-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'"
         @click:append-inner="show3 = !show3"
         :type="show3 ? 'text' : 'password'"
@@ -59,9 +59,11 @@
         @click="UpdateUserPassword"
         :loading="loadingPWd"
       >
-        Valider
+        {{ $t("validate") }}
       </v-btn>
-      <v-btn :disabled="!isEditingPassword" @click="reset"> Annuler </v-btn>
+      <v-btn :disabled="!isEditingPassword" @click="reset">
+        {{ $t("cancel") }}
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>

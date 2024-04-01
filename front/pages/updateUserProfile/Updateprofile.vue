@@ -3,7 +3,7 @@
     <v-toolbar flat>
       <v-btn icon="mdi-account"></v-btn>
       <v-toolbar-title class="font-weight-light">
-        User Profile
+        {{ $t("UserProfile") }}
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn icon @click="isEditing = !isEditing">
@@ -18,7 +18,7 @@
         v-model="FirstName"
         :disabled="!isEditing"
         base-color="green"
-        label="FirstName"
+        :label="$t('firstname')"
         @blur="v$.FirstName.$touch"
         @input="v$.FirstName.$touch"
         :error-messages="v$.FirstName.$errors.map((e) => e.$message)"
@@ -27,7 +27,7 @@
         v-model="LastName"
         :disabled="!isEditing"
         base-color="green"
-        label="LastName"
+        :label="$t('lastname')"
         @blur="v$.LastName.$touch"
         @input="v$.LastName.$touch"
         :error-messages="v$.LastName.$errors.map((e) => e.$message)"
@@ -51,9 +51,9 @@
         @click="Updateuserprofile"
         :loading="loading"
       >
-        Valider
+        {{ $t("validate") }}
       </v-btn>
-      <v-btn :disabled="!isEditing" @click="close"> Annuler </v-btn>
+      <v-btn :disabled="!isEditing" @click="close"> {{ $t("cancel") }} </v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -64,6 +64,7 @@ import { useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers, minLength } from "@vuelidate/validators";
 import axios from "axios";
+let { t } = useI18n();
 const store = useMyStore();
 const router = useRouter();
 const isEditing = ref(false);
