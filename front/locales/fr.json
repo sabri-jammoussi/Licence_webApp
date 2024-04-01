@@ -7,11 +7,16 @@
     "About":"A propos",
     "delete":"Supprimer",
     "cancel":"Annuler",
-    "deletemsg":"Voulez-vous vraiment supprimer cet utilisateur ?",
+    "deletemsgUser":"Voulez-vous vraiment supprimer cet utilisateur ?",
+    "deletemsgEnum":"Voulez-vous vraiment supprimer cet enumeration ?",
+    "deletemsgApp":"Voulez-vous vraiment supprimer cet application ?",
+    "deletemsgClient":"Voulez-vous vraiment supprimer ce client ?",
+    "deletemsgEnumVAl":"Voulez-vous vraiment supprimer cet enumeration valeur ?",
     "deleteconfirme":"Confirmation de suppression",
     "new":"Nouveau",
     "add":"Ajouter",
     "edit":"Modifier",
+    "validate":"Valider",
 
     "search":"Recherche",
 
@@ -27,6 +32,31 @@
     "Postal code":"Code Postal",
     "country":"Pays",
     "numberPhone":"Le numéro de téléphone doit être numérique",
+    "UserProfile":"Profil de l'utilisateur",
+    "UpdatePassword":"Mettre à jour le mot de passe",
+    "language": "Langue",
+    "CurrentPassword":"Mot de passe actuel",
+    "NewPassword":"Nouveau mot de passe",
+    "ConfirmPassword":"Confirmez le mot de passe",
+    "EnumerationValue":"Enumeration Valeur",
+    "newEnum":"Ajouter Enumeration",
+    "newEnumVal":"Ajouter Enumeration Valeur",
+    "updateEnum":"Modifier Enumeration " ,
+    "deleteEnum":"Supprimer Enumeration ",
+    "updateEnumVal":"Modifier Enumeration Valeur",
+    "deleteEnumVal":"Supprimer Enumeration Valeur",
+    "NoData":"Pas de données.",
+    "newUser":"Ajouter User",
+    "UpdateUser":"Modifier User",
+    "DeleteUser":"Supprimer User",
+    "newApp":"Ajouter Application",
+    "UpdateApp":"Modifier Application",
+    "DeleteApp":"Supprimer Application",
+    "ConsultApp":"Voir Application"
 
-    "language": "Langue"
+
+
+
+
+
   }
