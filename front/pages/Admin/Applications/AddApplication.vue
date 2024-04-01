@@ -2,6 +2,8 @@
   <v-dialog v-model="dialog" max-width="500px">
     <template v-slot:activator="{ props }">
       <v-btn color="primary" dark class="mb-2" v-bind="props">
+        <v-tooltip location="bottom" activator="parent">{{$t("newApp")}}</v-tooltip>
+
         <v-icon color="green" style="margin: auto">mdi-plus</v-icon>
         {{ $t("new") }}
       </v-btn>
@@ -63,19 +65,39 @@
       </v-card-actions>
     </v-card>
   </v-dialog>
+  <SnackBar
+    :key="keyToast"
+    v-if="showSnackbar"
+    :message="snackbarMessage"
+    :showSnackBar="showSnackbar"
+  />
+  <SnackBarError
+    v-if="showSnackbarError"
+    :key="keyToastError"
+    :message="snackbarMessageError"
+    :showSnackbarError="showSnackbarError"
+  />
 </template>
   <script setup>
 import axios from "axios";
 import { ref } from "vue";
-import { useMyStore } from "@/store/index.js";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers, minLength } from "@vuelidate/validators";
+import SnackBar from "~/components/SnackBar.vue";
+import SnackBarError from "~/components/SnackBarError.vue";
+const showSnackbar = ref(false);
+const snackbarMessage = ref("");
+const keyToast = ref(0);
+const showSnackbarError = ref(false);
+const snackbarMessageError = ref("");
+const keyToastError = ref(0);
 const identifiant = ref("");
 const nom = ref("");
 const description = ref("");
 const dialog = ref(false);
 const loading = ref(false);
-const store = useMyStore();
+const { emit } = getCurrentInstance();
+
 const { withMessage } = helpers;
 
 const rules = {
@@ -123,36 +145,43 @@ const addAplication = () => {
           nom: nom.value,
           description: description.value,
         };
-        const token = window.localStorage.getItem("token");
-
-        if (token) {
-          // If there is a token, set the authorization header
-          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-          //  console.log("Token checked:", axios.defaults.headers.common);
-        } else {
-          console.log("unauthorized");
-          alert("unauthorized");
-        }
         const response = await axios.post(
           "http://localhost:5252/api/appliction",
           data
         );
-        await store.getApplications();
+
         if (response.status >= 200 && response.status < 300) {
+          showSnackbar.value = true;
+          keyToast.value++;
+          snackbarMessage.value = "Added successfully.";
           // router.push('/users/');
         } else {
-          alert("erorrooor", response.message);
+          throw new Error("Request failed with status code " + response.status);
         }
-        await store.getApplications();
+
         loading.value = false;
       } catch (error) {
         console.error("Error fetching data:", error);
+        if (error.response && error.response.data && error.response.data.message) {
+          // If there's an error message in the response data, use that
+          snackbarMessageError.value = "An error occurred.";
+          showSnackbarError.value = true;
+        keyToastError.value++;
+        } else {
+          // Otherwise, use a generic error message
+          snackbarMessageError.value = "An error occurred.";
+        }
+        showSnackbarError.value = true;
+        keyToastError.value++;
       } finally {
         close();
+        await new Promise((resolve) => setTimeout(resolve, 2510)); // Adjust time as needed
+        await emit("dataChanged");
       }
     }, 1500);
   }
 };
+
 const close = () => {
   // Reset form fields and validation
   (identifiant.value = ""),

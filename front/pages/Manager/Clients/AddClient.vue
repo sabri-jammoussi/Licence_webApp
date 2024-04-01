@@ -145,8 +145,9 @@ const codePostal = ref("");
 const pays = ref("");
 const dialog = ref(false);
 const loading = ref(false);
-const store = useMyStore();
 const countryNames = ref([]);
+const { emit } = getCurrentInstance();
+
 const { withMessage } = helpers;
 let { t } = useI18n();
 
@@ -241,27 +242,18 @@ const addClient = () => {
           codePostal: codePostal.value,
           pays: pays.value,
         };
-        const token = window.localStorage.getItem("token");
-
-        if (token) {
-          // If there is a token, set the authorization header
-          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-          //  console.log("Token checked:", axios.defaults.headers.common);
-        } else {
-          console.log("unauthorized");
-          alert("unauthorized");
-        }
         const response = await axios.post(
           "http://localhost:5252/api/client",
           data
         );
-        await store.getClients();
+        emit("dataChanged");
         if (response.status >= 200 && response.status < 300) {
           // router.push('/users/');
         } else {
           alert("erorrooor", response.message);
         }
-        await store.getClients();
+        emit("dataChanged");
+
         loading.value = false;
       } catch (error) {
         console.error("Error fetching data:", error);

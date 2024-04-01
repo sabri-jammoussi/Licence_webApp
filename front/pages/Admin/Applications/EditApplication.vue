@@ -62,7 +62,6 @@
 </template>
   <script setup>
 import { ref, onMounted } from "vue";
-import { useMyStore } from "@/store/index.js";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers, minLength } from "@vuelidate/validators";
 import axios from "axios";
@@ -70,7 +69,6 @@ import axios from "axios";
 const { emit } = getCurrentInstance();
 const { withMessage } = helpers;
 const editDialog = ref(false);
-const store = useMyStore();
 const loading = ref(false);
 const identifiant = ref("");
 const nom = ref("");
@@ -121,17 +119,8 @@ const updateApplication = async () => {
           nom: nom.value,
           description: description.value,
         };
-        const token = window.localStorage.getItem("token");
-        if (token) {
-          // If there is a token, set the authorization header
-          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-          //console.log('Token checked:', axios.defaults.headers.common);
-        } else {
-          console.log("unauthorized");
-          alert("unauthorized");
-        }
         const response = await axios.post(
-          `http://localhost:5252/api/appliction/modifierapplication`,
+          `http://localhost:5252/api/appliction/update`,
           data
         );
         if (response.status >= 200 && response.status < 300) {
@@ -140,7 +129,7 @@ const updateApplication = async () => {
           alert("erorrooor", response.message);
         }
         loading.value = false;
-        await store.getApplications();
+        emit("dataChanged");
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {

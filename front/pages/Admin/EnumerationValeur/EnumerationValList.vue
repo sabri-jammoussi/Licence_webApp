@@ -1,79 +1,102 @@
 <template>
-  <v-list>
-    <v-banner>
+  <div>
+    <SnackBar
+      :key="keyToast"
+      v-if="showSnackbar"
+      :message="snackbarMessage"
+      :showSnackBar="showSnackbar"
+    />
+    <v-list v-if="data.length > 0">
       <EditEnumVal
         :user="selectedUser"
         @dataChanged="reloadData"
         v-if="editDialog"
         @close-dialog="editDialog = false"
       />
-      <template v-slot:text> No Internet connection </template>
 
-      <template v-slot:actions>
-        <AddEnumVal :enumId="enumerationId" @dataChanged="reloadData" />
-      </template>
-    </v-banner>
+      <v-virtual-scroll :items="data" height="150">
+        <template #default="{ item }">
+          <v-list-item
+            :key="item.id"
+            :value="item"
+            color="primary"
+            rounded="shaped"
+          >
+            <v-list-item-title>{{ item.valeur }}</v-list-item-title>
+            <template v-slot:append>
+              <v-tooltip text="Tooltip" location="bottom">
+                <template v-slot:activator="{ props }">
+                  <v-icon
+                    size="small"
+                    class="me-3 mt-3"
+                    @click="openEditDialog(item)"
+                    color="green"
+                    variant="tonal"
+                    v-bind="props"
+                  >
+                    mdi-pencil
+                  </v-icon>
+                </template>
+                <span>{{ $t("updateEnumVal") }}</span>
+              </v-tooltip>
+              <v-tooltip text="Tooltip" location="bottom">
+                <template v-slot:activator="{ props }">
+                  <v-icon
+                    size="small"
+                    class="mt-3"
+                    @click.stop="deleteItem(item.id)"
+                    color="red"
+                    v-bind="props"
+                  >
+                    mdi-delete
+                  </v-icon>
+                </template>
+                <span>{{ $t("deleteEnumVal") }}</span>
+              </v-tooltip>
+            </template>
+          </v-list-item>
+        </template>
+      </v-virtual-scroll>
 
-    <v-list-item
-      v-for="(item, i) in data"
-      :key="i"
-      :value="item"
-      color="primary"
-      rounded="shaped"
-    >
-      <v-list-item-title>{{ item.valeur }}</v-list-item-title>
-      <template v-slot:append>
-        <v-icon
-          size="small"
-          class="me-3 mt-3"
-          @click="openEditDialog(item)"
-          color="green"
-          variant="tonal"
-        >
-          mdi-pencil
-        </v-icon>
+      <v-dialog v-model="dialogDelete" max-width="420">
+        <v-card>
+          <v-card-title>{{ $t("deleteconfirme") }}</v-card-title>
+          <v-card-text>{{ $t("deletemsgEnumVAl") }}</v-card-text>
+          <v-divider class="my-2"></v-divider>
 
-        <v-icon
-          size="small"
-          class="mt-3"
-          @click.stop="deleteItem(item.id)"
-          color="red"
-        >
-          mdi-delete
-        </v-icon>
-      </template>
-    </v-list-item>
-    <v-dialog v-model="dialogDelete" max-width="420">
-      <v-card>
-        <v-card-title>{{ $t("deleteconfirme") }}</v-card-title>
-        <v-card-text>{{ $t("deletemsg") }}</v-card-text>
-        <v-divider class="my-2"></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
+            <v-btn color="red" text @click="deleteItemConfirm">{{
+              $t("delete")
+            }}</v-btn>
+            <v-btn color="grey" text @click="closeDelete">{{
+              $t("cancel")
+            }}</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-list>
+    <div v-else>
+      <strong class="justify-center">{{ $t("NoData") }}</strong>
 
-          <v-btn color="red" text @click="deleteItemConfirm">{{
-            $t("delete")
-          }}</v-btn>
-          <v-btn color="grey" text @click="closeDelete">{{
-            $t("cancel")
-          }}</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-  </v-list>
+      <v-virtual-scroll height="150"> </v-virtual-scroll>
+    </div>
+  </div>
 </template>
   
   <script setup>
 import { ref, onMounted, defineProps } from "vue";
 import axios from "axios";
-import AddEnumVal from "./AddEnumVal.vue";
 import EditEnumVal from "./EditEnumVal.vue";
+import SnackBar from "~/components/SnackBar.vue";
 const dialogDelete = ref(false);
 const loading = ref(false);
 const editDialog = ref(false);
 const selectedUser = ref("");
-
+const showSnackbar = ref(false);
+const snackbarMessage = ref("");
+const keyToast = ref(0);
 const props = defineProps({
   enumerationId: {
     type: Number,
@@ -91,7 +114,7 @@ const getEnumVal = async () => {
       `http://localhost:5252/api/enumerationvaleur/getenumval/${props.enumerationId}`
     );
     data.value = response.data;
-    console.log(data);
+    // console.log(data);
   } catch (error) {
     console.error(error);
   }
@@ -106,19 +129,14 @@ const deleteItemConfirm = async () => {
   const utilisateurId = editedIndex.value;
 
   try {
-    const token = window.localStorage.getItem("token");
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    } else {
-      console.log("unauthorized");
-      alert("unauthorized");
-    }
     await axios.delete(
       `http://localhost:5252/api/enumerationvaleur?id=${utilisateurId}`
     );
     loading.value = true;
     try {
-      await getEnumVal();
+      showSnackbar.value = true;
+      keyToast.value++;
+      snackbarMessage.value = "Item deleted successfully.";
     } catch (error) {
       console.error(error);
     } finally {
@@ -128,17 +146,24 @@ const deleteItemConfirm = async () => {
     console.error(err);
   } finally {
     closeDelete();
+    await new Promise((resolve) => setTimeout(resolve, 2510)); // Adjust time as needed
+    await getEnumVal();
   }
 };
 const reloadData = async () => {
-  return await getEnumVal();
+  try {
+    await getEnumVal();
+  } catch (error) {
+    console.error("Error reloading data:", error);
+  }
 };
+
 const closeDelete = () => {
   dialogDelete.value = false;
 };
 const openEditDialog = (item) => {
   selectedUser.value = item;
-  console.log("selected user 2 ", selectedUser.value);
+  console.log("selected user  ", selectedUser.value);
   editDialog.value = true;
 };
 </script>

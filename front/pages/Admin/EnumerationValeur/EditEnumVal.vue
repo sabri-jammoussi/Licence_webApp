@@ -37,35 +37,38 @@
       </v-card-actions>
     </v-card>
   </v-dialog>
+  <SnackBar
+    :key="keyToast"
+    :message="snackbarMessage"
+    :showSnackBar="showSnackbar"
+  />
 </template>
 <script setup>
 import { ref, onMounted } from "vue";
-import { useMyStore } from "@/store/index.js";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers, minLength } from "@vuelidate/validators";
 import axios from "axios";
-
+import SnackBar from "~/components/SnackBar.vue";
+const showSnackbar = ref(false);
+const snackbarMessage = ref("");
+const keyToast = ref(0);
 const { emit } = getCurrentInstance();
 const { withMessage } = helpers;
 const editDialog = ref(false);
-const store = useMyStore();
 const loading = ref(false);
 const valeur = ref("");
 const id = ref("");
+defineEmits(["dataChanged", "close-dialog"]);
 const props = defineProps({
   user: {
     type: Object,
     default: null,
   },
-  refreshData: {
-    type: Function,
-    required: true,
-  },
 });
 const rules = {
   valeur: {
     required: withMessage("valeur obligatoire", required),
-    min: withMessage("Min 13 caractères", minLength(3)),
+    min: withMessage("Min 3 caractères", minLength(3)),
   },
 };
 const v$ = useVuelidate(
@@ -93,20 +96,14 @@ const updateEnumeration = async () => {
           id: userId,
           valeur: valeur.value,
         };
-        const token = window.localStorage.getItem("token");
-        if (token) {
-          // If there is a token, set the authorization header
-          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-          //console.log('Token checked:', axios.defaults.headers.common);
-        } else {
-          console.log("unauthorized");
-          alert("unauthorized");
-        }
         const response = await axios.post(
           `http://localhost:5252/api/enumerationvaleur/update`,
           data
         );
         if (response.status >= 200 && response.status < 300) {
+          showSnackbar.value = true;
+          keyToast.value++;
+          snackbarMessage.value = "Edited successfully.";
           // router.push('/users/');
         } else {
           alert("erorrooor", response.message);
@@ -122,11 +119,12 @@ const updateEnumeration = async () => {
   }
 };
 onMounted(async () => {
-  console.log("edit dialog", props);
+  //console.log("edit dialog", props);
   if (props.user) {
     valeur.value = props.user.valeur;
     id.value = props.user.id;
     editDialog.value = true;
+
     //console.log("props.user.id", props.user.id);
   }
   //await store.getEnumerations();
@@ -134,6 +132,7 @@ onMounted(async () => {
 const close = () => {
   v$.value.$reset();
   editDialog.value = false;
-  emit("close-dialog");
+  emit("close-dialog"); 
+
 };
 </script>

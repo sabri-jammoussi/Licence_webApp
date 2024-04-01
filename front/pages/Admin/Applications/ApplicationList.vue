@@ -1,8 +1,8 @@
 <template>
-  <v-card class="mx-auto my-2" elevation="5"   v-if="isAdmin">
+  <v-card class="mx-auto my-2" elevation="4"   v-if="isAdmin">
     <ApplicationListAdmin />
   </v-card>
-  <v-card class="mx-auto my-2" elevation="5" v-else-if="isManager">
+  <v-card class="mx-auto my-2" elevation="4" v-else-if="isManager">
     <ApplicationListManager />
   </v-card>
 </template>  

@@ -2,6 +2,8 @@
   <v-dialog v-model="dialog" max-width="500px">
     <template v-slot:activator="{ props }">
       <v-btn color="primary" dark class="mb-2" v-bind="props">
+        <v-tooltip location="bottom" activator="parent">{{$t("newUser")}}</v-tooltip>
+
         <v-icon color="green" style="margin: auto">mdi-plus</v-icon>
         {{ $t("new") }}
       </v-btn>
@@ -12,8 +14,7 @@
           <v-row no-gutters>
             <v-col cols="12" sm="6" md="12">
               <v-text-field
-              variant="outlined"
-
+                variant="outlined"
                 base-color="green"
                 :label="$t('lastname')"
                 v-model="firstName"
@@ -85,7 +86,7 @@
         >
           {{ $t("add") }}
         </v-btn>
-        <v-btn color="grey" variant="text" @click="close" >
+        <v-btn color="grey" variant="text" @click="close">
           {{ $t("cancel") }}
         </v-btn>
       </v-card-actions>
@@ -98,7 +99,7 @@ import { ref, onMounted } from "vue";
 import { useMyStore } from "@/store/index.js";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers, minLength } from "@vuelidate/validators";
-
+const { emit } = getCurrentInstance();
 const show2 = ref(false);
 const roleOptions = computed(() => store.roleOptions);
 const firstName = ref("");
@@ -201,7 +202,7 @@ const addUtilisateur = () => {
           role: role.value,
         };
         await store.CreateUser(data);
-        await store.getUsers();
+        emit("dataChanged");
         console.log("UserSended", data);
         loading.value = false;
       } catch (error) {

@@ -64,9 +64,11 @@
           @click="Updateuser"
           :loading="loading"
         >
-          {{ $t('edit') }}
+          {{ $t("edit") }}
         </v-btn>
-        <v-btn color="grey" variant="text" @click="close"> {{ $t('cancel') }} </v-btn>
+        <v-btn color="grey" variant="text" @click="close">
+          {{ $t("cancel") }}
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -150,7 +152,7 @@ const Updateuser = async () => {
         await store.UpdateUser(userId, data);
         console.log("UserSended", data);
         loading.value = false;
-        await store.getUsers();
+        emit("dataChanged");
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {

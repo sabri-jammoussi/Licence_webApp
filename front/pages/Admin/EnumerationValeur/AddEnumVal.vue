@@ -1,10 +1,15 @@
 <template>
-  <v-dialog v-model="dialog" max-width="500px">
-    <template v-slot:activator="{ props }">
+  <SnackBar
+    :key="keyToast"
+    :message="snackbarMessage"
+    :showSnackBar="showSnackbar"
+  />
+  <v-dialog v-model="addDialog" max-width="500px">
+    <!-- <template v-slot:activator="{ props }">
       <v-btn icon class="mb-2" v-bind="props">
         <v-icon color="blue">mdi-plus</v-icon>
       </v-btn>
-    </template>
+    </template> -->
     <v-card>
       <v-card-text>
         <v-container>
@@ -48,20 +53,31 @@ import axios from "axios";
 import { ref } from "vue";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers, minLength } from "@vuelidate/validators";
+import SnackBar from "~/components/SnackBar.vue";
+
 const valeur = ref("");
-const dialog = ref(false);
+const addDialog = ref(false);
 const loading = ref(false);
 const { withMessage } = helpers;
+const showSnackbar = ref(false);
+const snackbarMessage = ref("");
+const keyToast = ref(0);
 const props = defineProps({
   enumId: {
     type: Number,
     required: true,
   },
+  showDialog: {
+    type: Boolean,
+    required: true,
+  },
 });
+defineEmits(["reload-data", "close-dialog"]);
+
 const rules = {
   valeur: {
     required: withMessage("valeur obligatoire", required),
-    min: withMessage("Min 13 caractères", minLength(3)),
+    min: withMessage("Min 3 caractères", minLength(3)),
   },
 };
 const v$ = useVuelidate(
@@ -72,10 +88,27 @@ const v$ = useVuelidate(
   { $stopPropagation: true }
 );
 //stopPropagation bech thot rules 7ad page heki
-watch(dialog, (val) => {
-  val || close();
-});
+watch(
+  () => addDialog.value,
+  (val) => {
+    val || close();
+  }
+);
 
+// watch bech ki nenzel bara mel dialog yakraha
+// const getEnumVall = async () => {
+//    try {
+//      const id = props.enumId;
+//      console.log('idd',id);
+//      const response = await axios.get(
+//        `http://localhost:5252/api/enumerationvaleur/getenumval/${id}`
+//     );
+//     data.value = response.data;
+//     console.log(data);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 const addEnumVAl = () => {
   loading.value = true;
   // Clear previous validation errors
@@ -92,32 +125,33 @@ const addEnumVAl = () => {
           valeur: valeur.value,
           enumerationId: props.enumId,
         };
-        const token = window.localStorage.getItem("token");
-
-        if (token) {
-          // If there is a token, set the authorization header
-          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-          //  console.log("Token checked:", axios.defaults.headers.common);
-        } else {
-          console.log("unauthorized");
-          alert("unauthorized");
-        }
+        //console.log("idd from addenum", props.enumId);
         const response = await axios.post(
           "http://localhost:5252/api/enumerationvaleur",
           data
         );
         // await store.getApplications();
         if (response.status >= 200 && response.status < 300) {
+          showSnackbar.value = true;
+          keyToast.value++;
+          snackbarMessage.value = "Added successfully.";
           // router.push('/users/');
         } else {
           alert("erorrooor", response.message);
         }
-        emit("dataChanged");
+        emit("reload-data");
+        //await emit("reloadData");
+        //await getEnumVall();
         loading.value = false;
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
+        await new Promise((resolve) => setTimeout(resolve, 2510)); // Adjust time as needed
+        emit("reload-data");
+
         close();
+
+        //await props.reloadData();
       }
     }, 1500);
   }
@@ -125,11 +159,18 @@ const addEnumVAl = () => {
 const close = () => {
   // Reset form fields and validation
   (valeur.value = ""), v$.value.$reset();
-  dialog.value = false;
+  addDialog.value = false;
   loading.value = false;
+  emit("close-dialog");
 };
 
-onMounted(async () => {
+onMounted(() => {
+  //   //console.log("add", props);
+  //console.log("props.user.id", props.enumId);
+
+  addDialog.value = props.showDialog;
+
+  //dialog.value=true;
   //console.log('enumid',props.enumId);
 });
 </script> 

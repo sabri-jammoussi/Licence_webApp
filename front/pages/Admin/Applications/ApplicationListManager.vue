@@ -1,7 +1,7 @@
 <template>
     <v-data-table
       :headers="headers"
-      :items="apps"
+      :items="data"
       :sort-by="[{ key: 'calories', order: 'asc' }]"
       :search="search"
       :loading="loading"
@@ -30,23 +30,32 @@
     
     <script setup>
   import { ref, onMounted } from "vue";
-  import { useMyStore } from "@/store/index.js";
-  const store = useMyStore();
+  import axios from "axios";
+  const data =ref([]);
   const search = ref("");
   const loading = ref(false);
   let { t } = useI18n();
-  const apps = computed(() => store.apps);
   
   const headers = computed(() => [
     { title: t("identifier"), key: "identifiant" },
     { title: t("name"), key: "nom" },
     { title: "Description", key: "description" },
   ]);
+  const getApplications = async () => {
+  try {
+    const response = await axios.get("http://localhost:5252/api/appliction");
+
+    data.value = response.data;
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+};
   onMounted(async () => {
     // console.log('selected user ', selectedUser.value);
     loading.value = true;
     try {
-      await store.getApplications();
+      getApplications();
     } catch (error) {
       console.error(error);
     } finally {

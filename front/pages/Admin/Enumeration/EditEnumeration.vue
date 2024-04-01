@@ -11,6 +11,7 @@
                 base-color="green"
                 label="Code"
                 v-model="code"
+                :disabled="true"
                 @blur="v$.code.touch"
                 @input="v$.code.$touch"
                 :error-messages="v$.code.$errors.map((e) => e.$message)"
@@ -51,15 +52,14 @@
 </template>
     <script setup>
 import { ref, onMounted } from "vue";
-import { useMyStore } from "@/store/index.js";
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers, minLength } from "@vuelidate/validators";
 import axios from "axios";
+defineEmits(["dataChanged"]);
 
 const { emit } = getCurrentInstance();
 const { withMessage } = helpers;
 const editDialog = ref(false);
-const store = useMyStore();
 const loading = ref(false);
 const code = ref("");
 const nom = ref("");
@@ -69,7 +69,7 @@ const props = defineProps(["user"]);
 const rules = {
   code: {
     required: withMessage("code obligatoire", required),
-    min: withMessage("Min 13 caractères", minLength(3)),
+    min: withMessage("Min 3 caractères", minLength(3)),
   },
   nom: {
     required: withMessage("Nom obligatoire", required),
@@ -103,15 +103,6 @@ const updateEnumeration = async () => {
           code: code.value,
           nom: nom.value,
         };
-        const token = window.localStorage.getItem("token");
-        if (token) {
-          // If there is a token, set the authorization header
-          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-          //console.log('Token checked:', axios.defaults.headers.common);
-        } else {
-          console.log("unauthorized");
-          alert("unauthorized");
-        }
         const response = await axios.post(
           `http://localhost:5252/api/enumeration/update`,
           data
@@ -122,7 +113,7 @@ const updateEnumeration = async () => {
           alert("erorrooor", response.message);
         }
         loading.value = false;
-        await store.getEnumerations();
+        emit("dataChanged");
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -140,7 +131,8 @@ onMounted(async () => {
     editDialog.value = true;
     console.log("props.user.id", props.user.id);
   }
-  await store.getEnumerations();
+  emit("dataChanged");
+
 });
 const close = () => {
   v$.value.$reset();

@@ -1,6 +1,12 @@
 <template>
-  <v-card elevation="5">
-    <v-data-iterator :items="enums" :items-per-page="12" :search="search">
+  <SnackBar
+    :key="keyToast"
+    v-if="showSnackbar"
+    :message="snackbarMessage"
+    :showSnackBar="showSnackbar"
+  />
+  <v-card elevation="4">
+    <v-data-iterator :items="data" :items-per-page="12" :search="search">
       <template v-slot:header>
         <v-toolbar flat>
           <v-toolbar-title>
@@ -17,16 +23,24 @@
               class="justify-content-start"
             ></v-text-field>
           </v-toolbar-title>
-          <AddEnumeration />
+          <AddEnumeration @dataChanged="reloadData" />
           <EditEnumeration
             :user="selectedUser"
             v-if="editDialog"
             @close-dialog="editDialog = false"
+            @dataChanged="reloadData"
+          />
+          <AddEnumVal
+            v-if="addDialog"
+            :showDialog="addDialog"
+            :enumId="selectedID"
+            @close-dialog="addDialog = false"
+            @reload-data="reloadEnumValues"
           />
           <v-dialog v-model="dialogDelete" max-width="420">
             <v-card>
               <v-card-title>{{ $t("deleteconfirme") }}</v-card-title>
-              <v-card-text>{{ $t("deletemsg") }}</v-card-text>
+              <v-card-text>{{ $t("deletemsgEnum") }}</v-card-text>
               <v-divider class="my-2"></v-divider>
 
               <v-card-actions>
@@ -43,80 +57,78 @@
           </v-dialog>
         </v-toolbar>
       </template>
-      <template v-slot:default="{ items, isGroupOpen, toggleGroup }">
-        <v-container class="pa-2" fluid>
+      <template v-slot:default="{ items }">
+        <v-container class="pa-" fluid>
           <v-row>
             <v-col v-for="item in items" :key="item.code" cols="auto" md="4">
               <v-card class="pb-3" border flat>
                 <!-- <v-img :src="item.raw.code"></v-img> -->
+                <v-list-item class="mb-2" max-height="350">
+                  <div class="d-flex align-items-center">
+                    <div class="p-2">
+                      <div class="d-flex flex-column">
+                        <strong>{{ $t("name") }} : {{ item.raw.nom }}</strong>
+                        <small>Code : {{ item.raw.code }}</small>
 
-                <v-list-item class="mb-2">
-                  <template v-slot:subtitle> {{ item.raw.nom }}
-                  
-                  </template>
-                  <template v-slot:title>
-                    <strong class="text-h6 mb-2"
-                      >Code : {{ item.raw.code }}
-                    </strong>
-                  </template>
-                  <!-- <template v-slot:>
-                      <strong class="text-h6 mb-2">{{ item.raw.id }}</strong>
-                    </template> -->
+                        <!-- <div class="p-2">Flex item 3</div> -->
+                      </div>
+                    </div>
 
-                  <v-divider></v-divider>
-
-                  <!-- <v-expansion-panels>
-                    <v-expansion-panel
-                      title="Title"
-                      text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi, ratione debitis quis est labore voluptatibus! Eaque cupiditate minima"
-                    >
-                    </v-expansion-panel>
-                  </v-expansion-panels> -->
-                  <div class="d-flex justify-space-between px-2">
-                    <v-btn
-                      :icon="isGroupOpen(item.raw) ? '$expand' : '$next'"
-                      size="small"
-                      variant="text"
-                      @click="toggleGroup(item.raw)"
-                    >
-                    </v-btn>
-
-                    <v-spacer></v-spacer>
-
-                    <v-icon
-                      size="small"
-                      class="me-3 mt-3"
-                      @click="openEditDialog(item.raw)"
-                      color="green"
-                      variant="tonal"
-                    >
-                      mdi-pencil
-                    </v-icon>
-                    <v-icon
-                      size="small"
-                      class="mt-3"
-                      @click.stop="deleteItem(item.raw.id)"
-                      color="red"
-                    >
-                      mdi-delete
-                    </v-icon>
+                    <div class="ml-auto p-2">
+                      <v-tooltip text="Tooltip" location="bottom">
+                        <template v-slot:activator="{ props }">
+                          <v-icon
+                            color="blue"
+                            variant="tonal"
+                            class="me-1"
+                            @click="openAddDialog(item.raw.id)"
+                            v-bind="props"
+                          >
+                            mdi-plus
+                          </v-icon>
+                        </template>
+                        <span>{{ $t("newEnumVal") }}</span>
+                      </v-tooltip>
+                      <v-tooltip text="Tooltip" location="bottom">
+                        <template v-slot:activator="{ props }">
+                          <v-icon
+                            size="small"
+                            class="me-1"
+                            @click="openEditDialog(item.raw)"
+                            color="green"
+                            variant="tonal"
+                            v-bind="props"
+                          >
+                            mdi-pencil
+                          </v-icon>
+                        </template>
+                        <span>{{ $t("updateEnum") }}</span>
+                      </v-tooltip>
+                      <v-tooltip text="Tooltip" location="bottom">
+                        <template v-slot:activator="{ props }">
+                          <v-icon
+                            size="small"
+                            class="ms-1"
+                            @click.stop="deleteItem(item.raw.id)"
+                            color="red"
+                            v-bind="props"
+                          >
+                            mdi-delete
+                          </v-icon>
+                        </template>
+                        <span>{{ $t("deleteEnum") }}</span>
+                      </v-tooltip>
+                    </div>
                   </div>
                   <v-divider></v-divider>
-                  <div v-if="isGroupOpen(item.raw)">
-                    <EnumerationValList :enumerationId="item.raw.id" />
+                  <div>
+                    <EnumerationValList
+                      :key="updateDataValues"
+                      :enumerationId="item.raw.id"
+                    />
+                    <!-- el key bech T3awed tchargi les données  -->
                   </div>
                 </v-list-item>
-
-                <div class="d-flex justify-space-between px-2">
-                  <div
-                    class="d-flex align-center text-caption text-medium-emphasis me-1"
-                  >
-                    <!-- <v-icon icon="mdi-clock" start></v-icon>
-  
-                      <div class="text-truncate">{{ item.raw.duration }}</div> -->
-                  </div>
-                  <v-spacer></v-spacer>
-                </div>
               </v-card>
             </v-col>
           </v-row>
@@ -153,22 +165,28 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "axios";
-import { useMyStore } from "@/store/index.js";
 import AddEnumeration from "./AddEnumeration.vue";
 import EditEnumeration from "./EditEnumeration.vue";
 import EnumerationValList from "../EnumerationValeur/EnumerationValList.vue";
-const selectedUser = ref("");
+import AddEnumVal from "../EnumerationValeur/AddEnumVal.vue";
+import SnackBar from "~/components/SnackBar.vue";
 
+const selectedUser = ref("");
+const selectedID = ref("");
+const showSnackbar = ref(false);
+const snackbarMessage = ref("");
+const keyToast = ref(0);
 const search = ref("");
 const dialogDelete = ref(false);
 const editDialog = ref(false);
-const loading = ref(false);
-const store = useMyStore();
-const enums = computed(() => store.enums);
-const editedIndex = ref(-1);
+const addDialog = ref(false);
 
+const loading = ref(false);
+const editedIndex = ref(-1);
+const data = ref([]);
+const updateDataValues = ref(0);
 const deleteItem = (utilisateurId) => {
   editedIndex.value = utilisateurId;
   dialogDelete.value = true;
@@ -177,19 +195,15 @@ const deleteItemConfirm = async () => {
   const utilisateurId = editedIndex.value;
 
   try {
-    const token = window.localStorage.getItem("token");
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    } else {
-      console.log("unauthorized");
-      alert("unauthorized");
-    }
     await axios.delete(
       `http://localhost:5252/api/enumeration/${utilisateurId}`
     );
+
     loading.value = true;
     try {
-      await store.getEnumerations();
+      showSnackbar.value = true;
+      keyToast.value++;
+      snackbarMessage.value = "Item deleted successfully.";
     } catch (error) {
       console.error(error);
     } finally {
@@ -199,6 +213,8 @@ const deleteItemConfirm = async () => {
     console.error(err);
   } finally {
     closeDelete();
+    await new Promise((resolve) => setTimeout(resolve, 2510)); // Adjust time as needed
+    await getEnumerations();
   }
 };
 const closeDelete = () => {
@@ -206,13 +222,47 @@ const closeDelete = () => {
 };
 const openEditDialog = (item) => {
   selectedUser.value = item;
-  console.log("selected user 2 ", selectedUser.value);
+  console.log("selected user  ", selectedUser.value);
   editDialog.value = true;
+};
+const openAddDialog = (item) => {
+  //console.log("Selected from the add ", item);
+  selectedID.value = item;
+  //console.log("Selected from the add 22", selectedID.value);
+
+  addDialog.value = true;
+};
+const getEnumerations = async () => {
+  try {
+    const response = await axios.get("http://localhost:5252/api/enumeration");
+
+    data.value = response.data;
+    //console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+const reloadEnumValues = async () => {
+  try {
+   // console.log("reloadEnumValues", selectedID.value);
+    const id = selectedID.value;
+   // console.log("idd", id);
+    const response = await axios.get(
+      `http://localhost:5252/api/enumerationvaleur/getenumval/${id}`
+    );
+    updateDataValues.value++;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const reloadData = async () => {
+  return await getEnumerations();
 };
 
 onMounted(async () => {
   try {
-    await store.getEnumerations();
+    await getEnumerations();
     if (selectedUser.value) {
       provide("enumerationId", selectedUser.value.id);
     }
