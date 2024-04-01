@@ -74,7 +74,7 @@ namespace LicenceApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("modifierApplication")]
+        [HttpPost("update")]
         public async Task<ActionResult> updateApp(UpdateApplication updateApplication)
         {
             try

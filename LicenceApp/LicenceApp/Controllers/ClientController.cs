@@ -69,7 +69,7 @@ namespace LicenceApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPost("ModifierClient")]
+        [HttpPost("update")]
         public async Task<ActionResult> ModiferClient(UpdateClient updateClient)
         {
             try
