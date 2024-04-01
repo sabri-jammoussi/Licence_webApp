@@ -10,10 +10,6 @@ export const useMyStore = defineStore('userStore', {
     isLoggedin :false,
     EmailError: null,
     roleOptions: null,
-
-    users: [],
-    apps:[],
-    enums:[]
   }),
   getters: {
     userLogged: (state) => state.user,
@@ -106,16 +102,6 @@ export const useMyStore = defineStore('userStore', {
 
     async CreateUser(data) {
       try {
-        const token = window.localStorage.getItem('token');
-
-        if (token) {
-          // If there is a token, set the authorization header
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          console.log('Token checked:', axios.defaults.headers.common);
-        } else {
-          console.log('unauthorized');
-          alert('unauthorized');
-        }
         console.log('dataRecivied', data);
         const response = await axios.post('http://localhost:5252/api/Users', data);
         await this.getUsers();
@@ -131,15 +117,6 @@ export const useMyStore = defineStore('userStore', {
     },
     async UpdateUser(id, data) {
       try {
-        const token = window.localStorage.getItem('token');
-        if (token) {
-          // If there is a token, set the authorization header
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          console.log('Token checked:', axios.defaults.headers.common);
-        } else {
-          console.log('unauthorized');
-          alert('unauthorized');
-        }
         const response = await axios.put(`http://localhost:5252/api/Users/${id}`, data);
         if (response.status >= 200 && response.status < 300) {
           // router.push('/users/');
@@ -150,89 +127,6 @@ export const useMyStore = defineStore('userStore', {
         console.error('Error of update :', error);
       }
     },  
-    // async getUsersById(id) {
-    //   try {
-    //     const response = await axios.get(`http://localhost:5252/api/Users/${id}`);
-    //     this.user = response.data;
-    //     console.log("data from store ", this.user);
-    //   } catch (error) {
-    //     console.error("Error fetching data:", error);
-    //     alert("Error connecting to the database");
-    //   }
-    // },
-    async getUsers() {
-      try {
-        const response = await axios.get("http://localhost:5252/api/Users");
-        this.users = response.data;
-        // console.log("data from store ", this.users);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        alert("Error connecting to the database");
-      }
-    },
-    async getApplications (){
-      try {
-        const token = window.localStorage.getItem('token');
-
-        if (token) {
-          // If there is a token, set the authorization header
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          //console.log('Token checked:', axios.defaults.headers.common);
-        } else {
-          console.log('unauthorized');
-          alert('unauthorized');
-        }
-        const response = await axios.get("http://localhost:5252/api/appliction");
-        this.apps = response.data;
-        // console.log("data from store ", this.apps);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        alert("Error connecting to the database");
-      }
-    },
-    async getEnumerations (){
-      try {
-        const token = window.localStorage.getItem('token');
-
-        if (token) {
-          // If there is a token, set the authorization header
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          //console.log('Token checked:', axios.defaults.headers.common);
-        } else {
-          console.log('unauthorized');
-          alert('unauthorized');
-        }
-        const response = await axios.get("http://localhost:5252/api/enumeration");
-        this.enums = response.data;
-        const enumIds = this.enums.map(enumItem => enumItem.id);
-       // console.log("Enumeration IDs:", enumIds);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        alert("Error connecting to the database");
-        
-      }
-    },
-    
-    async getClients (){
-      try {
-        const token = window.localStorage.getItem('token');
-
-        if (token) {
-          // If there is a token, set the authorization header
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-          //console.log('Token checked:', axios.defaults.headers.common);
-        } else {
-          console.log('unauthorized');
-          alert('unauthorized');
-        }
-        const response = await axios.get("http://localhost:5252/api/client");
-        this.apps = response.data;
-        // console.log("data from store ", this.apps);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        alert("Error connecting to the database");
-      }
-    },
     async ReadRoles() {
       try {
         const response = await axios.get('http://localhost:5252/api/users/roles');
