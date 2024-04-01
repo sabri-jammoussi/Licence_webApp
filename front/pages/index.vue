@@ -1,22 +1,24 @@
 <template>
-  <v-data-table :items="users"> </v-data-table>
+  <v-data-table :items="data"> </v-data-table>
 </template>  
 <script setup>
 definePageMeta({
   middleware: ["auth"],
 });
+import axios from "axios";
 import { onMounted } from "vue";
-import { useMyStore } from "@/store/index.js";
-const store = useMyStore();
+const data = ref([]);
+const getUsers = async () => {
+  try {
+    const response = await axios.get("http://localhost:5252/api/Users");
 
-const headers = computed(() => [
-  { title: "lastname", key: "firstName" },
-  { title: "firstname", key: "lastName" },
-  { title: "Email", key: "email" },
-  { title: "Role", key: "role" },
-]);
-const users = computed(() => store.users);
+    data.value = response.data;
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+};
 onMounted(async () => {
-  await store.getUsers();
+  await getUsers();
 });
 </script>
