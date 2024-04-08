@@ -52,7 +52,15 @@
     "newApp":"Ajouter Application",
     "UpdateApp":"Modifier Application",
     "DeleteApp":"Supprimer Application",
-    "ConsultApp":"Voir Application"
+    "ConsultApp":"Voir Application",
+    "intutile":"Intitulé",
+    "updateATT":"Modifier Attribut",
+    "deleteATT":"Supprimer Attribut",
+    "listATT":"Liste des attributs"
+
+
+
+
 
 
 

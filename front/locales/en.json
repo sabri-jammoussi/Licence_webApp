@@ -44,13 +44,17 @@
     "deleteEnumVal":"Delete Enumeration Value",
     "updateEnum":"Update Enumeration ",
     "deleteEnum":"Delete Enumeration ",
-    "NoData":"No data available.",
+    "NoData":"No data available. Add Enumeration Value",
     "newUser":"Add User",
     "UpdateUser":"Update User",
     "DeleteUser":"Delete User",
     "newApp":"Add Application",
     "UpdateApp":"Update Application",
     "DeleteApp":"Delete Application",
-    "ConsultApp":"Show Application"
+    "ConsultApp":"Show Application",
+    "intutile":"Titled",
+    "updateATT":"Update Attribute",
+    "deleteATT":"Delete Attribute",
+    "listATT":"Liste of Attributes"
 
   }
