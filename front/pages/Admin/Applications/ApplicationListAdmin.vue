@@ -167,7 +167,7 @@ const deleteItemConfirm = async () => {
   const utilisateurId = editedIndex.value;
 
   try {
-    await axios.delete(`http://localhost:5252/api/appliction/${utilisateurId}`);
+    await axios.delete(`http://localhost:5252/api /appliction/${utilisateurId}`);
     loading.value = true;
     try {
       showSnackbar.value = true;
@@ -194,7 +194,7 @@ const openEditDialog = (item) => {
 };
 const consulter = (item) => {
   selectedUser.value = item;
-  //console.log('selected user 33', selectedUser.value.id);
+  console.log('idd from application ', selectedUser.value.id);
   router.push(`/Admin/Applications/${selectedUser.value.id}`);
 };
 const closeDelete = () => {
