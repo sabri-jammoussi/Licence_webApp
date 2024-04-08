@@ -5,7 +5,7 @@
         <img src="/assets/logo.jpg" alt="Logo" />
       </div>
       <v-list-item to="/" prepend-icon="mdi-home" title="Accueil" value="home">
-        <v-tooltip activator="parent" location="end">Dashbord</v-tooltip>
+        <!-- <v-tooltip activator="parent" location="end">Dashbord</v-tooltip> -->
       </v-list-item>
       <v-list-item
         to="/Admin/users/UserList"
@@ -13,9 +13,9 @@
         value="home"
       >
         {{ $t("Users") }}
-        <v-tooltip activator="parent" location="end">{{
+        <!-- <v-tooltip activator="parent" location="end">{{
           $t("Users")
-        }}</v-tooltip>
+        }}</v-tooltip> -->
       </v-list-item>
       <v-list-item
         to="/Admin/Applications/ApplicationList"
@@ -23,7 +23,7 @@
         title="Applications"
         value="home"
       >
-        <v-tooltip activator="parent" location="end">Applications</v-tooltip>
+        <!-- <v-tooltip activator="parent" location="end">Applications</v-tooltip> -->
       </v-list-item>
       <v-list-item
         to="/Admin/Enumeration/EnumerationList"
@@ -31,13 +31,13 @@
         title="Enumerations"
         value="home"
       >
-        <v-tooltip activator="parent" location="end">Enumerations</v-tooltip>
+        <!-- <v-tooltip activator="parent" location="end">Enumerations</v-tooltip> -->
       </v-list-item>
       <v-list-item to="/about" prepend-icon="mdi-forum" value="home">
         {{ $t("About") }}
-        <v-tooltip activator="parent" location="end">{{
+        <!-- <v-tooltip activator="parent" location="end">{{
           $t("About")
-        }}</v-tooltip>
+        }}</v-tooltip> -->
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
