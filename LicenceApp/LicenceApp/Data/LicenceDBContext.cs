@@ -17,6 +17,7 @@ namespace LicenceApp.Data
         public DbSet<ApplicationDao> Applications { get; set; }
         public DbSet<EnumerationDao> Enumerations { get; set; }
         public DbSet<EnumerationValeurDao> enumerationValeurs { get; set; }
+        public DbSet<AttributeLicenceDao> attributeLicences { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             ////  CreatePasswordHash(NewUser, out byte[] passwordHash, out byte[] passwordSalt);
