@@ -139,17 +139,19 @@ const addEnumVAl = () => {
         } else {
           alert("erorrooor", response.message);
         }
-        emit("reload-data");
+       // emit("reload-data");
         //await emit("reloadData");
         //await getEnumVall();
         loading.value = false;
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
-        await new Promise((resolve) => setTimeout(resolve, 2510)); // Adjust time as needed
         emit("reload-data");
 
+        await new Promise((resolve) => setTimeout(resolve, 2510)); // Adjust time as needed
         close();
+
+
 
         //await props.reloadData();
       }
@@ -168,7 +170,7 @@ onMounted(() => {
   //   //console.log("add", props);
   //console.log("props.user.id", props.enumId);
 
-  addDialog.value = props.showDialog;
+  addDialog.value = props.showDialog || false;
 
   //dialog.value=true;
   //console.log('enumid',props.enumId);
