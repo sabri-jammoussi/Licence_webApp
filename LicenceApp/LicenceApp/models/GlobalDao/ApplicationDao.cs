@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using LicenceApp.models.AttributeLicence;
 
 namespace LicenceApp.models.GlobalDao
 {
@@ -21,5 +22,7 @@ namespace LicenceApp.models.GlobalDao
         [StringLength(30)]
         [Column("APP_DESCRIPTION")]
         public required string Description { get; set; }
+        public virtual IList<AttributeLicenceDao> Attributes { get; set; }
+
     }
 }
