@@ -244,9 +244,9 @@ const getEnumerations = async () => {
 };
 const reloadEnumValues = async () => {
   try {
-   // console.log("reloadEnumValues", selectedID.value);
+    // console.log("reloadEnumValues", selectedID.value);
     const id = selectedID.value;
-   // console.log("idd", id);
+    // console.log("idd", id);
     const response = await axios.get(
       `http://localhost:5252/api/enumerationvaleur/getenumval/${id}`
     );
