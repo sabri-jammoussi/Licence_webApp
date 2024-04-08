@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 
 export const useMyStore = defineStore('userStore', {
   state: () => ({
-    token: '',
+    tokenValue: '',
     user: '',
     eroorlistee: null,
     isLoggedin :false,
@@ -13,7 +13,7 @@ export const useMyStore = defineStore('userStore', {
   }),
   getters: {
     userLogged: (state) => state.user,
-    token: (state) => state.token,
+    token: (state) => state.tokenValue,
   },
   actions: {
     async Register({ router }, data) {
