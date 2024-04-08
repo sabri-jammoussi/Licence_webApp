@@ -139,7 +139,7 @@ const updateApplication = async () => {
   }
 };
 onMounted(async () => {
-  console.log("edit dialog",props)
+  console.log("edit dialog", props);
   if (props.user) {
     identifiant.value = props.user.identifiant;
     nom.value = props.user.nom;
@@ -148,7 +148,7 @@ onMounted(async () => {
     editDialog.value = true;
     console.log("props.user.id", props.user.id);
   }
-  await store.ReadRoles();
+  // await store.ReadRoles();
 });
 const close = () => {
   v$.value.$reset();
