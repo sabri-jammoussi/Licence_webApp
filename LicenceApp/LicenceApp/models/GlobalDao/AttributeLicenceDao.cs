@@ -22,10 +22,16 @@ namespace LicenceApp.models.GlobalDao
         [Column("ATT_TYPE")]
         public required Types Type { get; set; }
 
+        [Column("ATT_ENUMERATION_VALUE")]
+        public int? EnumurationValue { get; set; }
+
+        [Column("ATT_OBLIGATION")]
+         public bool Obligations {  get; set; }   
         [Column("APP_ID")]
         public required int ApplicationId { get; set; }
         [ForeignKey(nameof(ApplicationId))]
-        public virtual ApplicationDao Application { get; set; }
+        public virtual ApplicationDao? Application { get; set; }
+
     }
 
 }

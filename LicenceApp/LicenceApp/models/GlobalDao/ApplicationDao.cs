@@ -23,6 +23,7 @@ namespace LicenceApp.models.GlobalDao
         [Column("APP_DESCRIPTION")]
         public required string Description { get; set; }
         public virtual IList<AttributeLicenceDao> Attributes { get; set; }
+        public virtual IList<LicenceDao> Licences { get; set; }
 
     }
 }
