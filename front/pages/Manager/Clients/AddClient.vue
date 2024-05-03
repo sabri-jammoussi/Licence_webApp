@@ -7,6 +7,11 @@
       </v-btn>
     </template>
     <v-card>
+      <div class="grey--text text-h6 text-lg-h6 mt-2">
+        <v-icon left color="green" size="35" class="ml-2">mdi-account </v-icon>
+        {{ $t("newClient") }}
+      </div>
+      <v-divider></v-divider>
       <v-card-text>
         <v-container>
           <v-row class="">
@@ -128,9 +133,16 @@
       </v-card-actions>
     </v-card>
   </v-dialog>
+  <SnackBar
+    :key="keyToast"
+    v-if="showSnackbar"
+    :message="snackbarMessage"
+    :showSnackBar="showSnackbar"
+  />
 </template>
     <script setup>
 import axios from "axios";
+import SnackBar from "~/components/SnackBar.vue";
 import { ref, onMounted } from "vue";
 import { useMyStore } from "@/store/index.js";
 import { useVuelidate } from "@vuelidate/core";
@@ -147,6 +159,9 @@ const dialog = ref(false);
 const loading = ref(false);
 const countryNames = ref([]);
 const { emit } = getCurrentInstance();
+const showSnackbar = ref(false);
+const snackbarMessage = ref("");
+const keyToast = ref(0);
 
 const { withMessage } = helpers;
 let { t } = useI18n();
@@ -248,6 +263,9 @@ const addClient = () => {
         );
         emit("dataChanged");
         if (response.status >= 200 && response.status < 300) {
+          showSnackbar.value = true;
+          keyToast.value++;
+          snackbarMessage.value = t("snackBarMsg");
           // router.push('/users/');
         } else {
           alert("erorrooor", response.message);
@@ -258,6 +276,8 @@ const addClient = () => {
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
+      await new Promise((resolve) => setTimeout(resolve, 2510));
+
         close();
       }
     }, 1500);

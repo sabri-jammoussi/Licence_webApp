@@ -1,6 +1,11 @@
 <template>
   <v-dialog v-model="editDialog" max-width="500px">
     <v-card>
+      <div class="grey--text text-h6 text-lg-h6 mt-2">
+        <v-icon left color="green" size="35" class="ml-2">mdi-account </v-icon>
+        {{ $t("updateClient") }}
+      </div>
+      <v-divider></v-divider>
       <v-card-text>
         <v-container>
           <v-spacer></v-spacer>
@@ -244,7 +249,7 @@ const updateClient = async () => {
   }
 };
 onMounted(async () => {
-  //console.log("edit dialog",props)
+  console.log("edit dialog",props)
   getCountries();
 
   if (props.user) {
@@ -260,7 +265,7 @@ onMounted(async () => {
     editDialog.value = true;
     console.log("props.user.id", props.user.id);
   }
-  await store.ReadRoles();
+  //await store.ReadRoles();
 });
 const close = () => {
   v$.value.$reset();

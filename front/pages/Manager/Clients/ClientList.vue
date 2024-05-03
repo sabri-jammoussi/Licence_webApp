@@ -1,4 +1,5 @@
 <template>
+  <v-card class="card">
   <v-data-table
     :headers="headers"
     :items="data"
@@ -17,6 +18,7 @@
             prepend-inner-icon="mdi-magnify"
             variant="solo-filled"
             flat
+            clearable
             hide-details
             single-line
             class="justify-content-start"
@@ -24,11 +26,11 @@
         </v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <!-- <AddUser /> -->
-        <AddClient @dataChanged="reloadData"/>
+        <AddClient @dataChanged="reloadData" />
         <v-dialog v-model="dialogDelete" max-width="420">
           <v-card>
             <v-card-title>{{ $t("deleteconfirme") }}</v-card-title>
-            <v-card-text>{{ $t("deletemsClient") }}</v-card-text>
+            <v-card-text>{{ $t("deletemsgClient") }}</v-card-text>
             <v-divider class="my-2"></v-divider>
 
             <v-card-actions>
@@ -70,7 +72,7 @@
       </v-icon>
     </template>
   </v-data-table>
-
+</v-card>
   <EditClient
     :user="selectedUser"
     v-if="editDialog"
@@ -139,12 +141,10 @@ const deleteItemConfirm = async () => {
   const utilisateurId = editedIndex.value;
 
   try {
-    await axios.delete(
-      `http://localhost:5252/api/client/${utilisateurId}`
-    );
+    await axios.delete(`http://localhost:5252/api/client/${utilisateurId}`);
     loading.value = true;
     try {
-      await store.getClients(); // Fetch data
+      await getClients();
     } catch (error) {
       console.error(error);
     } finally {
