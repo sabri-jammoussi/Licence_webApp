@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using LicenceApp.models.AttributeLicence;
 using LicenceApp.models.GlobalDao;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,8 +19,11 @@ namespace LicenceApp.Data
         public DbSet<EnumerationDao> Enumerations { get; set; }
         public DbSet<EnumerationValeurDao> enumerationValeurs { get; set; }
         public DbSet<AttributeLicenceDao> attributeLicences { get; set; }
+        public DbSet<AttributeLicenceValeurDao> attributeLicenceValeurs { get; set; }
+        public DbSet<LicenceDao>licences { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
             ////  CreatePasswordHash(NewUser, out byte[] passwordHash, out byte[] passwordSalt);
             using var hmac = new HMACSHA512();
             builder.Entity<UserDao>().HasData(
