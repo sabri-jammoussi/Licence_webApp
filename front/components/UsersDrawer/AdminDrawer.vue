@@ -4,8 +4,9 @@
       <div class="logo-container">
         <img src="/assets/logo.jpg" alt="Logo" />
       </div>
-      <v-list-item to="/" prepend-icon="mdi-home" title="Accueil" value="home">
+      <v-list-item to="/" prepend-icon="mdi-home" value="home">
         <!-- <v-tooltip activator="parent" location="end">Dashbord</v-tooltip> -->
+        {{ $t("dashboard") }}
       </v-list-item>
       <v-list-item
         to="/Admin/users/UserList"
@@ -28,11 +29,13 @@
       <v-list-item
         to="/Admin/Enumeration/EnumerationList"
         prepend-icon="mdi-slack"
-        title="Enumerations"
         value="home"
       >
+      {{ $t("Enumerations") }}
+
         <!-- <v-tooltip activator="parent" location="end">Enumerations</v-tooltip> -->
       </v-list-item>
+
       <v-list-item to="/about" prepend-icon="mdi-forum" value="home">
         {{ $t("About") }}
         <!-- <v-tooltip activator="parent" location="end">{{

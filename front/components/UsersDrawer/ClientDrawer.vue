@@ -11,7 +11,7 @@
         title="Accueil"
         value="home"
       >
-        <v-tooltip activator="parent" location="end">Accueil</v-tooltip>
+        <!-- <v-tooltip activator="parent" location="end">Accueil</v-tooltip> -->
       </v-list-item>
       <v-list-item
         to="/"
@@ -19,7 +19,7 @@
         title="Client"
         value="home"
       >
-        <v-tooltip activator="parent" location="end">Accueil</v-tooltip>
+        <!-- <v-tooltip activator="parent" location="end">Accueil</v-tooltip> -->
       </v-list-item>
       <v-list-item
         to="/about"
@@ -27,7 +27,7 @@
         value="home"
         :title="$t('About')"
       >
-        <v-tooltip activator="parent" location="end">{{ $t("About") }}</v-tooltip>
+        <!-- <v-tooltip activator="parent" location="end">{{ $t("About") }}</v-tooltip> -->
       </v-list-item>
     </v-list>
   </v-navigation-drawer>

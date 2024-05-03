@@ -37,7 +37,7 @@
 
   <v-menu min-width="200px" rounded>
     <template v-slot:activator="{ props }">
-      <v-btn v-bind="props" style="color: aliceblue">
+      <v-btn v-bind="props" style="color: aliceblue" prepend-icon="mdi-account">
         {{ userrole }}
       </v-btn>
     </template>
@@ -99,6 +99,7 @@ onMounted(async () => {
   if (savedLocale) {
     locale.value = savedLocale;
   }
+ // console.log("default ", userFirstName);
   await store.loadTokenFromLocalStorage();
 });
 const logout = async () => {

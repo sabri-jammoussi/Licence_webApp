@@ -1,7 +1,7 @@
 <template>
 <v-footer
     style="
-      background-color: rgb(220, 220, 220);
+      background-color: rgb(255, 255, 255);
       color: #000;
       caret-color: #000;
       bottom: 0;

@@ -17,6 +17,7 @@
                 prepend-inner-icon="mdi-magnify"
                 variant="solo-filled"
                 flat
+                clearable
                 hide-details
                 single-line
                 class="justify-content-start"

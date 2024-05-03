@@ -4,8 +4,10 @@
       <div class="logo-container">
         <img src="/assets/logo.jpg" alt="Logo" />
       </div>
-      <v-list-item to="/" prepend-icon="mdi-home" title="Accueil" value="home">
-        <v-tooltip activator="parent" location="end">Accueil</v-tooltip>
+      <v-list-item to="/" prepend-icon="mdi-home"  value="home">
+        <!-- <v-tooltip activator="parent" location="end">Accueil</v-tooltip> -->
+        {{ $t("dashboard") }}
+
       </v-list-item>
       <v-list-item
         to="/Manager/Clients/ClientList"
@@ -13,7 +15,7 @@
         title="Clients"
         value="home"
       >
-        <v-tooltip activator="parent" location="end">Clients</v-tooltip>
+        <!-- <v-tooltip activator="parent" location="end">Clients</v-tooltip> -->
       </v-list-item>
       <v-list-item
         to="/Admin/Applications/ApplicationList"
@@ -21,18 +23,25 @@
         title="Applications"
         value="home"
       >
-        <v-tooltip activator="parent" location="end">Applications</v-tooltip>
+        <!-- <v-tooltip activator="parent" location="end">Applications</v-tooltip> -->
       </v-list-item>
-
+      <v-list-item
+        to="/Manager/Licences/LicenceList"
+        prepend-icon="mdi-key"
+        :title="$t('licenses')"
+        value="home"
+      >
+        <!-- <v-tooltip activator="parent" location="end">Applications</v-tooltip> -->
+      </v-list-item>
       <v-list-item
         to="/about"
         prepend-icon="mdi-forum"
         value="home"
         :title="$t('About')"
       >
-        <v-tooltip activator="parent" location="end">{{
+        <!-- <v-tooltip activator="parent" location="end">{{
           $t("About")
-        }}</v-tooltip>
+        }}</v-tooltip> -->
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
