@@ -1,7 +1,7 @@
 ﻿using LicenceApp.Data;
 using LicenceApp.models.Applications;
+using LicenceApp.models.AttributeLicence;
 using LicenceApp.models.GlobalDao;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace LicenceApp.Services.ApplicationService
@@ -39,29 +39,56 @@ namespace LicenceApp.Services.ApplicationService
         public async Task<List<ApplicationDto>> GetAll()
         {
             List<ApplicationDto> result = await _dBContext.Applications
+                .Include(app => app.Attributes)
                .Select(u => new ApplicationDto
                {
                    Id = u.Id,
                    Identifiant = u.Identifiant,
                    Nom = u.Nom,
                    Description= u.Description,
+                   Attributes = u.Attributes.Select(att => new AttributeLicenceDto
+                   {
+                       Id = att.Id,
+                       Description= att.Description,
+                       Intutile = att.Intutile,
+                       Type = att.Type,
+                       Obligations= att.Obligations,
+                       EnumerationId = att.EnumurationValue
+                   }).ToList<AttributeLicenceDto>()
                }).ToListAsync();
             return result;
         }
 
         public async Task<ApplicationDto> GetApplicationtbyId(int id)
         {
-            var exisitingApp = await _dBContext.Applications.SingleOrDefaultAsync(x => x.Id == id);
-            if (exisitingApp == null)
-                throw new ApplicationException($"the id : {id} does not  existe  ");
-            var applictionDto = new ApplicationDto
+            var applicationEntity = await _dBContext.Applications
+                 .Include(app => app.Attributes)
+                .SingleOrDefaultAsync(app => app.Id == id);
+
+            if (applicationEntity == null)
+
+                throw new ApplicationException($"The Id : {id} you have been inserted  is  invalid ");
+ 
+
+            var applicationDto = new ApplicationDto
             {
-                Id = exisitingApp.Id,
-                Identifiant = exisitingApp.Identifiant,
-                Nom = exisitingApp.Nom,
-                Description = exisitingApp.Description,
+                Id = applicationEntity.Id,
+                Identifiant = applicationEntity.Identifiant,
+                Nom = applicationEntity.Nom,
+                Description = applicationEntity.Description,
+                Attributes = applicationEntity.Attributes.Select(att => new AttributeLicenceDto
+                {
+                    Id = att.Id,
+                    Description = att.Description,
+                    Intutile = att.Intutile,
+                    Type = att.Type,
+                    Obligations = att.Obligations,
+                    EnumerationId = att.EnumurationValue
+                }).ToList<AttributeLicenceDto>()
             };
-            return applictionDto;
+
+
+            return applicationDto;
         }
 
         public async Task Update(UpdateApplication updateApplication)
