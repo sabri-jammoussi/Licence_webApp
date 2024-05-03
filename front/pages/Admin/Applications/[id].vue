@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-6">
-        <v-card class="mx-left" height="100%" elevation="4">
+        <v-card class="mx-left" height="100%" elevation="">
           <v-card-text>
             <v-container>
               <v-spacer></v-spacer>
@@ -19,17 +19,25 @@
 
                   <div><strong>Description:</strong> {{ description }}</div>
                   <v-divider></v-divider>
-                  <strong class="text-h6">{{ $t('listATT') }}</strong>
-                  <AttributeList v-if="id" :attributeId="id" />
                 </v-col>
               </v-row>
             </v-container>
           </v-card-text>
         </v-card>
       </div>
-      <div class="col-sm-6">
-        <AddAttribute  :emitId="id"/>
+      <div class="col-sm-6" v-if="isAdmin">
+        <AttributeList v-if="id" :attributeId="id" />
       </div>
+      <div class="col-sm-6" v-if="isManager">
+        <AttributeListManager v-if="id" :attributeId="id" />
+      </div>
+      <v-container fluid>
+        <v-row>
+          <v-col cols="12" md="12" v-if="isManager">
+            <SummaryAttribute />
+          </v-col>
+        </v-row>
+      </v-container>
     </div>
   </div>
 </template>
@@ -37,15 +45,22 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
-
-import AddAttribute from "./Attributes/AddAttribute.vue";
 import AttributeList from "./Attributes/AttributeList.vue";
-const intutile = ref("");
+import AttributeListManager from "./Attributes/AttributeListManager.vue";
+import SummaryAttribute from "@/components/Card/SummaryAttributeListManager.vue";
+import { useMyStore } from "@/store/index.js";
+
 const identifiant = ref("");
 const nom = ref("");
 const description = ref("");
 const id = ref("");
 const route = useRoute();
+const store = useMyStore();
+
+const userrole = computed(() => store.user?.role);
+const isAdmin = computed(() => userrole.value === "Admin");
+const isManager = computed(() => userrole.value === "Manager");
+
 onMounted(async () => {
   id.value = route.params.id;
   getApplicationsById(id.value);

@@ -9,6 +9,11 @@
       </v-btn>
     </template>
     <v-card>
+      <div  class="grey--text text-h6 text-lg-h6 mt-2">
+                <v-icon left color="green" size="35" class="ml-2">mdi-account  </v-icon>
+                 {{ $t("newUser") }}
+              </div>
+              <v-divider></v-divider>
       <v-card-text>
         <v-container>
           <v-row no-gutters>
@@ -17,21 +22,21 @@
                 variant="outlined"
                 base-color="green"
                 :label="$t('lastname')"
-                v-model="firstName"
-                @blur="v$.firstName.touch"
-                @input="v$.firstName.$touch"
-                :error-messages="v$.firstName.$errors.map((e) => e.$message)"
+                v-model="lastName"
+                @blur="v$.lastName.touch"
+                @input="v$.lastName.$touch"
+                :error-messages="v$.lastName.$errors.map((e) => e.$message)"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="12">
               <v-text-field
                 variant="outlined"
-                v-model="lastName"
+                v-model="firstName"
                 :label="$t('firstname')"
                 base-color="green"
-                @blur="v$.lastName.touch"
-                @input="v$.lastName.$touch"
-                :error-messages="v$.lastName.$errors.map((e) => e.$message)"
+                @blur="v$.firstName.touch"
+                @input="v$.firstName.$touch"
+                :error-messages="v$.firstName.$errors.map((e) => e.$message)"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="12">

@@ -11,6 +11,11 @@
       </v-btn>
     </template> -->
     <v-card>
+      <div  class="grey--text text-h6 text-lg-h6 mt-2">
+                <v-icon left color="green" size="35" class="ml-2">mdi-slack  </v-icon>
+                 {{ $t("newEnumVal") }}
+              </div>
+              <v-divider></v-divider>
       <v-card-text>
         <v-container>
           <v-row no-gutters>
@@ -139,7 +144,7 @@ const addEnumVAl = () => {
         } else {
           alert("erorrooor", response.message);
         }
-       // emit("reload-data");
+        // emit("reload-data");
         //await emit("reloadData");
         //await getEnumVall();
         loading.value = false;
@@ -150,8 +155,6 @@ const addEnumVAl = () => {
 
         await new Promise((resolve) => setTimeout(resolve, 2510)); // Adjust time as needed
         close();
-
-
 
         //await props.reloadData();
       }

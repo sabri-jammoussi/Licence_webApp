@@ -1,23 +1,5 @@
 <template>
   <v-card>
-    <SnackBar
-      :key="keyToast"
-      v-if="showSnackbar"
-      :message="snackbarMessage"
-      :showSnackBar="showSnackbar"
-    />
-    <EditAttribute
-      :attribute="selectedAttribute"
-      v-if="editDialog"
-      @close-dialog="editDialog = false"
-      @dataChanged="reloadData"
-    />
-    <AddAttribute
-      @close-dialog="addDialog = false"
-      v-if="addDialog"
-      @dataChanged="reloadData"
-      :emitId="id"
-    />
     <v-data-table
       :items-per-page="5"
       :headers="headers"
@@ -46,107 +28,23 @@
                 single-line
                 class="justify-content-start"
               ></v-text-field>
-
-              <div class="m-auto">
-                <v-tooltip text="Tooltip" location="bottom">
-                  <template v-slot:activator="{ props }">
-                    <v-icon
-                      color="blue"
-                      variant="tonal"
-                      @click="openAddDialog()"
-                      v-bind="props"
-                    >
-                      mdi-plus
-                    </v-icon>
-                  </template>
-                  <span>{{ $t("newAttribute") }}</span>
-                </v-tooltip>
-              </div>
             </div>
           </v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
-          <v-dialog v-model="dialogDelete" max-width="420">
-            <v-card>
-              <v-card-title>{{ $t("deleteconfirme") }}</v-card-title>
-              <v-card-text>{{ $t("deletemsgApp") }}</v-card-text>
-              <v-divider class="my-2"></v-divider>
-
-              <v-card-actions>
-                <v-spacer></v-spacer>
-
-                <v-btn color="red" text @click="deleteItemConfirm">{{
-                  $t("delete")
-                }}</v-btn>
-                <v-btn color="grey" text @click="closeDelete">{{
-                  $t("cancel")
-                }}</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+   
         </v-toolbar>
-      </template>
-      <template v-slot:[`item.actions`]="{ item }">
-        <v-tooltip text="Tooltip" location="bottom">
-          <template v-slot:activator="{ props }">
-            <v-icon
-              size="small"
-              class="me-2"
-              @click="openEditDialog(item)"
-              color="green"
-              variant="tonal"
-              v-bind="props"
-            >
-              mdi-pencil
-            </v-icon>
-          </template>
-          <span>
-            {{ $t("UpdateApp") }}
-          </span>
-        </v-tooltip>
-        <v-tooltip text="Tooltip" location="bottom">
-          <template v-slot:activator="{ props }">
-            <v-icon
-              size="small"
-              @click.stop="deleteItem(item.id)"
-              v-bind="props"
-              color="red"
-            >
-              mdi-delete
-            </v-icon>
-          </template>
-          <span> {{ $t("DeleteApp") }} </span>
-        </v-tooltip>
       </template>
     </v-data-table>
     <v-data-table v-else>
-      <strong class="d-flex justify-center"
-        >{{ $t("NoData") }}
-        <div class="m-auto">
-          <v-tooltip text="Tooltip" location="bottom">
-            <template v-slot:activator="{ props }">
-              <v-icon
-                color="blue"
-                variant="tonal"
-                @click="openAddDialog()"
-                v-bind="props"
-              >
-                mdi-plus
-              </v-icon>
-            </template>
-            <span>{{ $t("newAttribute") }}</span>
-          </v-tooltip>
-        </div></strong
-      >
+      <strong class="d-flex justify-center">{{ $t("NoData") }}</strong>
     </v-data-table>
+
   </v-card>
 </template>
-
-<script setup>
+  
+  <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
-import SnackBar from "~/components/SnackBar.vue";
-import EditAttribute from "./EditAttribute.vue";
-import AddAttribute from "./AddAttribute.vue";
 const editedIndex = ref(-1);
 const loading = ref(false);
 const selectedAttribute = ref("");
@@ -164,7 +62,7 @@ const headers = computed(() => [
   { title: t("intutile"), key: "intutile" },
   { title: "Description", key: "description" },
   { title: "Type ", key: "type" },
-  { title: "Actions", key: "actions", sortable: false },
+
 ]);
 const props = defineProps({
   attributeId: {
@@ -241,3 +139,4 @@ const closeDelete = () => {
   dialogDelete.value = false;
 };
 </script>
+  

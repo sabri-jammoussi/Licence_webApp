@@ -1,6 +1,11 @@
 <template>
   <v-dialog v-model="editDialog" max-width="500px">
     <v-card>
+      <div  class="grey--text text-h6 text-lg-h6 mt-2">
+                <v-icon left color="green" size="35" class="ml-2">mdi-slack  </v-icon>
+                 {{ $t("updateEnum") }}
+              </div>
+              <v-divider></v-divider>
       <v-card-text>
         <v-container>
           <v-spacer></v-spacer>

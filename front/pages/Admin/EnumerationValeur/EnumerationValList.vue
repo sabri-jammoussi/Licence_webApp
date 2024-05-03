@@ -9,7 +9,7 @@
     <v-list
       v-if="data.length > 0"
       class="custom-scrollbar"
-      style="height: 160px; overflow-y: scroll"
+      style="height: 160px; overflow-y: scroll "
     >
       <EditEnumVal
         :user="selectedUser"
@@ -113,10 +113,13 @@ onMounted(async () => {
 
 const getEnumVal = async () => {
   try {
+    console.log(props.enumerationId);
     const response = await axios.get(
       `http://localhost:5252/api/enumerationvaleur/getenumval/${props.enumerationId}`
     );
+    console.log(response)
     data.value = response.data;
+    console.log(data.value);
   } catch (error) {
     //console.error(error);
   }
@@ -174,6 +177,7 @@ const openEditDialog = (item) => {
 };
 </script>
 <style>
+
 /* Styles pour la barre de défilement */
 .custom-scrollbar::-webkit-scrollbar {
   width: 1px; /* Largeur de la barre de défilement */

@@ -1,10 +1,12 @@
 <template>
-  <v-card class="mx-auto my-2" elevation="4">
+  <v-card class="mx-auto my-2 card" elevation="">
     <v-data-table
       :headers="headers"
       :items="data"
       :sort-by="[{ key: 'calories', order: 'asc' }]"
       v-model:search="search"
+    :loading="loading"
+
     >
       <template v-slot:top>
         <v-toolbar flat>
@@ -17,6 +19,7 @@
               variant="solo-filled"
               flat
               hide-details
+              clearable
               single-line
               class="justify-content-start"
             ></v-text-field>
@@ -98,8 +101,8 @@ const search = ref("");
 let { t } = useI18n();
 const data = ref([]);
 const headers = computed(() => [
-  { title: t("lastname"), key: "firstName" },
-  { title: t("firstname"), key: "lastName" },
+  { title: t("lastname"), key: "lastName" },
+  { title: t("firstname"), key: "firstName" },
   { title: "Email", key: "email" },
   { title: "Role", key: "role" },
   { title: "Actions", key: "actions", sortable: false },

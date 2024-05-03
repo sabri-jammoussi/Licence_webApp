@@ -9,8 +9,14 @@
       </v-btn>
     </template>
     <v-card>
+      <div  class="grey--text text-h6 text-lg-h6 mt-2">
+                <v-icon left color="green" size="35" class="ml-2">mdi-apps  </v-icon>
+                 {{ $t("newApp") }}
+              </div>
+              <v-divider></v-divider>
       <v-card-text>
         <v-container>
+          
           <v-row no-gutters>
             <v-col cols="12" sm="6" md="12">
               <v-text-field

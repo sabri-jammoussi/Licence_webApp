@@ -5,8 +5,8 @@
     :message="snackbarMessage"
     :showSnackBar="showSnackbar"
   />
-  <v-card elevation="4">
-    <v-data-iterator :items="data" :items-per-page="12" :search="search">
+  <v-card elevation="" class="card">
+    <v-data-iterator :items="data" :items-per-page="6" :search="search">
       <template v-slot:header>
         <v-toolbar flat>
           <v-toolbar-title>
@@ -60,8 +60,8 @@
       <template v-slot:default="{ items }">
         <v-container class="pa-" fluid>
           <v-row>
-            <v-col v-for="item in items" :key="item.code" cols="auto" md="4">
-              <v-card class="pb-3" border flat>
+            <v-col v-for="item in items" :key="item.code" cols="auto" md="4" >
+              <v-card class="pb-3" border >
                 <!-- <v-img :src="item.raw.code"></v-img> -->
                 <v-list-item class="mb-2" max-height="350">
                   <div class="d-flex align-items-center">
