@@ -56,7 +56,33 @@
     "intutile":"Intitulé",
     "updateATT":"Modifier Attribut",
     "deleteATT":"Supprimer Attribut",
-    "listATT":"Liste des attributs"
+    "listATT":"Liste des attributs",
+    "DateExp":"Date D'expiration",
+    "client":"Client",
+    "select":"Sélectionner",
+    "dashboard":"Tableau De Bord",
+    "Enumerations":"Enumérations",
+    "licenses":"Licences",
+    "newAttribute":"Ajouter des Attributes",
+    "newLicence":"Ajouter des Licences",
+    "selectApp":"Sélectionnez une application",
+    "newLicenses":"Nouvelles licences",
+    "editLicenses":"Modifier les licences",
+    "newClient":"Ajouter un client",
+    "updateClient":"Modifier le client",
+    "snackBarMsg":"Ajouté avec succès ."
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
