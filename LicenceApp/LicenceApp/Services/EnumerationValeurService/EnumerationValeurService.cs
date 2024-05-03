@@ -72,8 +72,8 @@ namespace LicenceApp.Services.EnumerationValeur
                                         .Where(u => u.EnumerationId == id)
                                         .ToListAsync();
 
-            if (enumVals == null || enumVals.Count == 0)
-                throw new ApplicationException($"No enumeration values found for the id: {id}");
+            //if (enumVals == null || enumVals.Count == 0)
+            //    throw new ApplicationException($"No enumeration values found for the id: {id}");
 
             var enumValDtos = enumVals.Select(enumVal => new EnumValDto
             {
