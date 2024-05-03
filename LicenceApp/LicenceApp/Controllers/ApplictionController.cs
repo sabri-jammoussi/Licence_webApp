@@ -15,7 +15,7 @@ namespace LicenceApp.Controllers
         {
             _applicationService = applicationRepository;
         }
-        [Authorize(Roles = "Manager , Admin")]
+        //[Authorize(Roles = "Admin , Manager")]
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ApplicationDto>>> GetApplications()
@@ -29,7 +29,7 @@ namespace LicenceApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+    //    [Authorize(Roles = "Admin")]
 
         [HttpGet("{id}")]
         public async Task<ActionResult> GetApplicaiton(int id)

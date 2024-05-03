@@ -1,5 +1,6 @@
 ﻿using LicenceApp.Data;
 using LicenceApp.models.Enumeration;
+using LicenceApp.models.EnumerationValeur;
 using LicenceApp.models.GlobalDao;
 using Microsoft.EntityFrameworkCore;
 
@@ -44,22 +45,36 @@ namespace LicenceApp.Services.Enumeration
             {
                 Id = u.Id,
                 Code = u.Code,
-                Nom = u.Nom,   
-                Valeurs = u.Valeurs,
+                Nom = u.Nom,
+                Valeurs = u.Valeurs.Select(ev => new EnumValDto
+                {
+                    Id = ev.Id,
+                    Valeur = ev.Valeur
+                }).ToList<EnumValDto>()
             }).ToListAsync();
             return result;
         }
 
         public async Task<EnumerationDto> GetEnumerationtbyId(int id)
         {
-            var enumeration = await _dbContext.Enumerations.FirstOrDefaultAsync(u => u.Id == id);
+            var enumeration = await _dbContext.Enumerations
+                .Include(e => e.Valeurs)
+                .SingleOrDefaultAsync(u => u.Id == id);
             if(enumeration == null)
                 throw new ApplicationException($"the id : {id} does not  existe  ");
+       //     await _dbContext.Entry(enumeration)
+       //.Collection(e => e.Valeurs)
+       //.LoadAsync();
             var enumerationdto = new EnumerationDto
             {
                 Id = enumeration.Id,
                 Code = enumeration.Code,
                 Nom = enumeration.Nom,
+                Valeurs = enumeration.Valeurs.Select(ev => new EnumValDto
+                {
+                    Id = ev.Id,
+                    Valeur = ev.Valeur
+                }).ToList<EnumValDto>()
             };
              return enumerationdto;
         }
