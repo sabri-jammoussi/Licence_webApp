@@ -1,14 +1,18 @@
 using LicenceApp.Data;
 using LicenceApp.models;
 using LicenceApp.Services.ApplicationService;
+using LicenceApp.Services.AttributeLicenceService;
+using LicenceApp.Services.AttributeLicenceValuerService;
 using LicenceApp.Services.ClientService;
 using LicenceApp.Services.Enumeration;
 using LicenceApp.Services.EnumerationValeur;
+using LicenceApp.Services.LicenceService;
 using LicenceApp.Services.Security;
 using LicenceApp.Services.UserService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -19,19 +23,6 @@ var builder = WebApplication.CreateBuilder(args);
 var validIssuer = builder.Configuration.GetValue<string>("JwtTokenSettings:ValidIssuer");
 var validAudience = builder.Configuration.GetValue<string>("JwtTokenSettings:ValidAudience");
 var symmetricSecurityKey = builder.Configuration.GetValue<string>("JwtTokenSettings:SymmetricSecurityKey");
-//builder.Services
-//    .AddIdentity<UserDao, IdentityRole>(options =>
-//    {
-//        options.SignIn.RequireConfirmedAccount = false;
-//        options.User.RequireUniqueEmail = true;
-//        options.Password.RequireDigit = false;
-//        options.Password.RequiredLength = 6;
-//        options.Password.RequireNonAlphanumeric = false;
-//        options.Password.RequireUppercase = false;
-//    })
-//    .AddRoles<IdentityRole>()
-//    .AddEntityFrameworkStores<LicenceDBContext>();
-
 builder.Services.AddDbContext<LicenceDBContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("UsersConnection")));
 
@@ -98,7 +89,12 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddControllers().AddJsonOptions(opt =>
 {
     opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    //opt.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+     opt.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    //opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+
 });
+// hethi bech t3mel conversion mel decimal lil string !!
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddCors(options =>
 {
@@ -113,6 +109,9 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IApplicationService , ApplicationService>();
 builder.Services.AddScoped<IEnumerationService, EnumerationService>();
 builder.Services.AddScoped<IEnumerationValeurService, EnumerationValeurService>();
+builder.Services.AddScoped<IAttributeLicenceService, AttributeLicenceService>();
+builder.Services.AddScoped<ILicenceService, LicenceService>();
+builder.Services.AddScoped<IAttributeLicenceValeurService , AttributeLicenceValeurService>();
 builder.Services.AddScoped<IPasswordValidator, PasswordValidator>();
 builder.Services.AddScoped<IEmailValidator , EmailValidator>();
 builder.Services.AddControllers();
