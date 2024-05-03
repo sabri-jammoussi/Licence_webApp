@@ -1,6 +1,7 @@
 import type { NuxtPage } from "nuxt/schema";
 
 export default defineNuxtConfig({
+  
   devtools: { enabled: true }, 
   app: {
     head: {
@@ -30,17 +31,23 @@ export default defineNuxtConfig({
     'vuetify/styles/main.sass',
     'bootstrap/dist/css/bootstrap.css',
     'primevue/resources/themes/lara-light-teal/theme.css',
+    '~/assets/scss/global.scss'
   ],
-
+ // plugins: ['@/plugins/chart.js'],
 
   modules: [
     '@pinia/nuxt',
     'nuxt-primevue',
     '@vee-validate/nuxt',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    '@vueuse/nuxt',
+
     ],
 
     plugins: [
+      { src: '~/plugins/chart.js', mode: 'client' },
+      { src: '~/plugins/apex-chart.js', mode: 'client' },
+
       { src: '~/plugins/axios-auth.js', ssr: false }
     ],
    
@@ -66,6 +73,26 @@ export default defineNuxtConfig({
       ignore: ['/posts/others'],
     },
   },
-
- 
+  // router: {
+  //       // @ts-ignore
+  //   extendRoutes(routes, resolve) {
+  //     routes.push({
+  //       name: 'AddLicence',
+  //       path: '/Manager/Licences/AddLicence',
+  //       component: resolve(__dirname, 'components/AddLicence.vue')
+  //     });
+  //   }
+  // }
+  
+  hooks: {
+    'pages:extend'(pages) {
+      pages.push({
+        name: 'AddLicence',
+        path: '/Manager/Licences/AddLicence/:selectedApp?',
+        file: '~/pages/Manager/Licences/AddLicence',
+        
+    
+      })
+    },
+  },
 });
