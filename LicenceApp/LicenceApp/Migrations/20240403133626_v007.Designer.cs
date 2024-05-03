@@ -4,6 +4,7 @@ using LicenceApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LicenceApp.Migrations
 {
     [DbContext(typeof(LicenceDBContext))]
-    partial class LicenceDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240403133626_v007")]
+    partial class v007
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,19 +74,11 @@ namespace LicenceApp.Migrations
                         .HasColumnType("nvarchar(30)")
                         .HasColumnName("ATT_DESCRIPTION");
 
-                    b.Property<int?>("EnumurationValue")
-                        .HasColumnType("int")
-                        .HasColumnName("ATT_ENUMERATION_VALUE");
-
                     b.Property<string>("Intutile")
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)")
                         .HasColumnName("ATT_INTUTILE");
-
-                    b.Property<bool>("Obligations")
-                        .HasColumnType("bit")
-                        .HasColumnName("ATT_OBLIGATION");
 
                     b.Property<short>("Type")
                         .HasColumnType("smallint")
@@ -94,35 +89,6 @@ namespace LicenceApp.Migrations
                     b.HasIndex("ApplicationId");
 
                     b.ToTable("ATTRIBUTE_LICENCE");
-                });
-
-            modelBuilder.Entity("LicenceApp.models.GlobalDao.AttributeLicenceValeurDao", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ATTV_ID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AttributeId")
-                        .HasColumnType("int")
-                        .HasColumnName("ATT_ID");
-
-                    b.Property<int>("LicenceId")
-                        .HasColumnType("int")
-                        .HasColumnName("LIC_ID");
-
-                    b.Property<string>("valeur")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ATTV_VALEUR");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LicenceId");
-
-                    b.ToTable("ATTRIBUTE_LICENCE_VALUE");
                 });
 
             modelBuilder.Entity("LicenceApp.models.GlobalDao.ClientDao", b =>
@@ -236,40 +202,6 @@ namespace LicenceApp.Migrations
                     b.ToTable("ENUMERATION_VALUE");
                 });
 
-            modelBuilder.Entity("LicenceApp.models.GlobalDao.LicenceDao", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("LIC_ID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ApplicationId")
-                        .HasColumnType("int")
-                        .HasColumnName("APP_ID");
-
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int")
-                        .HasColumnName("CL_ID");
-
-                    b.Property<DateTime?>("DateExp")
-                        .HasColumnType("Date")
-                        .HasColumnName("LIC_DATE_EXP");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("LIC_USER_ID");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationId");
-
-                    b.HasIndex("ClientId");
-
-                    b.ToTable("LICENCE");
-                });
-
             modelBuilder.Entity("LicenceApp.models.GlobalDao.UserDao", b =>
                 {
                     b.Property<int>("Id")
@@ -320,8 +252,8 @@ namespace LicenceApp.Migrations
                             Email = "sabrijm123@gmail.com",
                             FirstName = "sabri",
                             LastName = "jammoussi",
-                            PasswordHash = new byte[] { 149, 250, 200, 227, 102, 193, 170, 83, 199, 148, 216, 17, 193, 146, 134, 63, 79, 86, 160, 119, 70, 72, 71, 154, 129, 0, 41, 5, 18, 209, 93, 186, 152, 77, 33, 216, 194, 143, 106, 140, 152, 28, 155, 3, 251, 141, 60, 61, 175, 211, 6, 196, 91, 109, 128, 148, 66, 213, 212, 79, 45, 209, 99, 212 },
-                            PasswordSalt = new byte[] { 164, 228, 125, 9, 152, 5, 106, 255, 121, 79, 185, 14, 182, 221, 87, 147, 98, 29, 224, 254, 7, 216, 207, 46, 10, 159, 31, 194, 143, 204, 58, 45, 55, 208, 102, 154, 190, 240, 251, 183, 230, 198, 51, 128, 255, 104, 91, 203, 118, 109, 19, 239, 38, 235, 120, 134, 109, 228, 72, 87, 62, 51, 173, 0, 144, 84, 195, 120, 63, 41, 214, 168, 76, 12, 164, 144, 84, 134, 40, 250, 84, 54, 77, 112, 187, 38, 6, 116, 181, 136, 233, 18, 222, 32, 170, 162, 140, 74, 106, 178, 158, 166, 130, 198, 68, 55, 159, 92, 32, 234, 31, 208, 30, 102, 80, 26, 225, 12, 50, 38, 214, 221, 35, 77, 88, 66, 6, 179 },
+                            PasswordHash = new byte[] { 189, 243, 83, 27, 190, 221, 190, 156, 252, 160, 165, 151, 219, 135, 49, 9, 92, 24, 204, 101, 222, 134, 128, 147, 170, 149, 41, 158, 186, 1, 51, 146, 143, 185, 227, 81, 168, 199, 65, 132, 114, 142, 159, 38, 128, 226, 24, 44, 49, 9, 81, 8, 139, 202, 25, 160, 34, 198, 207, 146, 125, 129, 196, 10 },
+                            PasswordSalt = new byte[] { 6, 21, 55, 130, 52, 176, 65, 30, 133, 147, 224, 44, 75, 69, 255, 94, 182, 92, 227, 169, 185, 94, 6, 147, 34, 189, 202, 71, 173, 48, 0, 28, 198, 184, 40, 147, 39, 99, 254, 91, 235, 79, 228, 159, 235, 36, 206, 103, 241, 8, 105, 167, 179, 40, 27, 15, 181, 144, 196, 15, 127, 141, 98, 90, 70, 215, 139, 123, 234, 193, 150, 154, 128, 124, 35, 62, 233, 240, 207, 159, 193, 161, 173, 187, 206, 65, 66, 213, 143, 238, 98, 116, 18, 228, 250, 68, 35, 230, 140, 204, 44, 45, 189, 205, 103, 210, 224, 152, 25, 214, 1, 178, 90, 94, 47, 121, 121, 249, 123, 228, 124, 78, 39, 177, 8, 29, 31, 204 },
                             Role = (short)0
                         });
                 });
@@ -337,17 +269,6 @@ namespace LicenceApp.Migrations
                     b.Navigation("Application");
                 });
 
-            modelBuilder.Entity("LicenceApp.models.GlobalDao.AttributeLicenceValeurDao", b =>
-                {
-                    b.HasOne("LicenceApp.models.GlobalDao.LicenceDao", "LicenceDao")
-                        .WithMany("AttributeValeurs")
-                        .HasForeignKey("LicenceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("LicenceDao");
-                });
-
             modelBuilder.Entity("LicenceApp.models.GlobalDao.EnumerationValeurDao", b =>
                 {
                     b.HasOne("LicenceApp.models.GlobalDao.EnumerationDao", "Enumeration")
@@ -359,40 +280,14 @@ namespace LicenceApp.Migrations
                     b.Navigation("Enumeration");
                 });
 
-            modelBuilder.Entity("LicenceApp.models.GlobalDao.LicenceDao", b =>
-                {
-                    b.HasOne("LicenceApp.models.GlobalDao.ApplicationDao", "Application")
-                        .WithMany("Licences")
-                        .HasForeignKey("ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LicenceApp.models.GlobalDao.ClientDao", "Client")
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Application");
-
-                    b.Navigation("Client");
-                });
-
             modelBuilder.Entity("LicenceApp.models.GlobalDao.ApplicationDao", b =>
                 {
                     b.Navigation("Attributes");
-
-                    b.Navigation("Licences");
                 });
 
             modelBuilder.Entity("LicenceApp.models.GlobalDao.EnumerationDao", b =>
                 {
                     b.Navigation("Valeurs");
-                });
-
-            modelBuilder.Entity("LicenceApp.models.GlobalDao.LicenceDao", b =>
-                {
-                    b.Navigation("AttributeValeurs");
                 });
 #pragma warning restore 612, 618
         }

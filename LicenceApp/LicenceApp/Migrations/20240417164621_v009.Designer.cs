@@ -4,6 +4,7 @@ using LicenceApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LicenceApp.Migrations
 {
     [DbContext(typeof(LicenceDBContext))]
-    partial class LicenceDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240417164621_v009")]
+    partial class v009
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,10 +74,6 @@ namespace LicenceApp.Migrations
                         .HasColumnType("nvarchar(30)")
                         .HasColumnName("ATT_DESCRIPTION");
 
-                    b.Property<int?>("EnumurationValue")
-                        .HasColumnType("int")
-                        .HasColumnName("ATT_ENUMERATION_VALUE");
-
                     b.Property<string>("Intutile")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -94,35 +93,6 @@ namespace LicenceApp.Migrations
                     b.HasIndex("ApplicationId");
 
                     b.ToTable("ATTRIBUTE_LICENCE");
-                });
-
-            modelBuilder.Entity("LicenceApp.models.GlobalDao.AttributeLicenceValeurDao", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("ATTV_ID");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AttributeId")
-                        .HasColumnType("int")
-                        .HasColumnName("ATT_ID");
-
-                    b.Property<int>("LicenceId")
-                        .HasColumnType("int")
-                        .HasColumnName("LIC_ID");
-
-                    b.Property<string>("valeur")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ATTV_VALEUR");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LicenceId");
-
-                    b.ToTable("ATTRIBUTE_LICENCE_VALUE");
                 });
 
             modelBuilder.Entity("LicenceApp.models.GlobalDao.ClientDao", b =>
@@ -320,8 +290,8 @@ namespace LicenceApp.Migrations
                             Email = "sabrijm123@gmail.com",
                             FirstName = "sabri",
                             LastName = "jammoussi",
-                            PasswordHash = new byte[] { 149, 250, 200, 227, 102, 193, 170, 83, 199, 148, 216, 17, 193, 146, 134, 63, 79, 86, 160, 119, 70, 72, 71, 154, 129, 0, 41, 5, 18, 209, 93, 186, 152, 77, 33, 216, 194, 143, 106, 140, 152, 28, 155, 3, 251, 141, 60, 61, 175, 211, 6, 196, 91, 109, 128, 148, 66, 213, 212, 79, 45, 209, 99, 212 },
-                            PasswordSalt = new byte[] { 164, 228, 125, 9, 152, 5, 106, 255, 121, 79, 185, 14, 182, 221, 87, 147, 98, 29, 224, 254, 7, 216, 207, 46, 10, 159, 31, 194, 143, 204, 58, 45, 55, 208, 102, 154, 190, 240, 251, 183, 230, 198, 51, 128, 255, 104, 91, 203, 118, 109, 19, 239, 38, 235, 120, 134, 109, 228, 72, 87, 62, 51, 173, 0, 144, 84, 195, 120, 63, 41, 214, 168, 76, 12, 164, 144, 84, 134, 40, 250, 84, 54, 77, 112, 187, 38, 6, 116, 181, 136, 233, 18, 222, 32, 170, 162, 140, 74, 106, 178, 158, 166, 130, 198, 68, 55, 159, 92, 32, 234, 31, 208, 30, 102, 80, 26, 225, 12, 50, 38, 214, 221, 35, 77, 88, 66, 6, 179 },
+                            PasswordHash = new byte[] { 213, 119, 145, 182, 4, 46, 181, 119, 46, 55, 221, 221, 105, 122, 43, 110, 30, 236, 15, 112, 11, 151, 156, 127, 103, 179, 180, 106, 42, 143, 79, 119, 250, 252, 36, 134, 48, 168, 253, 155, 211, 209, 3, 90, 190, 222, 19, 10, 22, 102, 251, 117, 112, 90, 138, 96, 135, 131, 197, 205, 99, 11, 133, 199 },
+                            PasswordSalt = new byte[] { 109, 20, 177, 18, 86, 141, 86, 98, 219, 73, 204, 6, 207, 224, 147, 195, 236, 145, 242, 209, 15, 166, 93, 62, 102, 96, 238, 24, 190, 123, 166, 76, 176, 206, 89, 28, 0, 39, 197, 6, 72, 11, 79, 168, 127, 188, 166, 2, 241, 88, 131, 172, 170, 151, 93, 221, 104, 166, 156, 252, 145, 216, 182, 138, 155, 130, 6, 249, 130, 64, 192, 66, 86, 211, 99, 200, 200, 100, 176, 131, 99, 29, 156, 73, 115, 238, 213, 122, 178, 160, 117, 45, 45, 10, 165, 2, 189, 185, 16, 18, 253, 158, 100, 53, 57, 46, 79, 183, 93, 46, 52, 121, 30, 190, 255, 15, 177, 103, 151, 233, 100, 240, 54, 169, 188, 121, 22, 56 },
                             Role = (short)0
                         });
                 });
@@ -335,17 +305,6 @@ namespace LicenceApp.Migrations
                         .IsRequired();
 
                     b.Navigation("Application");
-                });
-
-            modelBuilder.Entity("LicenceApp.models.GlobalDao.AttributeLicenceValeurDao", b =>
-                {
-                    b.HasOne("LicenceApp.models.GlobalDao.LicenceDao", "LicenceDao")
-                        .WithMany("AttributeValeurs")
-                        .HasForeignKey("LicenceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("LicenceDao");
                 });
 
             modelBuilder.Entity("LicenceApp.models.GlobalDao.EnumerationValeurDao", b =>
@@ -388,11 +347,6 @@ namespace LicenceApp.Migrations
             modelBuilder.Entity("LicenceApp.models.GlobalDao.EnumerationDao", b =>
                 {
                     b.Navigation("Valeurs");
-                });
-
-            modelBuilder.Entity("LicenceApp.models.GlobalDao.LicenceDao", b =>
-                {
-                    b.Navigation("AttributeValeurs");
                 });
 #pragma warning restore 612, 618
         }
