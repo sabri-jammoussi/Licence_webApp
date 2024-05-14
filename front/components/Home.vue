@@ -54,10 +54,10 @@
             color="green"
             variant="tonal"
           >
-            mdi-pencil
+            mdi-pencil-outline
           </v-icon>
           <v-icon size="small" @click.stop="deleteItem(item.id)" color="red">
-            mdi-delete
+            mdi-delete-outline
           </v-icon>
         </template>
         <thead>

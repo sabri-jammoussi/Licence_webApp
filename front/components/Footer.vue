@@ -1,5 +1,5 @@
 <template>
-<v-footer
+  <v-footer
     style="
       background-color: rgb(255, 255, 255);
       color: #000;
@@ -11,12 +11,19 @@
     "
     app
   >
-  <span style="color: #16df17"
-          >&copy; APBS {{ new Date().getFullYear() }}</span
-        >
-      </v-footer>
-
+    <div class="bg-">
+      <img
+        src="/assets/Logoo2.png"
+        alt="Logo"
+        style="height: 30px; width: 150px"
+      />
+    </div>
+    <div class="text-right w-100">
+      <span style="color: #16df17"
+        >AP Licence copyright &copy; {{ new Date().getFullYear() }}</span
+      >
+    </div>
+  </v-footer>
 </template>
 <style scoped>
-
 </style>
