@@ -96,7 +96,7 @@
               variant="tonal"
               v-bind="props"
             >
-              mdi-pencil
+              mdi-pencil-outline
             </v-icon>
           </template>
           <span>
@@ -111,7 +111,7 @@
               v-bind="props"
               color="red"
             >
-              mdi-delete
+              mdi-delete-outline
             </v-icon>
           </template>
           <span> {{ $t("DeleteApp") }} </span>

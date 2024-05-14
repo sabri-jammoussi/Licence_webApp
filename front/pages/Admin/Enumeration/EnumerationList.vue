@@ -60,8 +60,8 @@
       <template v-slot:default="{ items }">
         <v-container class="pa-" fluid>
           <v-row>
-            <v-col v-for="item in items" :key="item.code" cols="auto" md="4" >
-              <v-card class="pb-3" border >
+            <v-col v-for="item in items" :key="item.code" cols="auto" md="4">
+              <v-card class="pb-3" border>
                 <!-- <v-img :src="item.raw.code"></v-img> -->
                 <v-list-item class="mb-2" max-height="350">
                   <div class="d-flex align-items-center">
@@ -99,7 +99,7 @@
                             variant="tonal"
                             v-bind="props"
                           >
-                            mdi-pencil
+                            mdi-pencil-outline
                           </v-icon>
                         </template>
                         <span>{{ $t("updateEnum") }}</span>
@@ -113,7 +113,7 @@
                             color="red"
                             v-bind="props"
                           >
-                            mdi-delete
+                            mdi-delete-outline
                           </v-icon>
                         </template>
                         <span>{{ $t("deleteEnum") }}</span>

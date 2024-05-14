@@ -1,78 +1,78 @@
 <template>
   <v-card class="card">
-  <v-data-table
-    :headers="headers"
-    :items="data"
-    :sort-by="[{ key: 'calories', order: 'asc' }]"
-    :search="search"
-    :loading="loading"
-    :items-per-page="5"
-  >
-    <template v-slot:top>
-      <v-toolbar flat>
-        <v-toolbar-title>
-          <v-text-field
-            v-model="search"
-            density="compact"
-            :label="$t('search')"
-            prepend-inner-icon="mdi-magnify"
-            variant="solo-filled"
-            flat
-            clearable
-            hide-details
-            single-line
-            class="justify-content-start"
-          ></v-text-field>
-        </v-toolbar-title>
-        <v-divider class="mx-4" inset vertical></v-divider>
-        <!-- <AddUser /> -->
-        <AddClient @dataChanged="reloadData" />
-        <v-dialog v-model="dialogDelete" max-width="420">
-          <v-card>
-            <v-card-title>{{ $t("deleteconfirme") }}</v-card-title>
-            <v-card-text>{{ $t("deletemsgClient") }}</v-card-text>
-            <v-divider class="my-2"></v-divider>
+    <v-data-table
+      :headers="headers"
+      :items="data"
+      :sort-by="[{ key: 'calories', order: 'asc' }]"
+      :search="search"
+      :loading="loading"
+      :items-per-page="5"
+    >
+      <template v-slot:top>
+        <v-toolbar flat>
+          <v-toolbar-title>
+            <v-text-field
+              v-model="search"
+              density="compact"
+              :label="$t('search')"
+              prepend-inner-icon="mdi-magnify"
+              variant="solo-filled"
+              flat
+              clearable
+              hide-details
+              single-line
+              class="justify-content-start"
+            ></v-text-field>
+          </v-toolbar-title>
+          <v-divider class="mx-4" inset vertical></v-divider>
+          <!-- <AddUser /> -->
+          <AddClient @dataChanged="reloadData" />
+          <v-dialog v-model="dialogDelete" max-width="420">
+            <v-card>
+              <v-card-title>{{ $t("deleteconfirme") }}</v-card-title>
+              <v-card-text>{{ $t("deletemsgClient") }}</v-card-text>
+              <v-divider class="my-2"></v-divider>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
+              <v-card-actions>
+                <v-spacer></v-spacer>
 
-              <v-btn color="red" text @click="deleteItemConfirm">{{
-                $t("delete")
-              }}</v-btn>
-              <v-btn color="grey" text @click="closeDelete">{{
-                $t("cancel")
-              }}</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-toolbar>
-    </template>
+                <v-btn color="red" text @click="deleteItemConfirm">{{
+                  $t("delete")
+                }}</v-btn>
+                <v-btn color="grey" text @click="closeDelete">{{
+                  $t("cancel")
+                }}</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-toolbar>
+      </template>
 
-    <template v-slot:[`item.actions`]="{ item }">
-      <v-icon
-        size="small"
-        class="me-2"
-        @click="consulter(item)"
-        color="blue"
-        variant="tonal"
-      >
-        mdi-magnify
-      </v-icon>
-      <v-icon
-        size="small"
-        class="me-2"
-        @click="openEditDialog(item)"
-        color="green"
-        variant="tonal"
-      >
-        mdi-pencil
-      </v-icon>
-      <v-icon size="small" @click.stop="deleteItem(item.id)" color="red">
-        mdi-delete
-      </v-icon>
-    </template>
-  </v-data-table>
-</v-card>
+      <template v-slot:[`item.actions`]="{ item }">
+        <v-icon
+          size="small"
+          class="me-2"
+          @click="consulter(item)"
+          color="blue"
+          variant="tonal"
+        >
+          mdi-magnify
+        </v-icon>
+        <v-icon
+          size="small"
+          class="me-2"
+          @click="openEditDialog(item)"
+          color="green"
+          variant="tonal"
+        >
+          mdi-pencil-outline
+        </v-icon>
+        <v-icon size="small" @click.stop="deleteItem(item.id)" color="red">
+          mdi-delete-outline
+        </v-icon>
+      </template>
+    </v-data-table>
+  </v-card>
   <EditClient
     :user="selectedUser"
     v-if="editDialog"

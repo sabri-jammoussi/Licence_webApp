@@ -78,7 +78,7 @@
             variant="tonal"
             v-bind="props"
           >
-            mdi-pencil
+            mdi-pencil-outline
           </v-icon>
         </template>
         <span>
@@ -93,7 +93,7 @@
             v-bind="props"
             color="red"
           >
-            mdi-delete
+            mdi-delete-outline
           </v-icon>
         </template>
         <span> {{ $t("DeleteApp") }} </span>
@@ -167,9 +167,7 @@ const deleteItemConfirm = async () => {
   const utilisateurId = editedIndex.value;
 
   try {
-    await axios.delete(
-      `http://localhost:5252/api/appliction/${utilisateurId}`
-    );
+    await axios.delete(`http://localhost:5252/api/appliction/${utilisateurId}`);
     loading.value = true;
     try {
       showSnackbar.value = true;

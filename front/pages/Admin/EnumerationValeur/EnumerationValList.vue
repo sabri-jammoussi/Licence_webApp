@@ -9,7 +9,7 @@
     <v-list
       v-if="data.length > 0"
       class="custom-scrollbar"
-      style="height: 160px; overflow-y: scroll "
+      style="height: 160px; overflow-y: scroll"
     >
       <EditEnumVal
         :user="selectedUser"
@@ -32,7 +32,7 @@
                   variant="tonal"
                   v-bind="props"
                 >
-                  mdi-pencil
+                  mdi-pencil-outline
                 </v-icon>
               </template>
               <span>{{ $t("updateEnumVal") }}</span>
@@ -46,7 +46,7 @@
                   color="red"
                   v-bind="props"
                 >
-                  mdi-delete
+                  mdi-delete-outline
                 </v-icon>
               </template>
               <span>{{ $t("deleteEnumVal") }}</span>
@@ -117,7 +117,7 @@ const getEnumVal = async () => {
     const response = await axios.get(
       `http://localhost:5252/api/enumerationvaleur/getenumval/${props.enumerationId}`
     );
-    console.log(response)
+    console.log(response);
     data.value = response.data;
     console.log(data.value);
   } catch (error) {
@@ -177,7 +177,6 @@ const openEditDialog = (item) => {
 };
 </script>
 <style>
-
 /* Styles pour la barre de défilement */
 .custom-scrollbar::-webkit-scrollbar {
   width: 1px; /* Largeur de la barre de défilement */
