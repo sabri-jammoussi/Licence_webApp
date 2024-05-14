@@ -68,7 +68,7 @@
   </v-container>
 </template>
 
-<script setup>
+<script setup >
 import { ref } from "vue";
 import { useMyStore } from "@/store/index.js";
 import { useRouter } from "vue-router";
@@ -76,9 +76,9 @@ import { useVuelidate } from "@vuelidate/core";
 import { required, helpers, minLength } from "@vuelidate/validators";
 const { withMessage, withAsync } = helpers;
 const show2 = ref(false);
-definePageMeta({
-  layout: "custom",
-});
+// definePageMeta({
+//   layout: "custom",
+// });
 
 const firstName = ref("");
 const lastName = ref("");

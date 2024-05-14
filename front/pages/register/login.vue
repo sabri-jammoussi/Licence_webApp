@@ -41,9 +41,9 @@
 </template>
 
 <script setup>
-definePageMeta({
-  layout: "custom",
-});
+ definePageMeta({
+   layout: "custom",
+ });
 import { ref } from "vue";
 import { useMyStore } from "@/store/index.js";
 import { useRouter } from "vue-router";
