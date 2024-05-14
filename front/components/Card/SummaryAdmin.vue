@@ -73,26 +73,26 @@ const getEnumerations = async () => {
     console.error(error);
   }
 };
-const items = computed(() =>[
+const items = computed(() => [
   {
     title: t("Users"),
     summary: countedUsers,
     total: "+23% Up",
-    color: "green",
+    color: "#16df17",
     icon: "mdi-account-box-outline",
   },
   {
     title: "Applications",
     summary: countedApplications,
     total: "-3% Down",
-    color: "warning",
+    color: "#FFD065",
     icon: "mdi-view-dashboard",
   },
   {
     title: t("Enumerations"),
     summary: countedEnumerations,
     total: "-10% Down",
-    color: "red",
+    color: "#eb4034",
     icon: "mdi-slack",
   },
   {
