@@ -1,7 +1,7 @@
 <!-- components/Chart.vue -->
 <template>
     <div>
-      <canvas ref="chartCanvas"></canvas>
+      <canvas ref="chartCanvas2"></canvas>
     </div>
   </template>
   
@@ -22,12 +22,14 @@
       },
     },
     setup(props) {
-      const chartCanvas = ref(null);
+      const chartCanvas2 = ref(null);
       let chartInstance = null;
   
       onMounted(() => {
-        if (chartCanvas.value) {
-          chartInstance = new Chart(chartCanvas.value, {
+       // console.log("dsdjdklsjdklzhfkjhdfjkhsdj", props.chartData);
+        if (chartCanvas2.value) {
+
+          chartInstance = new Chart(chartCanvas2.value, {
             type: 'bar', // Change this to the chart type you want (e.g., line, pie, etc.)
             data: props.chartData,
             options: props.chartOptions,
@@ -36,7 +38,7 @@
       });
   
       return {
-        chartCanvas,
+        chartCanvas2,
         chartInstance,
       };
     },
