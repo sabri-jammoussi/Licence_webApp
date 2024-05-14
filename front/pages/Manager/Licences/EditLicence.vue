@@ -44,6 +44,17 @@
                 "
               ></v-select>
             </v-col>
+            <v-col cols="12" md="12">
+              <v-select
+                variant="outlined"
+                v-model="selectedPartenaire"
+                :label="t('partner')"
+                base-color="green"
+                item-title="raisonSocial"
+                :items="PartenairesData"
+                item-value="id"
+              ></v-select>
+            </v-col>
             <v-col cols="12" sm="6" md="6">
               <v-text-field
                 v-model="AppName"
@@ -102,6 +113,8 @@ import SnackBar from "~/components/SnackBar.vue";
 const isMenuOpen = ref(false);
 const { withMessage } = helpers;
 const { emit } = getCurrentInstance();
+const selectedPartenaire = ref("");
+const PartenairesData = ref([]);
 
 const selectedDate = ref("");
 const AppName = ref("");
@@ -113,6 +126,8 @@ const snackbarMessage = ref("");
 const keyToast = ref(0);
 const loading = ref(false);
 const editDialog = ref(false);
+let { t } = useI18n();
+
 const props = defineProps({
   Licence: {
     type: Object,
@@ -174,7 +189,18 @@ const getClients = async () => {
     console.error(error);
   }
 };
-
+const getPartenaires = async () => {
+  try {
+    const response = await axios.get(`http://localhost:5252/api/partenaire`);
+    PartenairesData.value = response.data.map((partenaire) => ({
+      id: partenaire.id,
+      raisonSocial: partenaire.raisonSocial,
+    }));
+    console.log("testt", PartenairesData.value);
+  } catch (error) {
+    console.error(error);
+  }
+};
 const UpdateLicence = async () => {
   loading.value = true;
   v$.value.$touch();
@@ -185,10 +211,17 @@ const UpdateLicence = async () => {
       try {
         const userId = id.value;
         console.log("idddddd", userId);
+        // If selectedPartenaire is an empty string, set it to null or 0
+        let partenaireId = selectedPartenaire.value;
+        if (partenaireId === "") {
+          partenaireId = null; // or partenaireId = 0;
+        }
+        
         const data = {
           id: userId,
           dateExp: selectedDate.value,
           clientId: selectedClient.value,
+          partenaireId: partenaireId,
         };
         const response = await axios.post(
           `http://localhost:5252/api/licence/update`,
@@ -216,10 +249,12 @@ const UpdateLicence = async () => {
 onMounted(async () => {
   console.log("edit dialog", props);
   await getClients();
+  await getPartenaires();
   if (props.Licence) {
     AppName.value = props.Licence.applicationNom;
     userFirstName.value = props.Licence.user;
     selectedDate.value = new Date(props.Licence.dateExp); //   (email.value = props.Licence.email),
+
     //   (ville.value = props.Licence.ville),
     //   (adresse.value = props.Licence.adresse),
     //   (codePostal.value = props.Licence.codePostal),

@@ -5,7 +5,7 @@
         <v-card>
           <div class="grey--text text-h6 text-lg-h6 mt-2">
             <v-icon left color="green" size="35" class="ml-2">mdi-key </v-icon>
-            {{ $t("newLicenses") }}
+            {{ $t("consultingLicenses") }}
           </div>
           <v-divider></v-divider>
           <v-sheet class="mx-auto">
@@ -27,7 +27,15 @@
                 :items="ClientsData"
                 item-value="id"
               ></v-select>
-
+              <v-select
+                variant="outlined"
+                v-model="selectedPartenaire"
+                :label="t('partner')"
+                base-color="green"
+                item-title="raisonSocial"
+                readonly
+                item-value="id"
+              ></v-select>
               <v-text-field
                 variant="outlined"
                 base-color="green"
@@ -121,6 +129,8 @@ const formattedDate = computed(() => {
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 });
+const selectedPartenaire = ref("");
+const PartenairesData = ref([]);
 const route = useRoute();
 const AppName = ref("");
 const ClientsData = ref([]);
@@ -131,16 +141,19 @@ const textValues = ref([]);
 const ValeurAttributes = ref([]);
 const description = ref([]);
 const AppId = ref("");
+const partenaireId = ref("");
 const licenceId = ref("");
+let { t } = useI18n();
+
 onMounted(async () => {
   const id = route.params.id;
   await getLicencesById(id);
   await store.loadTokenFromLocalStorage();
 });
+
 const getLicencesById = async (id) => {
   axios.get(`http://localhost:5252/api/licence/${id}`).then((res) => {
     //console.log("data global ", res.data);
-    // console.log("hello Licence", res.data.attributesValues);
     // console.log(
     //   "hello textValues",
     //   res.data.attributesValues.map((u) => u.valeur)
@@ -151,6 +164,10 @@ const getLicencesById = async (id) => {
     //     .map((x) => x.attributeLicenceDto)
     //     .map((u) => u.type)
     // );
+    partenaireId.value = res.data.partenaireId;
+    // console.log("idddddda", partenaireId.value);
+    getPartenairesById(partenaireId.value);
+
     type.value = res?.data?.attributesValues
       .map((x) => x.attributeLicenceDto)
       .map((key) => ({
@@ -162,7 +179,7 @@ const getLicencesById = async (id) => {
       .map((x) => x.attributeLicenceDto)
       .map((key) => key.description);
     textValues.value = res?.data?.attributesValues.map((key) => key.valeur);
-   // console.log("valeur att ", ValeurAttributes.value);
+    // console.log("valeur att ", ValeurAttributes.value);
 
     licenceId.value = res.data.attributesValues.map((key) => ({
       id: key.attributeId,
@@ -173,11 +190,23 @@ const getLicencesById = async (id) => {
     const formattedDateExp = `${dateExp.getFullYear()}-${String(
       dateExp.getMonth() + 1
     ).padStart(2, "0")}-${String(dateExp.getDate()).padStart(2, "0")}`;
-    
+
     // Assign the formatted date to selectedDate
     selectedDate.value = formattedDateExp;
     AppId.value = res.data.applicationId;
   });
+};
+const getPartenairesById = async (partenaireId) => {
+  try {
+    if (partenaireId == null) return;
+    const response = await axios.get(
+      `http://localhost:5252/api/partenaire/${partenaireId}`
+    );
+    selectedPartenaire.value = response.data.raisonSocial;
+    //console.log("testt", PartenairesData.value);
+  } catch (error) {
+    console.error(error);
+  }
 };
 </script>
   

@@ -66,10 +66,10 @@
           color="green"
           variant="tonal"
         >
-          mdi-pencil
+          mdi-pencil-outline
         </v-icon>
         <v-icon size="small" @click.stop="deleteItem(item.id)" color="red">
-          mdi-delete
+          mdi-delete-outline
         </v-icon>
       </template>
     </v-data-table>
@@ -171,7 +171,7 @@ const openEditDialog = (item) => {
 };
 const consulter = (item) => {
   SelectedLicence.value = item;
-  console.log("selected user 33", SelectedLicence.value.id);
+  // console.log("selected user 33", SelectedLicence.value.id);
 
   router.push(`/Manager/Licences/${SelectedLicence.value.id}`);
 };

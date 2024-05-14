@@ -34,6 +34,20 @@
                     v$.selectedClient.$errors.map((e) => e.$message)
                   "
                 ></v-select>
+                <v-select
+                  variant="outlined"
+                  v-model="selectedPartenaire"
+                  :label="t('partner')"
+                  base-color="green"
+                  item-title="raisonSocial"
+                  :items="PartenairesData"
+                  item-value="id"
+                  @blur="v$.selectedPartenaire.touch"
+                  @input="v$.selectedPartenaire.$touch"
+                  :error-messages="
+                    v$.selectedPartenaire.$errors.map((e) => e.$message)
+                  "
+                ></v-select>
                 <v-menu v-model="isMenuOpen" :close-on-content-click="false">
                   <template v-slot:activator="{ props }">
                     <v-text-field
@@ -97,10 +111,10 @@
                       @boolData="
                         (BoolData) => {
                           boolValues[index] = BoolData;
-                          console.log(
-                            'Bool received from the child ',
-                            BoolData
-                          );
+                          // console.log(
+                          //   'Bool received from the child ',
+                          //   BoolData
+                          // );
                         }
                       "
                       :textDescription="description[index]"
@@ -187,7 +201,9 @@ const router = useRouter();
 const selectedApps = route.params.selectedApp;
 const AppName = ref("");
 const ClientsData = ref([]);
+const PartenairesData = ref([]);
 const selectedClient = ref("");
+const selectedPartenaire = ref("");
 const Userid = computed(() => store.user?.idd);
 const store = useMyStore();
 const showSnackbar = ref(false);
@@ -210,8 +226,12 @@ let { t } = useI18n();
 
 let data = null;
 const rules = {
+
   selectedClient: {
     required: withMessage("Client obligatoire", required),
+  },
+  selectedPartenaire: {
+    required: withMessage("Partenaire obligatoire", required),
   },
   selectedDate: {
     required: withMessage("Date obligatoire", required),
@@ -220,6 +240,7 @@ const rules = {
 const v$ = useVuelidate(
   rules,
   {
+    selectedPartenaire,
     selectedClient,
     selectedDate,
   },
@@ -228,7 +249,7 @@ const v$ = useVuelidate(
 const minDate = new Date();
 const formattedDate = computed(() => {
   const date = selectedDate.value;
-  const year = date.getFullYear();
+  const year = date.getFullYear()+1;
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
@@ -239,6 +260,7 @@ watch(selectedDate, (val) => {
 onMounted(async () => {
   await getApplications();
   await getClients();
+  await getPartenaires();
   await store.loadTokenFromLocalStorage();
 });
 const AddLicence = async () => {
@@ -292,6 +314,7 @@ const AddLicence = async () => {
         applicationId: parseInt(selectedApps),
         clientId: selectedClient.value,
         attributesValues: attributesValues,
+        partenaireId:selectedPartenaire.value
       };
 
       const response = await axios.post(
@@ -332,7 +355,7 @@ const getApplications = async () => {
       (key) => key.enumerationId
     );
     description.value = response.data.attributes.map((key) => key.description);
-    console.log("description", description.value);
+    //console.log("description", description.value);
     isTexte.value = type.value.some((obj) => obj.type === "Texte");
     isBool.value = type.value.some((obj) => obj.type === "Boolean");
     isNumber.value = type.value.some((obj) => obj.type === "Numerique");
@@ -348,6 +371,18 @@ const getClients = async () => {
       id: Application.id,
       raisonSocial: Application.raisonSocial,
     }));
+  } catch (error) {
+    console.error(error);
+  }
+};
+const getPartenaires = async () => {
+  try {
+    const response = await axios.get(`http://localhost:5252/api/partenaire`);
+    PartenairesData.value = response.data.map((partenaire) => ({
+      id: partenaire.id,
+      raisonSocial: partenaire.raisonSocial,
+    }));
+   // console.log('testt',PartenairesData.value);
   } catch (error) {
     console.error(error);
   }
