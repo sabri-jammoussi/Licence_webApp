@@ -1,9 +1,6 @@
 <template>
   <v-container fluid>
-    <v-checkbox
-      v-model="boolValues"
-      @input="emitTextData"
-    >
+    <v-checkbox v-model="boolValues" @input="emitTextData">
       <template v-slot:label>
         <div>{{ props.textDescription }}</div>
       </template>
@@ -12,7 +9,7 @@
 </template>
   <script setup>
 import { ref } from "vue";
-import { defineProps } from "vue";
+
 const props = defineProps({
   textDescription: {
     type: Array,
@@ -35,7 +32,5 @@ const emitTextData = () => {
   console.log("Emitting boolData:", boolValues.value);
   emit("boolData", boolValues.value);
 };
-
-
 </script>
   

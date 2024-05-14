@@ -19,8 +19,6 @@
 </template>
 
 <script setup>
-import { defineProps } from "vue";
-
 const propss = defineProps({
   textDescription: {
     type: Array,

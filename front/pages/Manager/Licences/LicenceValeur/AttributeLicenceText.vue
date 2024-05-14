@@ -13,7 +13,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { defineProps } from "vue";
+
 import { required, helpers } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 const texte = ref("");
@@ -25,13 +25,9 @@ const rules = {
     required: withMessage("Texte obligatoire", required),
   },
 };
-const v$ = useVuelidate(
-  rules,
-  {
-    texte,
-  },
-
-);
+const v$ = useVuelidate(rules, {
+  texte,
+});
 const props = defineProps({
   textDescription: {
     type: Array,
@@ -39,7 +35,6 @@ const props = defineProps({
   },
 });
 const { emit } = getCurrentInstance();
-
 
 const emitTextData = () => {
   // Emit an event named "textData" with the value of texte

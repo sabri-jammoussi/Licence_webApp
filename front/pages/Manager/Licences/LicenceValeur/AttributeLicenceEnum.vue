@@ -13,7 +13,7 @@
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
-import { defineProps } from "vue";
+
 import { required, helpers } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 const { emit } = getCurrentInstance();
