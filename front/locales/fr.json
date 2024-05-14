@@ -14,8 +14,8 @@
     "deletemsgEnumVAl":"Voulez-vous vraiment supprimer cet enumeration valeur ?",
     "deleteconfirme":"Confirmation de suppression",
     "new":"Nouveau",
-    "add":"Ajouter",
-    "edit":"Modifier",
+    "add":"Valider",
+    "edit":"Valider",
     "validate":"Valider",
 
     "search":"Recherche",
@@ -70,7 +70,23 @@
     "editLicenses":"Modifier les licences",
     "newClient":"Ajouter un client",
     "updateClient":"Modifier le client",
-    "snackBarMsg":"Ajouté avec succès ."
+    "snackBarMsg":"Ajouté avec succès .",
+    "partner":"Partenaires",
+    "consultingLicenses":"afficher les licences",
+    "responsible":"Responsable",
+    "consultingClient":"afficher les Clients",
+    "licencesNombre":"Nombre de licence par mois",
+    "consultingPartenaire":"afficher les Partenaires",
+    "licencePerMonth" :"Le nombre de licences vendues par mois a augmenté de façon constante, reflétant une demande croissante pour nos produits.",
+    "partnaireWithLicence":"Les partenaires qui ont des licences.",
+    "licenceWillExpire":"Les licences vont expirer dans une semaine."
+
+
+    
+
+
+    
+
 
 
 

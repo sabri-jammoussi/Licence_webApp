@@ -16,8 +16,8 @@
 
     "deleteconfirme":"Delete Confirmation",
     "new":"New",
-    "add":"Add",
-    "edit":"Edit",
+    "add":"Validate",
+    "edit":"Validate",
     "search":"Search",
     "firstname":"FirstName",
     "lastname":"LastName",
@@ -69,7 +69,16 @@
     "editLicenses":"Edit Licenses",
     "newClient":"Add Client",
     "updateClient":"Edit Client",
-    "snackBarMsg":"Added successfully ."
+    "snackBarMsg":"Added successfully .",
+    "partner":"Partners",
+    "consultingLicenses":"View Licenses",
+    "consultingPartenaire":"View Partenaires",
+    "consultingClient":"View Clients",
+    "responsible":"Responsible",
+    "licencesNombre":"Number of licenses per month",
+    "licencePerMonth" :"The number of licenses sold per month has steadily increased, reflecting a growing demand for our products.",
+    "partnaireWithLicence":"The partners who have licenses.",
+    "licenceWillExpire":"The licenses will expire in a week."
 
 
 
