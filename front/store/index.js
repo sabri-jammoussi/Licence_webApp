@@ -53,7 +53,16 @@ export const useMyStore = defineStore('userStore', {
           localStorage.setItem('token', res.data.token);
           this.isLoggedin = true;
           console.log('islogeedin ',this.isLoggedin);
-          router.push('/');
+          const decodedToken = jwtDecode(res.data.token);
+          const userRole = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+          
+          if (userRole === 'Admin') {
+            //console.log('tesssst')
+            router.push('/Admin/users/UserList');
+          } else {
+            router.push('/');
+            window.reload();
+          }
         } else {
           alert(res.message);
         }
