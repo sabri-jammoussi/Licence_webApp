@@ -1,6 +1,7 @@
 // plugins/axios-auth.js
 import axios from "axios";
 import ErrorNotFound from "~/components/ErrorNotFound.vue";
+import defu from 'defu';
 
 export default function () {
    
