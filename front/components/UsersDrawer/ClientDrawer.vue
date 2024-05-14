@@ -52,7 +52,8 @@
   </v-app-bar>
   <v-main>
     <v-card-text>
-      <Nuxt-Page />
+      <NuxtPage />
+      
     </v-card-text>
   </v-main>
 <Footer/>

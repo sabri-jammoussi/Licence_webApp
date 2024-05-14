@@ -4,10 +4,7 @@
       <div class="logo-container">
         <img src="/assets/logo.jpg" alt="Logo" />
       </div>
-      <v-list-item to="/" prepend-icon="mdi-home" value="home">
-        <!-- <v-tooltip activator="parent" location="end">Dashbord</v-tooltip> -->
-        {{ $t("dashboard") }}
-      </v-list-item>
+
       <v-list-item
         to="/Admin/users/UserList"
         prepend-icon="mdi-account"
@@ -65,7 +62,7 @@
   </v-app-bar>
   <v-main>
     <v-card-text>
-      <Nuxt-Page />
+      <NuxtPage />
     </v-card-text>
   </v-main>
   <Footer />

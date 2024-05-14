@@ -4,10 +4,9 @@
       <div class="logo-container">
         <img src="/assets/logo.jpg" alt="Logo" />
       </div>
-      <v-list-item to="/" prepend-icon="mdi-home"  value="home">
+      <v-list-item to="/" prepend-icon="mdi-home" value="home">
         <!-- <v-tooltip activator="parent" location="end">Accueil</v-tooltip> -->
         {{ $t("dashboard") }}
-
       </v-list-item>
       <v-list-item
         to="/Manager/Clients/ClientList"
@@ -21,6 +20,14 @@
         to="/Admin/Applications/ApplicationList"
         prepend-icon="mdi-view-dashboard"
         title="Applications"
+        value="home"
+      >
+        <!-- <v-tooltip activator="parent" location="end">Applications</v-tooltip> -->
+      </v-list-item>
+      <v-list-item
+        to="/Manager/Partenaires/PartenaireList"
+        prepend-icon="mdi-handshake"
+        :title="$t('partner')"
         value="home"
       >
         <!-- <v-tooltip activator="parent" location="end">Applications</v-tooltip> -->
@@ -62,7 +69,7 @@
   </v-app-bar>
   <v-main>
     <v-card-text>
-      <Nuxt-Page />
+      <NuxtPage />
     </v-card-text>
   </v-main>
   <Footer />
