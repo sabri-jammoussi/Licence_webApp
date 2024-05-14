@@ -9,7 +9,7 @@
       <v-btn icon @click="isEditingPassword = !isEditingPassword">
         <v-fade-transition leave-absolute>
           <v-icon v-if="isEditingPassword">mdi-close</v-icon>
-          <v-icon v-else>mdi-pencil</v-icon>
+          <v-icon v-else>mdi-pencil-outline</v-icon>
         </v-fade-transition>
       </v-btn>
     </v-toolbar>
