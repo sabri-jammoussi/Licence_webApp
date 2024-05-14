@@ -1,6 +1,7 @@
-import type { NuxtPage } from "nuxt/schema";
+
 
 export default defineNuxtConfig({
+ 
   
   devtools: { enabled: true }, 
   app: {
@@ -45,10 +46,7 @@ export default defineNuxtConfig({
     ],
 
     plugins: [
-      { src: '~/plugins/chart.js', mode: 'client' },
-      { src: '~/plugins/apex-chart.js', mode: 'client' },
-
-      { src: '~/plugins/axios-auth.js', ssr: false }
+      { src: '~/plugins/axios-auth.js', ssr: false },
     ],
    
     i18n: {
