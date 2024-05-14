@@ -23,9 +23,7 @@
 </template>
   
 <script setup>
-definePageMeta({
-  middleware: ["auth"],
-});
+
 import { ref, onMounted } from "vue";
 import { useMyStore } from "@/store/index.js";
 const isLoading = ref(true);

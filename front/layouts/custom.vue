@@ -1,6 +1,6 @@
 <template>
   <div class="backgroung_image">
-    <nuxt-page />
+    <NuxtPage />
   </div>
   
 </template>
