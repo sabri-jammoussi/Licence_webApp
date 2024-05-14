@@ -4,6 +4,7 @@ using LicenceApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LicenceApp.Migrations
 {
     [DbContext(typeof(LicenceDBContext))]
-    partial class LicenceDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240509124029_v012")]
+    partial class v012
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -257,10 +260,6 @@ namespace LicenceApp.Migrations
                         .HasColumnType("Date")
                         .HasColumnName("LIC_DATE_EXP");
 
-                    b.Property<int?>("PartenaireId")
-                        .HasColumnType("int")
-                        .HasColumnName("PR_ID");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int")
                         .HasColumnName("LIC_USER_ID");
@@ -379,8 +378,8 @@ namespace LicenceApp.Migrations
                             Email = "sabrijm123@gmail.com",
                             FirstName = "sabri",
                             LastName = "jammoussi",
-                            PasswordHash = new byte[] { 25, 7, 1, 50, 190, 183, 39, 190, 134, 51, 178, 92, 125, 209, 214, 69, 220, 223, 123, 241, 187, 58, 68, 186, 40, 46, 140, 180, 229, 8, 11, 146, 124, 128, 70, 127, 148, 44, 78, 191, 41, 220, 43, 69, 86, 57, 169, 124, 151, 180, 39, 55, 240, 211, 145, 218, 169, 162, 191, 37, 26, 180, 202, 95 },
-                            PasswordSalt = new byte[] { 179, 66, 227, 136, 149, 83, 138, 42, 194, 251, 11, 247, 56, 227, 167, 196, 125, 113, 205, 84, 54, 54, 183, 73, 88, 63, 42, 230, 183, 138, 27, 92, 66, 0, 78, 0, 113, 84, 99, 111, 73, 36, 199, 180, 82, 200, 220, 123, 43, 170, 27, 142, 121, 155, 64, 29, 0, 26, 121, 208, 230, 93, 69, 109, 111, 88, 11, 99, 151, 180, 18, 34, 198, 162, 174, 203, 255, 25, 244, 152, 156, 189, 55, 55, 37, 168, 212, 38, 246, 154, 127, 94, 102, 22, 239, 184, 192, 149, 65, 107, 117, 224, 78, 194, 119, 102, 10, 28, 177, 91, 138, 141, 25, 101, 28, 181, 22, 24, 194, 117, 50, 215, 123, 38, 19, 49, 90, 29 },
+                            PasswordHash = new byte[] { 91, 169, 97, 225, 194, 10, 89, 192, 44, 231, 210, 86, 148, 184, 47, 144, 242, 50, 251, 164, 97, 163, 194, 20, 99, 238, 237, 229, 212, 180, 95, 115, 77, 244, 91, 143, 202, 188, 247, 157, 7, 62, 67, 221, 208, 74, 221, 72, 252, 140, 197, 206, 241, 27, 152, 96, 199, 230, 125, 251, 238, 55, 205, 80 },
+                            PasswordSalt = new byte[] { 192, 152, 6, 87, 252, 234, 241, 214, 145, 42, 121, 43, 180, 42, 208, 188, 73, 85, 240, 242, 218, 112, 99, 231, 154, 36, 97, 53, 143, 48, 51, 69, 52, 241, 216, 169, 220, 33, 65, 172, 231, 70, 0, 118, 91, 80, 147, 81, 23, 142, 141, 181, 136, 167, 27, 179, 38, 140, 74, 239, 78, 60, 122, 192, 1, 4, 29, 82, 0, 226, 109, 191, 237, 134, 42, 81, 22, 222, 75, 192, 40, 9, 119, 15, 151, 84, 183, 94, 73, 41, 29, 174, 65, 150, 138, 125, 182, 132, 68, 115, 208, 89, 228, 248, 7, 183, 126, 186, 5, 43, 198, 179, 123, 36, 189, 27, 161, 226, 231, 238, 182, 34, 57, 145, 187, 63, 50, 108 },
                             Role = (short)0
                         });
                 });
