@@ -45,7 +45,10 @@ namespace LicenceApp.Services.ClientService
 
         public async Task Delete(int id)
         {
-           var client = await _dbContext.Clients.SingleOrDefaultAsync(x => x.Id == id);
+            var existingclientInLicence = await _dbContext.licences.FirstOrDefaultAsync(x => x.ClientId == id);
+            if (existingclientInLicence != null)
+                throw new ApplicationException("the client is effected to licence ");
+            var client = await _dbContext.Clients.SingleOrDefaultAsync(x => x.Id == id);
             if (client == null)
                 throw new ApplicationException("client n'existe pas ");
             _dbContext.Clients.Remove(client);

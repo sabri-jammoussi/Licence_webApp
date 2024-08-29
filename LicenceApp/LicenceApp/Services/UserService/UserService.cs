@@ -52,9 +52,7 @@ namespace LicenceApp.Services.UserService
                 Email = newUser.Email,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
-
                 Role = newUser.Role,
-
             };
 
             _dbContext.Users.Add(data);

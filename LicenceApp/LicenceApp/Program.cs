@@ -7,6 +7,7 @@ using LicenceApp.Services.ClientService;
 using LicenceApp.Services.Enumeration;
 using LicenceApp.Services.EnumerationValeur;
 using LicenceApp.Services.LicenceService;
+using LicenceApp.Services.PartenaireService;
 using LicenceApp.Services.Security;
 using LicenceApp.Services.UserService;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -24,7 +25,7 @@ var validIssuer = builder.Configuration.GetValue<string>("JwtTokenSettings:Valid
 var validAudience = builder.Configuration.GetValue<string>("JwtTokenSettings:ValidAudience");
 var symmetricSecurityKey = builder.Configuration.GetValue<string>("JwtTokenSettings:SymmetricSecurityKey");
 builder.Services.AddDbContext<LicenceDBContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("UsersConnection")));
+options.UseSqlServer(builder.Configuration.GetConnectionString("UsersConnections")));
 
 
 builder.Services.AddAuthentication(options =>
@@ -111,6 +112,7 @@ builder.Services.AddScoped<IEnumerationService, EnumerationService>();
 builder.Services.AddScoped<IEnumerationValeurService, EnumerationValeurService>();
 builder.Services.AddScoped<IAttributeLicenceService, AttributeLicenceService>();
 builder.Services.AddScoped<ILicenceService, LicenceService>();
+builder.Services.AddScoped<IpartenaireService, PartenaireService>();
 builder.Services.AddScoped<IAttributeLicenceValeurService , AttributeLicenceValeurService>();
 builder.Services.AddScoped<IPasswordValidator, PasswordValidator>();
 builder.Services.AddScoped<IEmailValidator , EmailValidator>();

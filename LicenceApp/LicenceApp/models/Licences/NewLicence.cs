@@ -7,6 +7,7 @@ namespace LicenceApp.models.Licences
     {
         public DateTime? DateExp { get; set; }
         public int UserId{ get; set; }//
+        public int? PartenaireId { get; set; }
         public required int   ApplicationId { get; set; }
         public required int ClientId { get; set; }
         public IList<NewAttributeLicenceValeur> AttributesValues { get; set; }

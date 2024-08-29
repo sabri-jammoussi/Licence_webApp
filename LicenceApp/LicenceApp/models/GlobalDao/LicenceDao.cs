@@ -16,8 +16,11 @@ namespace LicenceApp.models.GlobalDao
         public DateTime? DateExp  { get; set; }
         [Column("LIC_USER_ID")]
         public int  UserId { get; set; }
+        [Column("PR_ID")]
+        public int? PartenaireId { get; set; }
         [Column("APP_ID")]
         public required int ApplicationId { get; set; }
+       
         [ForeignKey(nameof(ApplicationId))]
         public virtual ApplicationDao? Application { get; set; }
 

@@ -30,6 +30,9 @@ namespace LicenceApp.Services.Enumeration
 
         public async Task Delete(int id)
         {
+            var existinEnumValInAttVal = await _dbContext.attributeLicences.FirstOrDefaultAsync(x => x.EnumurationValue == id);
+            if (existinEnumValInAttVal != null)
+                throw new ApplicationException("Enumeration effectuer to attribute ");
             var enumeration  = await _dbContext.Enumerations.SingleOrDefaultAsync(u => u.Id == id);
             if (enumeration == null)
                 throw new ApplicationException("enumeration n'existe pas");

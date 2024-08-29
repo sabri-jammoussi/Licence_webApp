@@ -14,6 +14,7 @@ namespace LicenceApp.models.Licences
         public  int ClientId {  get; set; }
         public string ClientRaison { get; set; }
         public string ApplicationNom {  get; set; }
+        public int? PartenaireId { get; set; }
         
 
         public int ApplicationId { get; set; }

@@ -29,6 +29,10 @@ namespace LicenceApp.Services.ApplicationService
 
         public async Task Delete(int id)
         {
+            var existingLicence = await _dBContext.licences.FirstOrDefaultAsync( u => u.ApplicationId == id);
+
+            if (existingLicence != null)
+                throw new ApplicationException("the app is effected to licence ");
             var exisitingApp = await _dBContext.Applications.SingleOrDefaultAsync(x => x.Id == id);
             if (exisitingApp == null)
                 throw new Exception("Application n'existe pas "); 

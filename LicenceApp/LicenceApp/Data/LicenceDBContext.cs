@@ -21,8 +21,10 @@ namespace LicenceApp.Data
         public DbSet<AttributeLicenceDao> attributeLicences { get; set; }
         public DbSet<AttributeLicenceValeurDao> attributeLicenceValeurs { get; set; }
         public DbSet<LicenceDao>licences { get; set; }
+        public DbSet<PartenaireDao> Partenaires { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
 
             ////  CreatePasswordHash(NewUser, out byte[] passwordHash, out byte[] passwordSalt);
             using var hmac = new HMACSHA512();

@@ -29,7 +29,7 @@ namespace LicenceApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Manager")]
+        //[Authorize(Roles = "Manager")]
         [HttpGet("{id}")]
         public async Task<ActionResult> GetClient(int id)
         {
@@ -42,7 +42,7 @@ namespace LicenceApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Manager")]
+       // [Authorize(Roles = "Manager")]
         [HttpPost]
         public async Task<ActionResult> PostClient(NewClient newClient)
         {
@@ -56,7 +56,7 @@ namespace LicenceApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Manager")]
+      //  [Authorize(Roles = "Manager")]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteClient(int id)
         {
@@ -72,7 +72,7 @@ namespace LicenceApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Manager")]
+     //   [Authorize(Roles = "Manager")]
         [HttpPost("update")]
         public async Task<ActionResult> ModiferClient(UpdateClient updateClient)
         {

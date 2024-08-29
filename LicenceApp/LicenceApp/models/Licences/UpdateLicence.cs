@@ -7,5 +7,7 @@ namespace LicenceApp.models.Licences
         public int id { get; set; }
         public DateTime? DateExp { get; set; }
         public int ClientId{ get; set; }
+        public int? PartenaireId { get; set; }
+
     }
 }

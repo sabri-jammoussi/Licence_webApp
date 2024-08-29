@@ -34,6 +34,7 @@ namespace LicenceApp.Services.EnumerationValeur
 
         public async Task Delete(int id)
         {
+
             var existingEnumVal = await _dbContext.enumerationValeurs.FirstOrDefaultAsync(u => u.Id == id);
             if (existingEnumVal == null)
                 throw new ApplicationException($"the id : {id} does not  existe  ");

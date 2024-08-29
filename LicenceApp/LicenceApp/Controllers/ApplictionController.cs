@@ -43,7 +43,7 @@ namespace LicenceApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteApplication(int id )
@@ -60,7 +60,7 @@ namespace LicenceApp.Controllers
                 return BadRequest(ex.Message);
             }
         }
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> CreateApp(NewApplication newApplication)
         {

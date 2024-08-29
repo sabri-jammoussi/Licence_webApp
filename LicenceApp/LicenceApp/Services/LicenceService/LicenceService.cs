@@ -36,6 +36,7 @@ namespace LicenceApp.Services.LicenceService
                         UserId = newLicence.UserId,
                         ApplicationId = newLicence.ApplicationId,
                         ClientId = newLicence.ClientId,
+                        PartenaireId = newLicence.PartenaireId
                     };
                     _dbContext.licences.Add(licence);
                     await _dbContext.SaveChangesAsync();
@@ -88,7 +89,8 @@ namespace LicenceApp.Services.LicenceService
                     ApplicationId = u.Application.Id,
                     ClientRaison = u.Client.RaisonSocial,
                     ClientId = u.Client.Id,
-                    AttributesValues = u.AttributeValeurs
+                    AttributesValues = u.AttributeValeurs,
+                    PartenaireId = u.PartenaireId
                 }).ToListAsync();
             return res; 
         }
@@ -113,6 +115,7 @@ namespace LicenceApp.Services.LicenceService
                 ApplicationId = res.Application.Id,
                 ClientRaison = res.Client.RaisonSocial,     
                 ClientId = res.Client.Id,
+                PartenaireId = res.PartenaireId,
                 AttributesValues = res.AttributeValeurs.Select(attVal => new AttributeLicenceValeurDao
                 {
                     Id = attVal.Id,
@@ -149,7 +152,7 @@ namespace LicenceApp.Services.LicenceService
                 throw new ApplicationException($"Licence Id : {updateLicence.id} n'existe pas ");
             existingLicence.DateExp = updateLicence.DateExp;
             existingLicence.ClientId = updateLicence.ClientId;
-
+            existingLicence.PartenaireId = updateLicence?.PartenaireId;
             await _dbContext.SaveChangesAsync(); 
         }
     }
