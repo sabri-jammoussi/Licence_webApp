@@ -11,6 +11,8 @@
     "deletemsgEnum":"Voulez-vous vraiment supprimer cet enumeration ?",
     "deletemsgApp":"Voulez-vous vraiment supprimer cet application ?",
     "deletemsgClient":"Voulez-vous vraiment supprimer ce client ?",
+    "deletemsgPartenaire":"Voulez-vous vraiment supprimer ce Partenaire ?",
+    "deletemsgLicence":"Voulez-vous vraiment supprimer ce Licence ?",
     "deletemsgEnumVAl":"Voulez-vous vraiment supprimer cet enumeration valeur ?",
     "deleteconfirme":"Confirmation de suppression",
     "new":"Nouveau",
@@ -63,6 +65,8 @@
     "dashboard":"Tableau De Bord",
     "Enumerations":"Enumérations",
     "licenses":"Licences",
+    "licensesExpared":"Licence Va Expirer",
+
     "newAttribute":"Ajouter des Attributes",
     "newLicence":"Ajouter des Licences",
     "selectApp":"Sélectionnez une application",
@@ -76,10 +80,29 @@
     "responsible":"Responsable",
     "consultingClient":"afficher les Clients",
     "licencesNombre":"Nombre de licence par mois",
+    "licencesNombrebyYear":"Nombre de licence par années",
+
     "consultingPartenaire":"afficher les Partenaires",
     "licencePerMonth" :"Le nombre de licences vendues par mois a augmenté de façon constante, reflétant une demande croissante pour nos produits.",
+    "licencePerYear" :"Le nombre de licences vendues par années a augmenté de façon constante, reflétant une demande croissante pour nos produits.",
     "partnaireWithLicence":"Les partenaires qui ont des licences.",
-    "licenceWillExpire":"Les licences vont expirer dans une semaine."
+    "licenceWillExpire":"Les licences vont expirer dans une semaine.",
+    "deleteItem":"Élément supprimé avec succès.",
+    "ApplicationDetail":"Détail application",
+    "Overalldetail":"Détail globale",
+    "NumberCustomers":"Nombre des clients : ",
+    "NumberApplications":"Nombre des applications : ",
+    "Numberlicences":"Nombre des licences : ",
+    "NumberPartenaire":"Nombre des partenaires : ",
+    "deleteErrorMsg":"Le client est associé à une licence.",
+    "deleteErrorMsgApp":"L'application est associé à une licence.",
+    "deleteErrorMsgEnum":"L'enumeration est associé à une attribut licence."
+
+
+
+
+
+
 
 
     

@@ -5,6 +5,7 @@
     :message="snackbarMessage"
     :showSnackBar="showSnackbar"
   />
+
   <v-card elevation="" class="card">
     <v-data-iterator :items="data" :items-per-page="6" :search="search">
       <template v-slot:header>
@@ -162,6 +163,12 @@
       </template>
     </v-data-iterator>
   </v-card>
+  <SnackBarError
+    v-if="showSnackbarError"
+    :key="keyToastError"
+    :message="snackbarMessageError"
+    :showSnackbarError="showSnackbarError"
+  />
 </template>
 
 <script setup>
@@ -172,6 +179,12 @@ import EditEnumeration from "./EditEnumeration.vue";
 import EnumerationValList from "../EnumerationValeur/EnumerationValList.vue";
 import AddEnumVal from "../EnumerationValeur/AddEnumVal.vue";
 import SnackBar from "~/components/SnackBar.vue";
+import SnackBarError from "~/components/SnackBarError.vue";
+let { t } = useI18n();
+
+const showSnackbarError = ref(false);
+const snackbarMessageError = ref("");
+const keyToastError = ref(0);
 
 const selectedUser = ref("");
 const selectedID = ref("");
@@ -190,12 +203,11 @@ const updateDataValues = ref(0);
 const deleteItem = (utilisateurId) => {
   editedIndex.value = utilisateurId;
   dialogDelete.value = true;
-};
-const deleteItemConfirm = async () => {
+};const deleteItemConfirm = async () => {
   const utilisateurId = editedIndex.value;
 
   try {
-    await axios.delete(
+    const response = await axios.delete(
       `http://localhost:5252/api/enumeration/${utilisateurId}`
     );
 
@@ -203,20 +215,29 @@ const deleteItemConfirm = async () => {
     try {
       showSnackbar.value = true;
       keyToast.value++;
-      snackbarMessage.value = "Item deleted successfully.";
+      snackbarMessage.value = t('deleteItem');
     } catch (error) {
-      console.error(error);
-    } finally {
-      loading.value = false;
+      console.error("Error displaying success message", error);
     }
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.error("Error deleting item", error);
+    // If there's an error message in the response data, use that
+    if (error.response && error.response.data && error.response.data.message) {
+      snackbarMessageError.value = error.response.data.message;
+    } else {
+      // Otherwise, use a generic error message
+      snackbarMessageError.value = t('deleteErrorMsgEnum');
+    }
+    showSnackbarError.value = true;
+    keyToastError.value++;
   } finally {
+    loading.value = false;
     closeDelete();
     await new Promise((resolve) => setTimeout(resolve, 2510)); // Adjust time as needed
     await getEnumerations();
   }
 };
+
 const closeDelete = () => {
   dialogDelete.value = false;
 };

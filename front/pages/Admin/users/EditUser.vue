@@ -1,11 +1,11 @@
 <template>
   <v-dialog v-model="editDialog" max-width="500px">
     <v-card>
-      <div  class="grey--text text-h6 text-lg-h6 mt-2">
-                <v-icon left color="green" size="35" class="ml-2">mdi-account  </v-icon>
-                 {{ $t("UpdateUser") }}
-              </div>
-              <v-divider></v-divider>
+      <div class="grey--text text-h6 text-lg-h6 mt-2">
+        <v-icon left color="green" size="35" class="ml-2">mdi-account </v-icon>
+        {{ $t("UpdateUser") }}
+      </div>
+      <v-divider></v-divider>
       <v-card-text>
         <v-container>
           <v-spacer></v-spacer>
@@ -13,23 +13,23 @@
             <v-col cols="12" sm="6" md="12">
               <v-text-field
                 variant="outlined"
-                v-model="firstName"
+                v-model="lastName"
                 :label="$t('lastname')"
                 base-color="green"
-                @blur="v$.firstName.$touch"
-                @input="v$.firstName.$touch"
-                :error-messages="v$.firstName.$errors.map((e) => e.$message)"
+                @blur="v$.lastName.$touch"
+                @input="v$.lastName.$touch"
+                :error-messages="v$.lastName.$errors.map((e) => e.$message)"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="12">
               <v-text-field
                 variant="outlined"
-                v-model="lastName"
+                v-model="firstName"
                 :label="$t('firstname')"
                 base-color="green"
-                @blur="v$.lastName.$touch"
-                @input="v$.lastName.$touch"
-                :error-messages="v$.lastName.$errors.map((e) => e.$message)"
+                @blur="v$.firstName.$touch"
+                @input="v$.firstName.$touch"
+                :error-messages="v$.firstName.$errors.map((e) => e.$message)"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="12">

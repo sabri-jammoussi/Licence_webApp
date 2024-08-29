@@ -89,6 +89,7 @@ import { ref, onMounted, defineProps } from "vue";
 import axios from "axios";
 import EditEnumVal from "./EditEnumVal.vue";
 import SnackBar from "~/components/SnackBar.vue";
+let { t } = useI18n();
 
 const dialogDelete = ref(false);
 const loading = ref(false);
@@ -143,7 +144,7 @@ const deleteItemConfirm = async () => {
     try {
       showSnackbar.value = true;
       keyToast.value++;
-      snackbarMessage.value = "Item deleted successfully.";
+      snackbarMessage.value = t('deleteItem');
     } catch (error) {
       console.error(error);
     } finally {

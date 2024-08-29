@@ -11,14 +11,16 @@
         <v-row>
           <v-col cols="12" md="8">
             <v-card height="100%" class="card">
-              <v-card-title tag="h2">Détail Application </v-card-title>
-              <v-card-subtitle>Détail globale</v-card-subtitle>
+              <v-card-title tag="h2"
+                >{{ $t("ApplicationDetail") }}
+              </v-card-title>
+              <v-card-subtitle>{{ $t("Overalldetail") }}</v-card-subtitle>
               <v-card-text>
                 <div>
-                  <v-row class="my-1">
+                  <v-row>
                     <v-col tag="section">
                       <p>
-                        Nombre des clients :
+                        {{ $t("NumberCustomers") }}
                         <span style="color: #16df17"
                           >{{ countedClients }} / 20</span
                         >
@@ -26,10 +28,10 @@
                     </v-col>
                   </v-row>
 
-                  <v-row class="my-1">
+                  <v-row>
                     <v-col tag="section">
                       <p>
-                        Nombre des applications :
+                        {{ $t('NumberApplications') }}
                         <span style="color: #16df17"
                           >{{ countedApplications }} / 50</span
                         >
@@ -37,20 +39,20 @@
                     </v-col>
                   </v-row>
 
-                  <v-row class="my-1">
+                  <v-row>
                     <v-col tag="section">
                       <p>
-                        Nombre des licences :
+                        {{ $t('Numberlicences')}}
                         <span style="color: #16df17"
                           >{{ countedLicences }} / 50</span
                         >
                       </p>
                     </v-col>
                   </v-row>
-                  <v-row class="my-1">
+                  <v-row>
                     <v-col tag="section">
                       <p>
-                        Nombre des partenaires :
+                        {{ $t('NumberPartenaire') }}
                         <span style="color: #16df17"
                           >{{ countedPartenaires }} / /20</span
                         >

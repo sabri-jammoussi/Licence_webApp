@@ -12,7 +12,7 @@
                 >
                   {{ countedClients }}
                 </h4>
-                <h6 class="font-weight-normal grey--text">+23% Up</h6>
+                <h6 class="font-weight-normal text-grey"></h6>
               </v-col>
               <v-col align-self="center" align="center">
                 <v-icon size="50" color="green">mdi-account-outline</v-icon>
@@ -35,12 +35,12 @@
                 >
                   {{ countedLicences }}
                 </h4>
-                <h6 class="font-weight-normal grey--text">
+                <h6 class="font-weight-normal text-grey">
                   ({{ ActifLicences }} Actif)
                 </h6>
               </v-col>
               <v-col align-self="center" align="center">
-                <v-icon size="50" color="#1E74FF">mdi-key-outline</v-icon>
+                <v-icon size="50" color="#2980b9 ">mdi-key-outline</v-icon>
               </v-col>
             </v-row>
           </v-container>
@@ -59,10 +59,10 @@
                 >
                   {{ countedPartenaires }}
                 </h4>
-                <h6 class="font-weight-normal grey--text">+5% Up</h6>
+                <h6 class="font-weight-normal text-grey"></h6>
               </v-col>
               <v-col align-self="center" align="center">
-                <v-icon size="50" color="#26A6AA">mdi-handshake-outline</v-icon>
+                <v-icon size="50" color="#17a589">mdi-handshake-outline</v-icon>
               </v-col>
             </v-row>
           </v-container>
@@ -81,7 +81,7 @@
                 >
                   {{ countedApplications }}
                 </h4>
-                <h6 class="font-weight-normal grey--text">-3% Down</h6>
+                <h6 class="font-weight-normal text-grey"></h6>
               </v-col>
               <v-col align-self="center" align="center">
                 <v-icon size="50" color="#FFD065"
@@ -94,26 +94,31 @@
       </nuxt-link>
     </v-col>
     <v-col cols="6" sm="4">
-      <v-card height="100%" class="card">
-        <v-container fluid>
-          <h4>Licences</h4>
-          <v-row height="100%">
-            <v-col>
-              <h4
-                class="grey--text text-h4 text-lg-h4 font-weight-bold lh-normal"
-              >
-                {{ LicencesExpiredInWeek }}
-              </h4>
-              <h6>
-                {{ $t("licenceWillExpire") }}
-              </h6>
-            </v-col>
-            <v-col align-self="center" align="center">
-              <v-icon size="50" color="red">mdi-key-remove</v-icon>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card>
+      <nuxt-link
+        to="/Manager/Licences/ExpiredLicenceList"
+        class="no-link-style"
+      >
+        <v-card height="100%" class="card">
+          <v-container fluid>
+            <h4>Les licences vont expirer</h4>
+            <v-row height="100%">
+              <v-col>
+                <h4
+                  class="grey--text text-h4 text-lg-h4 font-weight-bold lh-normal"
+                >
+                  {{ LicencesExpiredInWeek }}
+                </h4>
+                <h6 class="text-grey">
+                  {{ $t("licenceWillExpire") }}
+                </h6>
+              </v-col>
+              <v-col align-self="center" align="center">
+                <v-icon size="50" color="#FA8072">mdi-timer-outline</v-icon>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card>
+      </nuxt-link>
     </v-col>
     <v-col cols="6" sm="4">
       <v-card height="100%" class="card">
@@ -126,12 +131,12 @@
               >
                 {{ NumbreLicenceByPartenaire }}
               </h4>
-              <h6 class="font-weight-normal grey--text">
+              <h6 class="font-weight-normal text-grey">
                 {{ $t("partnaireWithLicence") }}
               </h6>
             </v-col>
             <v-col align-self="center" align="center">
-              <v-icon size="50" color="orange">mdi-handshake-outline</v-icon>
+              <v-icon size="50" color="#d4ac0d">mdi-handshake-outline</v-icon>
             </v-col>
           </v-row>
         </v-container>
@@ -215,7 +220,7 @@ const getLicences = async () => {
   try {
     const response = await axios.get("http://localhost:5252/api/licence");
     dataLicences.value = response.data;
-   // console.log("dataaaaaa", dataLicences.value);
+    // console.log("dataaaaaa", dataLicences.value);
   } catch (error) {
     console.error(error);
   }

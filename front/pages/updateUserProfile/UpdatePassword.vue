@@ -25,6 +25,8 @@
         @blur="v$.currentPassword.$touch"
         @input="v$.currentPassword.$touch"
         :error-messages="v$.currentPassword.$errors.map((e) => e.$message)"
+        variant="outlined"
+
       ></v-text-field>
       <v-text-field
         v-model="Newpassword"
@@ -37,6 +39,8 @@
         @blur="v$.Newpassword.$touch"
         @input="v$.Newpassword.$touch"
         :error-messages="v$.Newpassword.$errors.map((e) => e.$message)"
+        variant="outlined"
+
       ></v-text-field>
       <v-text-field
         v-model="ConfirmPassword"
@@ -49,6 +53,8 @@
         @blur="v$.ConfirmPassword.$touch"
         @input="v$.ConfirmPassword.$touch"
         :error-messages="v$.ConfirmPassword.$errors.map((e) => e.$message)"
+        variant="outlined"
+
       ></v-text-field>
     </v-card-text>
     <v-divider></v-divider>
@@ -148,7 +154,7 @@ const rules = {
   currentPassword: {
     required: withMessage("Current Password obligatoire", required),
     currentPWdcorrect: withMessage(
-      "Wrong Current Password",
+      "Mauvais mot de passe actuel",
       withAsync(currentPasswordIsCorrect)
     ),
   },

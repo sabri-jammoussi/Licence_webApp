@@ -42,11 +42,7 @@
                   item-title="raisonSocial"
                   :items="PartenairesData"
                   item-value="id"
-                  @blur="v$.selectedPartenaire.touch"
-                  @input="v$.selectedPartenaire.$touch"
-                  :error-messages="
-                    v$.selectedPartenaire.$errors.map((e) => e.$message)
-                  "
+              
                 ></v-select>
                 <v-menu v-model="isMenuOpen" :close-on-content-click="false">
                   <template v-slot:activator="{ props }">
@@ -226,7 +222,6 @@ let { t } = useI18n();
 
 let data = null;
 const rules = {
-
   selectedClient: {
     required: withMessage("Client obligatoire", required),
   },
@@ -249,7 +244,7 @@ const v$ = useVuelidate(
 const minDate = new Date();
 const formattedDate = computed(() => {
   const date = selectedDate.value;
-  const year = date.getFullYear()+1;
+  const year = date.getFullYear() + 1;
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
@@ -314,7 +309,7 @@ const AddLicence = async () => {
         applicationId: parseInt(selectedApps),
         clientId: selectedClient.value,
         attributesValues: attributesValues,
-        partenaireId:selectedPartenaire.value
+        partenaireId: selectedPartenaire.value,
       };
 
       const response = await axios.post(
@@ -324,7 +319,7 @@ const AddLicence = async () => {
       if (response.status >= 200 && response.status < 300) {
         showSnackbar.value = true;
         keyToast.value++;
-        snackbarMessage.value =  t("snackBarMsg") ;
+        snackbarMessage.value = t("snackBarMsg");
       } else {
         throw new Error("Request failed with status code " + response.status);
       }
@@ -382,7 +377,7 @@ const getPartenaires = async () => {
       id: partenaire.id,
       raisonSocial: partenaire.raisonSocial,
     }));
-   // console.log('testt',PartenairesData.value);
+    // console.log('testt',PartenairesData.value);
   } catch (error) {
     console.error(error);
   }

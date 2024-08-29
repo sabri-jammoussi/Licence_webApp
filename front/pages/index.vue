@@ -16,7 +16,7 @@
               <v-card height="100%" class="card">
                 <v-card-title>{{ $t("licencesNombre") }}</v-card-title>
                 <v-card-text>
-                  <p>
+                  <p class="text-grey">
                     {{ $t("licencePerMonth") }}
                   </p>
 
@@ -31,11 +31,16 @@
             </v-col>
             <v-col cols="12" lg="6">
               <v-card height="100%" light class="card">
-                <v-card-title>Sales by brand</v-card-title>
+                <v-card-title>{{ $t("licencesNombrebyYear") }}</v-card-title>
                 <v-card-text>
-                  <p>The sales summary is done by our company on salesperso</p>
-
-                  <BarChart v-if="dataLicencesByYear" :chart-data="barChartData" style="width: 100%" />
+                  <p class="text-grey">{{ $t("licencePerYear") }}</p>
+                  <client-only placeholder="Loading...">
+                    <BarChart
+                      v-if="dataLicencesByYear"
+                      :chart-data="barChartData"
+                      style="height: 280px"
+                    />
+                  </client-only>
                 </v-card-text>
               </v-card>
             </v-col>
@@ -147,7 +152,7 @@ const chartOptions = ref({
 const barChartData = ref({
   datasets: [
     {
-      label: "Sales by Brand",
+      label: t("licencesNombrebyYear"),
       data: dataLicencesByYear, // Example data, you should replace it with your actual data
       backgroundColor: [
         "rgba(255, 99, 132, 0.2)",

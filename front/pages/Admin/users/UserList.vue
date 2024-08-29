@@ -84,6 +84,12 @@
     @close-dialog="editDialog = false"
     @dataChanged="reloadData"
   />
+  <SnackBar
+      :key="keyToast"
+      v-if="showSnackbar"
+      :message="snackbarMessage"
+      :showSnackBar="showSnackbar"
+    />
 </template>
 
 <script setup>
@@ -92,7 +98,10 @@ import { useI18n } from "vue-i18n";
 import axios from "axios";
 import AddUser from "./AddUser.vue";
 import EditUser from "./EditUser.vue";
-
+import SnackBar from "~/components/SnackBar.vue";
+const showSnackbar = ref(false);
+const snackbarMessage = ref("");
+const keyToast = ref(0);
 const { t } = useI18n();
 
 const selectedUser = ref("");
@@ -136,11 +145,22 @@ const deleteItemConfirm = async () => {
   const utilisateurId = selectedUser.value;
   try {
     await axios.delete(`http://localhost:5252/api/Users/${utilisateurId}`);
-    await getUsers();
+    loading.value = true;
+    try {
+      showSnackbar.value = true;
+      keyToast.value++;
+      snackbarMessage.value = t('deleteItem');
+    } catch (error) {
+      console.error(error);
+    } finally {
+      loading.value = false;
+    }
   } catch (err) {
     console.error(err);
   } finally {
     closeDelete();
+    await new Promise((resolve) => setTimeout(resolve, 2510));
+    await getUsers();
   }
 };
 

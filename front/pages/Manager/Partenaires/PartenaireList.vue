@@ -31,7 +31,7 @@
           <v-dialog v-model="dialogDelete" max-width="420">
             <v-card>
               <v-card-title>{{ $t("deleteconfirme") }}</v-card-title>
-              <v-card-text>{{ $t("deletemsgClient") }}</v-card-text>
+              <v-card-text>{{ $t("deletemsgPartenaire") }}</v-card-text>
               <v-divider class="my-2"></v-divider>
 
               <v-card-actions>
@@ -80,6 +80,12 @@
     @close-dialog="editDialog = false"
     @dataChanged="reloadData"
   />
+  <SnackBar
+    :key="keyToast"
+    v-if="showSnackbar"
+    :message="snackbarMessage"
+    :showSnackBar="showSnackbar"
+  />
   <!-- <EditClient
         :user="selectedUser"
         v-if="editDialog"
@@ -93,6 +99,8 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import AddPartenaire from "./AddPartenaire.vue";
 import EditPartenaire from "./EditPartenaire.vue";
+import SnackBar from "~/components/SnackBar.vue";
+
 const selectedUser = ref("");
 const editDialog = ref(false);
 const dialogDelete = ref(false);
@@ -101,7 +109,9 @@ const search = ref("");
 const data = ref([]);
 const loading = ref(false);
 let { t } = useI18n();
-
+const showSnackbar = ref(false);
+const snackbarMessage = ref("");
+const keyToast = ref(0);
 const headers = computed(() => [
   { title: t("Social reason"), key: "raisonSocial" },
   { title: t("phone"), key: "telephone" },
@@ -152,7 +162,9 @@ const deleteItemConfirm = async () => {
     );
     loading.value = true;
     try {
-      await getPartenaire();
+      showSnackbar.value = true;
+      keyToast.value++;
+      snackbarMessage.value = t("deleteItem");
     } catch (error) {
       console.error(error);
     } finally {
@@ -162,6 +174,8 @@ const deleteItemConfirm = async () => {
     console.error(err);
   } finally {
     closeDelete();
+    await new Promise((resolve) => setTimeout(resolve, 2510));
+    await getPartenaire();
   }
 };
 const openEditDialog = (item) => {

@@ -79,6 +79,18 @@
     @close-dialog="editDialog = false"
     @dataChanged="reloadData"
   />
+  <SnackBar
+    :key="keyToast"
+    v-if="showSnackbar"
+    :message="snackbarMessage"
+    :showSnackBar="showSnackbar"
+  />
+  <SnackBarError
+    v-if="showSnackbarError"
+    :key="keyToastError"
+    :message="snackbarMessageError"
+    :showSnackbarError="showSnackbarError"
+  />
 </template>  
 <script setup>
 import axios from "axios";
@@ -86,6 +98,9 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import EditClient from "./EditClient.vue";
 import AddClient from "./AddClient.vue";
+import SnackBar from "~/components/SnackBar.vue";
+import SnackBarError from "~/components/SnackBarError.vue";
+
 const selectedUser = ref("");
 const editDialog = ref(false);
 const dialogDelete = ref(false);
@@ -93,8 +108,15 @@ const router = useRouter();
 const search = ref("");
 const data = ref([]);
 const loading = ref(false);
-let { t } = useI18n();
 
+const showSnackbarError = ref(false);
+const snackbarMessageError = ref("");
+const keyToastError = ref(0);
+
+let { t } = useI18n();
+const showSnackbar = ref(false);
+const snackbarMessage = ref("");
+const keyToast = ref(0);
 const headers = computed(() => [
   { title: t("Social reason"), key: "raisonSocial" },
   { title: t("identifier"), key: "identifiant" },
@@ -141,19 +163,33 @@ const deleteItemConfirm = async () => {
   const utilisateurId = editedIndex.value;
 
   try {
-    await axios.delete(`http://localhost:5252/api/client/${utilisateurId}`);
+    const response = await axios.delete(
+      `http://localhost:5252/api/client/${utilisateurId}`
+    );
     loading.value = true;
     try {
-      await getClients();
+      showSnackbar.value = true;
+      keyToast.value++;
+      snackbarMessage.value = t("deleteItem");
     } catch (error) {
       console.error(error);
     } finally {
       loading.value = false;
     }
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.log(error);
+    if (error.response && error.response.data && error.response.data.message) {
+      snackbarMessageError.value = error.response.data.message;
+    } else {
+      // Otherwise, use a generic error message
+      snackbarMessageError.value =t('deleteErrorMsg');
+    }
+    showSnackbarError.value = true;
+    keyToastError.value++;
   } finally {
     closeDelete();
+    await new Promise((resolve) => setTimeout(resolve, 2510)); // Adjust time as needed
+    await getClients();
   }
 };
 const openEditDialog = (item) => {

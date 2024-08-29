@@ -4,13 +4,13 @@
       <div class="logo-container">
         <img src="/assets/logo.jpg" alt="Logo" />
       </div>
-      <v-list-item to="/" prepend-icon="mdi-home" value="home">
+      <v-list-item to="/" prepend-icon="mdi-home-outline" value="home">
         <!-- <v-tooltip activator="parent" location="end">Accueil</v-tooltip> -->
         {{ $t("dashboard") }}
       </v-list-item>
       <v-list-item
         to="/Manager/Clients/ClientList"
-        prepend-icon="mdi-account"
+        prepend-icon="mdi-account-outline"
         title="Clients"
         value="home"
       >
@@ -18,7 +18,7 @@
       </v-list-item>
       <v-list-item
         to="/Admin/Applications/ApplicationList"
-        prepend-icon="mdi-view-dashboard"
+        prepend-icon="mdi-view-dashboard-outline"
         title="Applications"
         value="home"
       >
@@ -26,7 +26,7 @@
       </v-list-item>
       <v-list-item
         to="/Manager/Partenaires/PartenaireList"
-        prepend-icon="mdi-handshake"
+        prepend-icon="mdi-handshake-outline"
         :title="$t('partner')"
         value="home"
       >
@@ -34,15 +34,23 @@
       </v-list-item>
       <v-list-item
         to="/Manager/Licences/LicenceList"
-        prepend-icon="mdi-key"
+        prepend-icon="mdi-key-outline"
         :title="$t('licenses')"
         value="home"
       >
         <!-- <v-tooltip activator="parent" location="end">Applications</v-tooltip> -->
       </v-list-item>
       <v-list-item
+        to="/Manager/Licences/ExpiredLicenceList"
+        prepend-icon="mdi-timer-outline"
+        :title="$t('licensesExpared')"
+        value="home"
+      >
+        <!-- <v-tooltip activator="parent" location="end">Applications</v-tooltip> -->
+      </v-list-item>
+      <v-list-item
         to="/about"
-        prepend-icon="mdi-forum"
+        prepend-icon="mdi-forum-outline"
         value="home"
         :title="$t('About')"
       >

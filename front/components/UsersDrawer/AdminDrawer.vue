@@ -7,7 +7,7 @@
 
       <v-list-item
         to="/Admin/users/UserList"
-        prepend-icon="mdi-account"
+        prepend-icon="mdi-account-outline"
         value="home"
       >
         {{ $t("Users") }}
@@ -17,7 +17,7 @@
       </v-list-item>
       <v-list-item
         to="/Admin/Applications/ApplicationList"
-        prepend-icon="mdi-view-dashboard"
+        prepend-icon="mdi-view-dashboard-outline"
         title="Applications"
         value="home"
       >
@@ -28,12 +28,12 @@
         prepend-icon="mdi-slack"
         value="home"
       >
-      {{ $t("Enumerations") }}
+        {{ $t("Enumerations") }}
 
         <!-- <v-tooltip activator="parent" location="end">Enumerations</v-tooltip> -->
       </v-list-item>
 
-      <v-list-item to="/about" prepend-icon="mdi-forum" value="home">
+      <v-list-item to="/about" prepend-icon="mdi-forum-outline" value="home">
         {{ $t("About") }}
         <!-- <v-tooltip activator="parent" location="end">{{
           $t("About")
@@ -60,6 +60,7 @@
     ></v-app-bar-nav-icon>
     <UsersDrawerDefaultAppBar />
   </v-app-bar>
+
   <v-main>
     <v-card-text>
       <NuxtPage />

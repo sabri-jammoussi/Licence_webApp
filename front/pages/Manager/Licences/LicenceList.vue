@@ -31,7 +31,7 @@
           <v-dialog v-model="dialogDelete" max-width="420">
             <v-card>
               <v-card-title>{{ $t("deleteconfirme") }}</v-card-title>
-              <v-card-text>{{ $t("deletemsClient") }}</v-card-text>
+              <v-card-text>{{ $t("deletemsgLicence") }}</v-card-text>
               <v-divider class="my-2"></v-divider>
 
               <v-card-actions>
@@ -86,6 +86,12 @@
     @close-dialog="editDialog = false"
     @dataChanged="reloadData"
   />
+  <SnackBar
+    :key="keyToast"
+    v-if="showSnackbar"
+    :message="snackbarMessage"
+    :showSnackBar="showSnackbar"
+  />
 </template>  
   <script setup>
 import EditLicence from "./EditLicence.vue";
@@ -94,6 +100,8 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { format } from "date-fns";
 import SelectApplication from "./SelectApplication.vue";
+import SnackBar from "~/components/SnackBar.vue";
+
 const selectedUser = ref("");
 const editDialog = ref(false);
 const dialogDelete = ref(false);
@@ -103,7 +111,9 @@ const data = ref([]);
 const loading = ref(false);
 const SelectedLicence = ref("");
 let { t } = useI18n();
-
+const showSnackbar = ref(false);
+const snackbarMessage = ref("");
+const keyToast = ref(0);
 const headers = computed(() => [
   { title: t("DateExp"), key: "formattedDate" },
   { title: t("Users"), key: "user" },
@@ -151,6 +161,9 @@ const deleteItemConfirm = async () => {
     await axios.delete(`http://localhost:5252/api/licence?id=${utilisateurId}`);
     loading.value = true;
     try {
+      showSnackbar.value = true;
+      keyToast.value++;
+      snackbarMessage.value = t("deleteItem");
     } catch (error) {
       console.error(error);
     } finally {
@@ -159,8 +172,9 @@ const deleteItemConfirm = async () => {
   } catch (err) {
     console.error(err);
   } finally {
-    reloadData();
     closeDelete();
+    await new Promise((resolve) => setTimeout(resolve, 2510));
+    reloadData();
   }
 };
 const openEditDialog = (item) => {

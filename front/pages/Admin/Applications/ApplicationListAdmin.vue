@@ -105,6 +105,12 @@
     :message="snackbarMessage"
     :showSnackBar="showSnackbar"
   />
+  <SnackBarError
+    v-if="showSnackbarError"
+    :key="keyToastError"
+    :message="snackbarMessageError"
+    :showSnackbarError="showSnackbarError"
+  />
 </template>
     
     <script setup>
@@ -114,6 +120,8 @@ import { useRouter } from "vue-router";
 import AddApplication from "./AddApplication.vue";
 import EditApplication from "./EditApplication.vue";
 import SnackBar from "~/components/SnackBar.vue";
+import SnackBarError from "~/components/SnackBarError.vue";
+
 const showSnackbar = ref(false);
 const snackbarMessage = ref("");
 const keyToast = ref(0);
@@ -125,6 +133,10 @@ const search = ref("");
 const loading = ref(false);
 let { t } = useI18n();
 const data = ref([]);
+
+const showSnackbarError = ref(false);
+const snackbarMessageError = ref("");
+const keyToastError = ref(0);
 
 const headers = computed(() => [
   { title: t("identifier"), key: "identifiant" },
@@ -167,20 +179,28 @@ const deleteItemConfirm = async () => {
   const utilisateurId = editedIndex.value;
 
   try {
-    await axios.delete(`http://localhost:5252/api/appliction/${utilisateurId}`);
+    const response=  await axios.delete(`http://localhost:5252/api/appliction/${utilisateurId}`);
     loading.value = true;
     try {
       showSnackbar.value = true;
       keyToast.value++;
-      snackbarMessage.value = "Item deleted successfully.";
+      snackbarMessage.value = t('deleteItem');
       // Fetch data
     } catch (error) {
       console.error(error);
     } finally {
       loading.value = false;
     }
-  } catch (err) {
-    console.error(err);
+  } catch (error) {
+    console.log(error);
+    if (error.response && error.response.data && error.response.data.message) {
+      snackbarMessageError.value = error.response.data.message;
+    } else {
+      // Otherwise, use a generic error message
+      snackbarMessageError.value = t('deleteErrorMsgApp');
+    }
+    showSnackbarError.value = true;
+    keyToastError.value++;
   } finally {
     closeDelete();
     await new Promise((resolve) => setTimeout(resolve, 2510)); // Adjust time as needed

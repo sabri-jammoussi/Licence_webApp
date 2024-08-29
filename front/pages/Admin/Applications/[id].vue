@@ -31,13 +31,13 @@
       <div class="col-sm-6" v-if="isManager">
         <AttributeListManager v-if="id" :attributeId="id" />
       </div>
-      <v-container fluid>
+      <!-- <v-container fluid>
         <v-row>
           <v-col cols="12" md="12" v-if="isManager">
             <SummaryAttribute />
           </v-col>
         </v-row>
-      </v-container>
+      </v-container> -->
     </div>
   </div>
 </template>

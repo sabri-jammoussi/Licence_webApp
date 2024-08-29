@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar-title>{{ $t("myusers") }}</v-toolbar-title>
+  <!-- <v-toolbar-title>{{ $t("myusers") }}</v-toolbar-title> -->
   <v-row class="d-flex justify-end mr-2">
     <v-menu min-width="200px" rounded>
       <template v-slot:activator="{ props }">
@@ -99,7 +99,7 @@ onMounted(async () => {
   if (savedLocale) {
     locale.value = savedLocale;
   }
- // console.log("default ", userFirstName);
+  // console.log("default ", userFirstName);
   await store.loadTokenFromLocalStorage();
 });
 const logout = async () => {

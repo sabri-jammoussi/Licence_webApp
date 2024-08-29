@@ -12,6 +12,8 @@
     "deletemsgEnum":"Are you sure you want to delete this enumeration ?",
     "deletemsgApp":"Are you sure you want to delete this application ?",
     "deletemsgClient":"Are you sure you want to delete this customer ?",
+    "deletemsgPartenaire":"Are you sure you want to delete this Partner ?",
+    "deletemsgLicence":"Are you sure you want to delete this License ?",
     "deletemsgEnumVAl":"Are you sure you want to delete this enumeration value ?",
 
     "deleteconfirme":"Delete Confirmation",
@@ -62,6 +64,7 @@
     "dashboard":"Dashboard",
     "Enumerations":"Enumerations",
     "licenses":"Licenses",
+    "licensesExpared":"License will expire",
     "newAttribute":"Add Attribute",
     "newLicence":"Add Licenses",
     "selectApp":"Select Application",
@@ -76,9 +79,21 @@
     "consultingClient":"View Clients",
     "responsible":"Responsible",
     "licencesNombre":"Number of licenses per month",
+    "licencesNombrebyYear":"Number of licenses per year",
     "licencePerMonth" :"The number of licenses sold per month has steadily increased, reflecting a growing demand for our products.",
+    "licencePerYear" :"The number of licenses sold per year has steadily increased, reflecting a growing demand for our products.",
     "partnaireWithLicence":"The partners who have licenses.",
-    "licenceWillExpire":"The licenses will expire in a week."
+    "licenceWillExpire":"The licenses will expire in a week.",
+    "deleteItem":"Item deleted successfully.",
+    "ApplicationDetail":"Application detail",
+    "Overalldetail":"Overall detail",
+    "NumberCustomers":"Number of customers : ",
+    "NumberApplications":"Number of applications : ",
+    "Numberlicences":"Number of licenses : ",
+    "NumberPartenaire":"Number of partners : ",
+    "deleteErrorMsgCl":"The client is associated with a license.",
+    "deleteErrorMsgApp":"The application is associated with a license.",
+    "deleteErrorMsgEnum":"The enumeration is associated with a Attribute License."
 
 
 

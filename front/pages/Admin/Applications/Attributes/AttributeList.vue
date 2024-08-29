@@ -1,11 +1,6 @@
 <template>
   <v-card>
-    <SnackBar
-      :key="keyToast"
-      v-if="showSnackbar"
-      :message="snackbarMessage"
-      :showSnackBar="showSnackbar"
-    />
+   
     <EditAttribute
       :attribute="selectedAttribute"
       v-if="editDialog"
@@ -139,6 +134,12 @@
       >
     </v-data-table>
   </v-card>
+  <SnackBar
+      :key="keyToast"
+      v-if="showSnackbar"
+      :message="snackbarMessage"
+      :showSnackBar="showSnackbar"
+    />
 </template>
 
 <script setup>
@@ -222,7 +223,7 @@ const deleteItemConfirm = async () => {
     try {
       showSnackbar.value = true;
       keyToast.value++;
-      snackbarMessage.value = "Item deleted successfully.";
+      snackbarMessage.value = t('deleteItem');
     } catch (error) {
       console.error(error);
     } finally {

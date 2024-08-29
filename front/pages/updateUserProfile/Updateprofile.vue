@@ -22,6 +22,8 @@
         @blur="v$.FirstName.$touch"
         @input="v$.FirstName.$touch"
         :error-messages="v$.FirstName.$errors.map((e) => e.$message)"
+        variant="outlined"
+
       ></v-text-field>
       <v-text-field
         v-model="LastName"
@@ -31,6 +33,8 @@
         @blur="v$.LastName.$touch"
         @input="v$.LastName.$touch"
         :error-messages="v$.LastName.$errors.map((e) => e.$message)"
+        variant="outlined"
+        
       ></v-text-field>
       <v-text-field
         v-model="Email"
@@ -40,6 +44,8 @@
         @blur="v$.Email.$touch"
         @input="v$.Email.$touch"
         :error-messages="v$.Email.$errors.map((e) => e.$message)"
+        variant="outlined"
+
       ></v-text-field>
     </v-card-text>
     <v-divider></v-divider>
@@ -108,7 +114,7 @@ onMounted(async () => {
   FirstName.value = store.user.firstName;
   LastName.value = store.user.lastName;
   Email.value = store.user.email;
-  console.log("id", userId);
+  //console.log("id", userId);
 });
 
 const Updateuserprofile = async () => {
@@ -116,7 +122,7 @@ const Updateuserprofile = async () => {
   setTimeout(async () => {
     try {
       const userId = store.user.idd;
-      console.log("idddddd", userId);
+      //console.log("idddddd", userId);
       const data = {
         firstName: FirstName.value,
         lastName: LastName.value,
